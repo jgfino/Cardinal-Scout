@@ -17,9 +17,6 @@ namespace Team811Scout
         Button bDeleteData;
         GridView gridRecent;
 
-
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -44,7 +41,7 @@ namespace Team811Scout
                 "Recommend %",
                 "Record",
                 "Cargo/Hatch %",
-                "Climb?/n(Lvl 3 %/Lvl 2%)",
+                "Climb?\n(Lvl 3 %/Lvl 2%)",
                 "Good Drivers (%)",
                
             };
@@ -74,7 +71,7 @@ namespace Team811Scout
                 }
                 else
                 {
-                    display.Add(new FormatString(recPerc[i]).getNormal());
+                    display.Add(new FormatString(recPerc[i]).setColorBold(255,0,0));
                 }
                 
                 display.Add(new FormatString(record[i]).getNormal());
