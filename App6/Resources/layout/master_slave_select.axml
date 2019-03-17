@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25sp"
+	android:minHeight="25sp">
+	<Toolbar
+		android:minHeight="?android:attr/actionBarSize"
+		android:background="?android:attr/colorPrimary"
+		android:minWidth="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/toolbar1"
+		android:title="Team 811 Scouting"
+		android:titleTextColor="#ffffffff"
+		android:subtitleTextColor="#ffdec5c5" />
+	<ScrollView
+		android:minWidth="25sp"
+		android:minHeight="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/scrollView1">
+		<LinearLayout
+			android:orientation="vertical"
+			android:minWidth="25sp"
+			android:minHeight="25sp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/linearLayout1">
+			<TextView
+				android:text="Please Select an Option"
+				android:layout_width="match_parent"
+				android:layout_height="42.0dp"
+				android:id="@+id/titleID"
+				android:textSize="35sp"
+				android:layout_margin="10sp"
+				android:textColor="#ff000000"
+				android:textStyle="bold" />
+			<TextView
+				android:text="Please designate one device to collect all the data for an event. Click the 'Master' button on this device and input data from the other 5 tablets. Select 'Slave' on the devices which will be sending information to the master device. After the data transfer, the event details will be available under 'View Data' on the main menu of the device used for data collection and also on the tablet itself so it can be transferred to a computer and read as a spreadsheet. If you want the data to be available under 'View Data' on the other devices, repeat this process using a different device as the master device"
+				android:layout_width="match_parent"
+				android:layout_height="418.0dp"
+				android:id="@+id/titleID"
+				android:textSize="25sp"
+				android:layout_margin="15sp"
+				android:textColor="#ff000000"
+				android:textStyle="italic" 
+				 />
+			<Button
+				android:text="Master (gather data)"
+				android:layout_width="match_parent"
+				android:layout_height="97.0dp"
+				android:id="@+id/bSetMaster"
+				android:backgroundTint="#79ea90"
+				android:textSize="30sp"
+				 />
+			<Button
+				android:text="Slave (Send Data)"
+				android:layout_width="match_parent"
+				android:layout_height="97.0dp"
+				android:id="@+id/bSetSlave"
+				android:backgroundTint="#79ea90"
+				android:textSize="30sp"
+				 />
+		</LinearLayout>
+	</ScrollView>
+	
+
+</LinearLayout>
+

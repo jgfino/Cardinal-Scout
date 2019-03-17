@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25sp"
+	android:minHeight="25sp">
+	<Toolbar
+		android:minHeight="?android:attr/actionBarSize"
+		android:background="?android:attr/colorPrimary"
+		android:minWidth="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/toolbar1"
+		android:title="Team 811 Scouting"
+		android:titleTextColor="#ffffffff"
+		android:subtitleTextColor="#ffdec5c5" />
+	<ScrollView
+		android:minWidth="25sp"
+		android:minHeight="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/scrollView1">
+		<LinearLayout
+			android:orientation="vertical"
+			android:minWidth="25sp"
+			android:minHeight="25sp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/linearLayout1">
+			<TextView
+				android:text="Select an Event to View Data For"
+				android:layout_width="match_parent"
+				android:layout_height="41.0dp"
+				android:id="@+id/textView1"
+				android:textSize="25sp"
+				android:layout_margin="10sp"
+				android:textColor="#ff000000"
+				android:textStyle="bold" />
+			<ListView
+				android:minWidth="25sp"
+				android:minHeight="25sp"
+				android:layout_width="match_parent"
+				android:layout_height="688.0dp"
+				android:id="@+id/choosetoView"
+				android:contextClickable="true"
+				android:drawSelectorOnTop="false"
+				android:listSelector="#ffffc9ad" />
+			<Button
+				android:text="Select"
+				android:layout_width="match_parent"
+				android:layout_height="97.0dp"
+				android:id="@+id/bSelectView"
+				android:backgroundTint="#79ea90"
+				android:textSize="30sp"/>
+		</LinearLayout>
+	</ScrollView>
+	
+
+</LinearLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25sp"
+	android:minHeight="25sp">
+	<Toolbar
+		android:minHeight="?android:attr/actionBarSize"
+		android:background="?android:attr/colorPrimary"
+		android:minWidth="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/toolbar1"
+		android:title="Team 811 Scouting"
+		android:titleTextColor="#ffffffff"
+		android:subtitleTextColor="#ffdec5c5" />
+	<ScrollView
+		android:minWidth="25sp"
+		android:minHeight="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/scrollView1">
+		<LinearLayout
+			android:orientation="vertical"
+			android:minWidth="25sp"
+			android:minHeight="25sp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/linearLayout1">
+			<TextView
+				android:text="Event Name:"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="match_parent"
+				android:layout_height="59.0dp"
+				android:id="@+id/textView1"
+				android:fontFamily="@string/abc_font_family_display_3_material"
+				android:textAllCaps="false"
+				android:autoSizeMaxTextSize="50sp"
+				android:autoSizeMinTextSize="30sp"
+				android:textSize="30sp"
+				android:textAlignment="center"
+				android:layout_marginTop="20sp"
+				android:layout_marginBottom="0.0dp"
+				android:textColor="#ff000000" />
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/txtEventName"
+				android:layout_marginRight="20sp"
+				android:layout_marginLeft="20sp"
+				android:textSize="20sp"
+				android:layout_marginBottom="20sp"
+				android:singleLine="true" />
+			<TextView
+				android:text="Event ID (ask head scouter):"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="match_parent"
+				android:layout_height="59.0dp"
+				android:id="@+id/textView1"
+				android:fontFamily="@string/abc_font_family_display_3_material"
+				android:textAllCaps="false"				
+				android:textSize="25sp"
+				android:textAlignment="center"
+				android:layout_marginTop="20sp"
+				android:layout_marginBottom="0.0dp"
+				android:textColor="#ff000000" />
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/txtEventID"
+				android:layout_marginRight="20sp"
+				android:layout_marginLeft="20sp"
+				android:textSize="20sp"
+				android:layout_marginBottom="20sp"
+				android:singleLine="true"
+				android:numeric="integer" />
+			<TextView
+				android:text="Start Date:"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView2"
+				android:textAlignment="center"
+				android:textSize="25sp"
+				android:textStyle="bold"
+				android:layout_marginTop="5sp"
+				android:layout_marginBottom="5sp"
+				android:textColor="#ff000000" />
+			<DatePicker
+				android:layout_width="match_parent"
+				android:layout_height="309.0dp"
+				android:id="@+id/startDate"
+				android:datePickerMode="spinner" />
+			<TextView
+				android:text="End Date:"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView2"
+				android:textAlignment="center"
+				android:textSize="25sp"
+				android:textStyle="bold"
+				android:layout_marginTop="5sp"
+				android:layout_marginBottom="5sp"
+				android:textColor="#ff000000" />
+			<DatePicker
+				android:layout_width="match_parent"
+				android:layout_height="309.0dp"
+				android:id="@+id/endDate"
+				android:datePickerMode="spinner"
+				android:minWidth="25sp"
+				android:minHeight="25sp">
+			</DatePicker>
+			<Button
+				android:text="Create Event"
+				android:layout_width="match_parent"
+				android:layout_height="100.0dp"
+				android:id="@+id/bStart"
+				android:layout_marginBottom="0.0dp"
+				android:layout_marginTop="0.0dp"
+				android:textSize="20sp"
+				android:backgroundTint="#79ea90" />
+		</LinearLayout>
+	</ScrollView>
+	
+
+</LinearLayout>
