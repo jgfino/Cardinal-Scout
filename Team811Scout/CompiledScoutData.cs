@@ -20,13 +20,14 @@ namespace Team811Scout
             startDate = start;
             endDate = end;
             ID = cID.ToString();
+            dateMod = DateTime.Now.ToString("MM/dd/yyyy");
 
         }
 
         public string officialName { get; set; }
         public string rawData { get; set; }
         public bool isActive { get; set; }
-
+        public string dateMod { get; set; }
 
         public int cID { get; set; }
 
@@ -174,9 +175,9 @@ namespace Team811Scout
                     recs.Add(c[i][j].wouldRecommend);              
                 }
 
-                int countYes = recs.Where(x => x.Equals(0)).Count();
-                int countNo = recs.Where(x => x.Equals(1)).Count();
-                int countMaybe = recs.Where(x => x.Equals(2)).Count();
+                double countYes = recs.Where(x => x.Equals(0)).Count();
+                double countNo = recs.Where(x => x.Equals(1)).Count();
+                double countMaybe = recs.Where(x => x.Equals(2)).Count();
 
                 double percent = (countYes + (0.5 * countMaybe)) / (countYes + countMaybe + countNo)*100;
                 recsPerTeam.Add(((int)Math.Round(percent)).ToString()+"%");
@@ -223,8 +224,8 @@ namespace Team811Scout
                     recs.Add(Convert.ToByte(c[i][j].cargo));
                 }
 
-                int countYes = recs.Where(x => x.Equals(0)).Count();
-                int countNo = recs.Where(x => x.Equals(1)).Count();
+                double countYes = recs.Where(x => x.Equals(1)).Count();
+                double countNo = recs.Where(x => x.Equals(0)).Count();
 
                 double percent = (countYes) / (countYes + countNo) * 100;
                 recsPerTeam.Add(Math.Round(percent).ToString()+"%");
@@ -247,8 +248,8 @@ namespace Team811Scout
                     recs.Add(Convert.ToByte(c[i][j].hatch));
                 }
 
-                int countYes = recs.Where(x => x.Equals(0)).Count();
-                int countNo = recs.Where(x => x.Equals(1)).Count();
+                double countYes = recs.Where(x => x.Equals(1)).Count();
+                double countNo = recs.Where(x => x.Equals(0)).Count();
 
                 double percent = (countYes) / (countYes + countNo) * 100;
                 recsPerTeam.Add(Math.Round(percent).ToString()+"%");
@@ -271,9 +272,9 @@ namespace Team811Scout
                     recs.Add(c[i][j].climb);
                 }
 
-                int count2 = recs.Where(x => x.Equals(2)).Count();
-                int count3 = recs.Where(x => x.Equals(3)).Count();
-                int countNone = recs.Where(x => x.Equals(0)).Count();
+                double count2 = recs.Where(x => x.Equals(2)).Count();
+                double count3 = recs.Where(x => x.Equals(3)).Count();
+                double countNone = recs.Where(x => x.Equals(0)).Count();
 
                 double twoPercent = (count2) / (count2 + count3 + countNone) * 100;
                 double threePercent = (count3) / (count2 + count3 + countNone) * 100;
@@ -298,10 +299,10 @@ namespace Team811Scout
                     recs.Add(Convert.ToByte(c[i][j].goodDrivers));
                 }
 
-                int countYes = recs.Where(x => x.Equals(0)).Count();
-                int countNo = recs.Where(x => x.Equals(1)).Count();
+                double countYes = recs.Where(x => x.Equals(1)).Count();
+                double countNo = recs.Where(x => x.Equals(0)).Count();
 
-                double percent = (countYes) / (countYes + countNo) * 100;
+                double percent = ((countYes) / (countYes + countNo)) * 100;
                 recsPerTeam.Add(Math.Round(percent).ToString() + "%");
 
             }
@@ -319,6 +320,30 @@ namespace Team811Scout
             }
 
             return result;
+        }
+
+        public List<string> getTablePercent(List<List<CompiledScoutData>> c)
+        {
+            List<string> recsPerTeam = new List<string>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+                List<int> recs = new List<int>();
+
+                for (int j = 0; j < c[i].Count; j++)
+                {
+                    recs.Add(Convert.ToByte(c[i][j].isTable));
+                }
+
+                double countYes = recs.Where(x => x.Equals(1)).Count();
+                double countNo = recs.Where(x => x.Equals(0)).Count();
+
+                double percent = (countYes) / (countYes + countNo) * 100;
+                recsPerTeam.Add(Math.Round(percent).ToString() + "%");
+
+            }
+
+            return recsPerTeam;
         }
 
     }

@@ -12,7 +12,7 @@ namespace Team811Scout
     {
         CompiledScoutData currentCompiled;
         EventDatabase eData;
-        TextView textRecent;     
+        TextView textRecent;
         string[] properties;
         Button bDeleteData;
         GridView gridRecent;
@@ -33,7 +33,7 @@ namespace Team811Scout
             currentCompiled = eData.CurrentCompiled();
             List<List<CompiledScoutData>> compiled = currentCompiled.compileData();
 
-            textRecent.Text += currentCompiled.officialName + " Click on a team to view detailed data";
+            textRecent.Text += currentCompiled.officialName + " as of: " + currentCompiled.dateMod + ". Click on a team to view detailed data";
 
             properties = new string[]
             {
@@ -43,7 +43,8 @@ namespace Team811Scout
                 "Cargo/Hatch %",
                 "Climb?\n(Lvl 3 %/Lvl 2%)",
                 "Good Drivers (%)",
-               
+                "'Table' %"
+
             };
 
             List<string> teamNumbers = currentCompiled.getTeamNumbers(compiled);
@@ -53,33 +54,44 @@ namespace Team811Scout
             List<string> hatchPerc = currentCompiled.getHatchPercent(compiled);
             List<string> climbPerc = currentCompiled.getClimbPercent(compiled);
             List<string> driversPerc = currentCompiled.getDriversPercent(compiled);
+            List<string> tablePerc = currentCompiled.getTablePercent(compiled);
 
             List<SpannableString> display = new List<SpannableString>();
-            
-            for(int i = 0; i<properties.Length;i++)
+
+            for (int i = 0; i < properties.Length; i++)
             {
                 display.Add(new FormatString(properties[i]).getBold());
             }
-            
-            for(int i = 0;i<compiled.Count;i++)
+
+            for (int i = 0; i < compiled.Count; i++)
             {
-                //change this to 75
-                display.Add(new FormatString(teamNumbers[i]).getNormal());
-                if(int.Parse(recPerc[i].Substring(0,recPerc[i].IndexOf("%")))>75)
+
+                display.Add(new FormatString(teamNumbers[i]).getBold());
+                if (int.Parse(recPerc[i].Substring(0, recPerc[i].IndexOf("%"))) > 75)
                 {
-                    display.Add(new FormatString(recPerc[i]).setColorBold(121,234,144));
+                    display.Add(new FormatString(recPerc[i]).setColorBold(0, 137, 9));
                 }
                 else
                 {
-                    display.Add(new FormatString(recPerc[i]).setColorBold(255,0,0));
+                    display.Add(new FormatString(recPerc[i]).setColorBold(255, 0, 0));
                 }
-                
+
                 display.Add(new FormatString(record[i]).getNormal());
                 display.Add(new FormatString(cargoPerc[i] + " / " + hatchPerc[i]).getNormal());
                 display.Add(new FormatString(climbPerc[i]).getNormal());
                 display.Add(new FormatString(driversPerc[i]).getNormal());
+
+                if (int.Parse(tablePerc[i].Substring(0, tablePerc[i].IndexOf("%"))) > 32)
+                {
+                    display.Add(new FormatString(tablePerc[i]).setColorBold(255, 0, 0));
+                }
+                else
+                {
+                    display.Add(new FormatString(tablePerc[i]).setColorBold(0, 137, 9));
+                }
+
             }
-           
+
 
             ArrayAdapter gridAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, display);
             gridRecent.Adapter = gridAdapt;

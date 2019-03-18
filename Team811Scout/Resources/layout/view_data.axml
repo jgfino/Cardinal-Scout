@@ -51,20 +51,18 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout_gridtableLayout"
-                    android:layout_width="900dp"
+                    android:layout_width="1500dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 						<GridView
 							android:id="@+id/gridViewEvent"
-							android:layout_width="fill_parent"
+							android:layout_width="wrap_content"
 							android:layout_height="700dp"
 							android:layout_margin="4dp"
 							android:gravity="center|center_vertical"
-							android:numColumns="6"
+							android:numColumns="7"
 							android:horizontalSpacing="5dp"
 							android:scrollbars="horizontal"
-							
-							
 							android:verticalSpacing="1dp">
 						</GridView>
 
