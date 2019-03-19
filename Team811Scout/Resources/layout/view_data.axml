@@ -39,7 +39,8 @@
 				android:layout_marginLeft="10sp"
 				android:layout_marginBottom="10sp"
 				android:layout_marginTop="10sp"
-				android:textStyle="italic" />
+				android:textStyle="normal"
+				android:textAlignment="center" />
 			<HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
@@ -51,11 +52,11 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout_gridtableLayout"
-                    android:layout_width="1500dp"
+                    android:layout_width="1230dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 						<GridView
-							android:id="@+id/gridViewEvent"
+							android:id="@+id/gridViewTeam"
 							android:layout_width="wrap_content"
 							android:layout_height="700dp"
 							android:layout_margin="4dp"

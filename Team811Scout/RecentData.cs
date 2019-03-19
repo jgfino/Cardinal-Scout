@@ -39,7 +39,15 @@ namespace Team811Scout
 
             currentMatch = eData.CurrentMatch();
 
-            textRecent.Text += currentMatch.matchNumber.ToString() + " Team: " + currentMatch.teamNumber.ToString();
+            SpannableString[] textDisp = new SpannableString[]
+            {
+                new FormatString("Viewing Data For - Match: ").getNormal(),
+                new FormatString(currentMatch.matchNumber.ToString()).getBold(),
+                new FormatString(" /// Team: ").getNormal(),
+                new FormatString(currentMatch.teamNumber.ToString()).getBold()
+            };
+
+            textRecent.TextFormatted = new SpannableString(TextUtils.ConcatFormatted(textDisp));
 
             properties = new string[]
             {

@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Text;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
@@ -56,10 +57,10 @@ namespace Team811Scout
 
             scoutList = new List<ScoutData>();
 
-            List<string> eventNames = new List<string>();
+            List<SpannableString> eventNames = new List<SpannableString>();
             eventNames = eData.GetEventDisplayList();
 
-            ArrayAdapter selectAdapt = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
+            ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
             selectEvent.Adapter = selectAdapt;
 
             spinnerIndex = -1;

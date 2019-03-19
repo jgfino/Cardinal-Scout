@@ -40,17 +40,11 @@ namespace Team811Scout
 
             bAddTeam.Click += ButtonClicked;
 
-            //get current event
             currentEvent = eData.CurrentEvent();
             matches = eData.GetDataForEvent(currentEvent.eventID);
-            //displayMatches = new List<SpannableString>();
+            
 
-            //foreach(ScoutData s in matches)
-            //{
-            //    displayMatches.Add(new FormatString("Match: " + s.matchNumber.ToString() + " (Team: " + s.teamNumber.ToString() + ")").getBold());
-            //}
-
-            var matchAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, eData.GetMatchDisplayList(currentEvent.eventID));
+            var matchAdapter = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetMatchDisplayList(currentEvent.eventID));
             recentMatches.Adapter = matchAdapter;
 
             recentMatches.ItemClick += ListViewClick;

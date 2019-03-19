@@ -8564,7 +8564,7 @@ namespace Team811Scout
 			public const int gridRecent = 2131493118;
 			
 			// aapt resource value: 0x7f0c013d
-			public const int gridViewEvent = 2131493181;
+			public const int gridViewTeam = 2131493181;
 			
 			// aapt resource value: 0x7f0c0117
 			public const int hatch = 2131493143;

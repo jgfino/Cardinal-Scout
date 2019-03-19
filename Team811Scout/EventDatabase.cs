@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Android.Text;
+using SQLite;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
@@ -13,6 +14,8 @@ namespace Team811Scout
             _connection.CreateTable<ScoutData>();
             _connection.CreateTable<Event>();
             _connection.CreateTable<CompiledScoutData>();
+            _connection.CreateTable<CompiledTeamIndex>();
+
         }
 
 
@@ -34,15 +37,29 @@ namespace Team811Scout
             return (from t in _connection.Table<Event>()
                     select t).ToList();
         }
-        public List<string> GetEventDisplayList()
+        public List<SpannableString> GetEventDisplayList()
         {
-            List<string> result = new List<string>();
+            SpannableString[] result;
+            List<SpannableString> final = new List<SpannableString>();
+
             foreach (Event e in _connection.Table<Event>())
             {
-                result.Add(e.eventName + " (" + e.startDate + " - " + e.endDate + ") ID: " + e.eventID);
+
+                result = new SpannableString[]
+                {
+                    new FormatString("'"+e.eventName+"'").getBold(),
+                    new FormatString(" | ").getBold(),
+                    new FormatString("("+e.startDate+" - "+e.endDate+")").getNormal(),                    
+                    new FormatString(" | ").getBold(),
+                    new FormatString("ID: " + e.eventID).getBold(),
+                };
+
+                final.Add(new SpannableString(TextUtils.ConcatFormatted(result)));
+
             }
-            result.Reverse();
-            return result;
+
+            final.Reverse();
+            return final;
         }
         public int eventCount()
         {
@@ -102,10 +119,16 @@ namespace Team811Scout
             }
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
-                _connection.Delete<ScoutData>(s.ID);
                 ScoutData placeholder = s;
-                placeholder.ID = newid.ToString() + "," + s.ID.Substring(s.ID.IndexOf(",") + 1);
-                _connection.Insert(placeholder);
+                int id = int.Parse(s.ID.Substring(0, (s.ID.IndexOf(","))));
+                if (id==oldid)
+                {
+                    placeholder.ID = newid.ToString() + "," + s.ID.Substring(s.ID.IndexOf(",") + 1);
+                    _connection.Insert(placeholder);
+                    _connection.Delete<ScoutData>(id);
+                }             
+                
+                
             }
         }
 
@@ -188,12 +211,27 @@ namespace Team811Scout
             result.Reverse();
             return result;
         }
-        public List<string> GetMatchDisplayList(int eid)
+        public List<SpannableString> GetMatchDisplayList(int eid)
         {
-            List<string> result = new List<string>();
+            List<SpannableString> result = new List<SpannableString>();
+            SpannableString[] disp;
+
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
-                result.Add("Match: " + s.matchNumber.ToString() + " (Team: " + s.teamNumber.ToString() + ")");
+                int id = int.Parse(s.ID.Substring(0, (s.ID.IndexOf(","))));
+                if (id == eid)
+                {
+                    disp = new SpannableString[]
+                    {
+                        new FormatString("Match ").getNormal(),
+                        new FormatString(s.matchNumber.ToString()).getBold(),
+                        new FormatString(" (Team: ").getNormal(),
+                        new FormatString(s.teamNumber.ToString()).getBold(),
+                        new FormatString(")").getNormal()
+                    };
+
+                    result.Add(new SpannableString(TextUtils.ConcatFormatted(disp)));
+                }
             }
             result.Reverse();
             return result;
@@ -223,54 +261,97 @@ namespace Team811Scout
             return (from t in _connection.Table<CompiledScoutData>()
                     select t).ToList().Count;
         }
-        public List<string> GetCompiledList()
+        public List<SpannableString> GetCompiledList()
         {
-            List<string> result = new List<string>();
-            foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
-            {
-                result.Add(e.officialName + " (" + e.startDate + " - " + e.endDate + ") ID: " + e.cID + " Date Modified: "+ e.dateMod);
-            }
-            result.Reverse();
-            return result;
-        }
-        public List<int> CompiledIDList()
-        {
-            List<int> ids = new List<int>();
-            foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
-            {
-                ids.Add(e.cID);
-            }
-            ids.Reverse();
-            return ids;
-        }
-        public CompiledScoutData CurrentCompiled()
-        {
-            foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
-            {
-                if (e.isActive)
-                {
-                    return e;
-                }
-            }
-            return null;
-        }
-        public void SetCurrentCompiled(int id)
-        {
-            foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
-            {
-                CompiledScoutData placeholder = e;
+            SpannableString[] result;
+            List<SpannableString> final = new List<SpannableString>();
 
-                placeholder.isActive = false;
-                _connection.Delete<CompiledScoutData>(e.cID);
+            foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
+            {
+
+                result = new SpannableString[]
+                {
+                    new FormatString("'"+e.officialName+"'").getBold(),
+                    new FormatString(" | ").getBold(),                   
+                    new FormatString("Date Modified: " + e.dateMod + " at ").getNormal(),
+                    new FormatString(e.timeMod).getBold(),
+                    new FormatString(" | ").getBold(),
+                    new FormatString("ID: " + e.cID).getBold(),
+                };
+
+                final.Add(new SpannableString(TextUtils.ConcatFormatted(result)));
+
+            }
+
+            final.Reverse();
+            return final;
+
+        }
+        
+    public List<int> CompiledIDList()
+    {
+        List<int> ids = new List<int>();
+        foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
+        {
+            ids.Add(e.cID);
+        }
+        ids.Reverse();
+        return ids;
+    }
+    public CompiledScoutData CurrentCompiled()
+    {
+        foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
+        {
+            if (e.isActive)
+            {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public void SetCurrentCompiled(int id)
+    {
+        foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
+        {
+            CompiledScoutData placeholder = e;
+
+            placeholder.isActive = false;
+            _connection.Delete<CompiledScoutData>(e.cID);
+            _connection.Insert(placeholder);
+
+            if (e.cID == id)
+            {
+                placeholder.isActive = true;
+                _connection.Delete<CompiledScoutData>(id);
                 _connection.Insert(placeholder);
-
-                if (e.cID == id)
-                {
-                    placeholder.isActive = true;
-                    _connection.Delete<CompiledScoutData>(id);
-                    _connection.Insert(placeholder);
-                }
             }
         }
     }
+
+
+    //index
+    public CompiledTeamIndex getTeamIndex()
+    {
+        foreach (CompiledTeamIndex c in _connection.Table<CompiledTeamIndex>())
+        {
+            return c;
+        }
+
+        return null;
+    }
+
+    public void setTeamIndex(CompiledTeamIndex index)
+    {
+        foreach (CompiledTeamIndex c in _connection.Table<CompiledTeamIndex>())
+        {
+            _connection.Delete<CompiledTeamIndex>(c.ID);
+        }
+        _connection.Insert(index);
+    }
+
+
+
+
+}
 }

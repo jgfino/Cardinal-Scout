@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Text;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Team811Scout
     {
         ListView eventList;
         EventDatabase eData;
-        List<string> eventNames;
+        List<SpannableString> eventNames;
         Button bSelect;
         int selectedIndex;
         Event selectedEvent;
@@ -31,7 +32,7 @@ namespace Team811Scout
 
             eventNames = eData.GetEventDisplayList();
 
-            var eventAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
+            var eventAdapter = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
             eventList.Adapter = eventAdapter;
 
             eventList.ItemClick += ListViewClick;

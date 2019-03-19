@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Graphics;
 using Android.OS;
+using Android.Text;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Team811Scout
         Button b5p1;
         Button b5p2;
         EventDatabase eData;
-        List<string> eventNames;
+        List<SpannableString> eventNames;
 
         Button bCompile;
 
@@ -39,7 +40,7 @@ namespace Team811Scout
         protected override void OnCreate(Bundle savedInstanceState)
         {
             eData = new EventDatabase();
-            eventNames = new List<string>();
+            eventNames = new List<SpannableString>();
 
 
 
@@ -83,7 +84,7 @@ namespace Team811Scout
 
             eventNames = eData.GetEventDisplayList();
 
-            ArrayAdapter selectAdapt = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
+            ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
             receiveDataSpinner.Adapter = selectAdapt;
 
             receiveDataSpinner.ItemSelected += SpinnerClick;
@@ -189,6 +190,17 @@ namespace Team811Scout
                        
                         CompiledScoutData newCompilation = new CompiledScoutData(currentEvent.eventName, currentEvent.startDate, currentEvent.endDate, concatedQR, false, currentEvent.eventID);
                         eData.AddCompiledScoutData(newCompilation);
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                        AlertDialog missingDetails = dialog.Create();
+                        missingDetails.SetTitle("Alert");
+                        missingDetails.SetMessage("Successfully generated data for event '" + currentEvent.eventName+"'.");
+                        ;
+                        missingDetails.SetButton("OK", (c, ev) =>
+                        {
+                            Finish();                            
+                        });
+                        missingDetails.Show();
 
                     }
                     else
