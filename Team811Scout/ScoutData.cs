@@ -37,7 +37,8 @@ namespace Team811Scout
             int Recommend,
             int res,
             string comments,
-            bool isCurrent)
+            bool isCurrent,
+            int eventid)
         {
             ID = id;
             eventName = name;
@@ -64,11 +65,13 @@ namespace Team811Scout
             result = res;
             additionalComments = comments;
             isCurrentMatch = isCurrent;
+            eventID = eventid;
 
         }
 
 
         public int matchNumber { get; set; }
+        public int eventID { get; set; }
         public int teamNumber { get; set; }
         public int position { get; set; }
         //1-3: red 1-3; 4-6: blue 1-3

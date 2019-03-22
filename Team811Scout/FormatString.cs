@@ -52,5 +52,14 @@ namespace Team811Scout
             return _result;
         }
 
+        public SpannableString setSizeBold(int r, int g, int b)
+        {
+            _result = new SpannableString(_input);
+            _result.SetSpan(new ForegroundColorSpan(Android.Graphics.Color.Rgb(r, g, b)), 0, _input.Length, 0);
+            _result.SetSpan(new StyleSpan(Android.Graphics.TypefaceStyle.Bold), 0, _input.Length, 0);
+            _result.SetSpan(new AbsoluteSizeSpan(30), 0, _input.Length, 0);
+            return _result;
+        }
+
     }
 }

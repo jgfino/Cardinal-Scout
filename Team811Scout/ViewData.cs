@@ -63,15 +63,15 @@ namespace Team811Scout
 
             };
 
-            List<int> teamNumbers = currentCompiled.getTeamNumbers(compiled);
+            List<int> teamNumbers = currentCompiled.getTeamNumbersArray(compiled);
             List<int> recPerc = currentCompiled.getRecPercentArray(compiled);
-            List<string> record = currentCompiled.getWinRecord(compiled);
-            List<int> cargoPerc = currentCompiled.getCargoPercent(compiled);
-            List<int> hatchPerc = currentCompiled.getHatchPercent(compiled);
-            List<int> climbPerc2 = currentCompiled.getClimb2Percent(compiled);
-            List<int> climbPerc3 = currentCompiled.getClimb3Percent(compiled);
-            List<int> driversPerc = currentCompiled.getDriversPercent(compiled);
-            List<int> tablePerc = currentCompiled.getTablePercent(compiled);
+            List<string> record = currentCompiled.getWinRecordArray(compiled);
+            List<int> cargoPerc = currentCompiled.getCargoPercentArray(compiled);
+            List<int> hatchPerc = currentCompiled.getHatchPercentArray(compiled);
+            List<int> climbPerc2 = currentCompiled.getClimb2PercentArray(compiled);
+            List<int> climbPerc3 = currentCompiled.getClimb3PercentArray(compiled);
+            List<int> driversPerc = currentCompiled.getDriversPercentArray(compiled);
+            List<int> tablePerc = currentCompiled.getTablePercentArray(compiled);
 
             List<int> winPerc = currentCompiled.getWinPercentArray(compiled);
 
@@ -198,7 +198,8 @@ namespace Team811Scout
 
                 });
                 missingDetails.Show();
-                this.Recreate();
+
+                StartActivity(typeof(TeamDetails));
             }
             else
             {

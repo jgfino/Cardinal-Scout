@@ -8,7 +8,10 @@ namespace Team811Scout
     public class EventDatabase
     {
         private SQLiteConnection _connection;
-        public EventDatabase()        {
+
+
+        public EventDatabase()
+        {
 
             _connection = DependencyService.Get<ISQLite>().GetConnection();
             _connection.CreateTable<ScoutData>();
@@ -120,13 +123,15 @@ namespace Team811Scout
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
                 ScoutData placeholder = s;
-                int id = int.Parse(s.ID.Substring(0, (s.ID.IndexOf(","))));
-                if (id==oldid)
+                string id = s.ID;
+                
+                if (s.eventID==oldid)
                 {
                     placeholder.ID = newid.ToString() + "," + s.ID.Substring(s.ID.IndexOf(",") + 1);
+                    placeholder.eventID = newid;
                     _connection.Insert(placeholder);
                     _connection.Delete<ScoutData>(id);
-                }             
+                }            
                 
                 
             }
@@ -190,8 +195,8 @@ namespace Team811Scout
             List<ScoutData> result = new List<ScoutData>();
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
-                int id = int.Parse(s.ID.Substring(0, (s.ID.IndexOf(","))));
-                if (eid == id)
+                
+                if (eid == s.eventID)
                 {
                     _connection.Delete<ScoutData>(s.ID);
                 }
@@ -202,8 +207,8 @@ namespace Team811Scout
             List<ScoutData> result = new List<ScoutData>();
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
-                int id = int.Parse(s.ID.Substring(0, (s.ID.IndexOf(","))));
-                if (eid == id)
+                
+                if (s.eventID == eid)
                 {
                     result.Add(s);
                 }
@@ -217,9 +222,8 @@ namespace Team811Scout
             SpannableString[] disp;
 
             foreach (ScoutData s in _connection.Table<ScoutData>())
-            {
-                int id = int.Parse(s.ID.Substring(0, (s.ID.IndexOf(","))));
-                if (id == eid)
+            {                
+                if (s.eventID == eid)
                 {
                     disp = new SpannableString[]
                     {

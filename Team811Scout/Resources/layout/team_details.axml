@@ -30,10 +30,10 @@
 			android:layout_height="match_parent"
 			android:id="@+id/linearLayout1">
 			<TextView
-				android:text="Viewing Stats for Event: "
+				android:text="Viewing Stats for Team: "
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/textEvent"
+				android:id="@+id/textTeam"
 				android:textSize="25sp"
 				android:textColor="#ff000000"
 				android:layout_marginLeft="10sp"
@@ -51,16 +51,16 @@
                 android:layout_height="match_parent">
 					<LinearLayout
 						android:id="@+id/linearLayout_gridtableLayout"
-						android:layout_width="1230dp"
-						android:layout_height="700dp"
+						android:layout_width="600dp"
+						android:layout_height="300dp"
 						android:orientation="horizontal">
 						<GridView
-							android:id="@+id/gridViewTeam"
+							android:id="@+id/gridViewStats"
 							android:layout_width="wrap_content"
 							android:layout_height="fill_parent"
 							android:layout_margin="4dp"
 							android:gravity="center|center_vertical"
-							android:numColumns="7"
+							android:numColumns="3"
 							android:horizontalSpacing="5dp"
 							android:scrollbars="horizontal"
 							android:verticalSpacing="1dp">
@@ -68,6 +68,65 @@
 					</LinearLayout>
             </FrameLayout>
         </HorizontalScrollView>
+
+			<HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/seatLegendLayout">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+					<LinearLayout
+						android:id="@+id/linearLayout_gridtableLayout"
+						android:layout_width="600dp"
+						android:layout_height="300dp"
+						android:orientation="horizontal">
+						<GridView
+							android:id="@+id/gridViewSandstorm"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_margin="4dp"
+							android:gravity="center|center_vertical"
+							android:numColumns="2"
+							android:horizontalSpacing="5dp"
+							android:scrollbars="horizontal"
+							android:verticalSpacing="1dp">
+						</GridView>
+					</LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
+
+			<HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/seatLegendLayout">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+					<LinearLayout
+						android:id="@+id/linearLayout_gridtableLayout"
+						android:layout_width="3000dp"
+						android:layout_height="900dp"
+						android:orientation="horizontal">
+						<GridView
+							android:id="@+id/gridViewMatches"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_margin="4dp"
+							android:gravity="center|center_vertical"							
+							android:horizontalSpacing="5dp"
+							android:scrollbars="horizontal"
+							android:verticalSpacing="1dp">
+						</GridView>
+					</LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
+
+			
+
+
 			
 			<Button
 				android:text="DELETE Data"

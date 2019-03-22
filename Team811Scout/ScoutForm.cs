@@ -152,7 +152,8 @@ namespace Team811Scout
                     wouldRecommend,
                     result,
                     comments.Text,
-                    false);
+                    false,
+                    currentEvent.eventID);
 
                     eData.AddScoutData(scoutData);
 

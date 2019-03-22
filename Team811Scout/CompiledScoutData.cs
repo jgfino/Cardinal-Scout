@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SQLite;
-using SQLiteNetExtensions.Attributes;
 
 namespace Team811Scout
 {
@@ -25,7 +23,7 @@ namespace Team811Scout
             dateMod = DateTime.Now.ToString("MM/dd/yyyy");
             timeMod = DateTime.Now.ToShortTimeString();
             compileData();
-           
+
 
         }
 
@@ -36,7 +34,7 @@ namespace Team811Scout
         public string timeMod { get; set; }
 
         public int cID { get; set; }
-        
+
         public List<List<CompiledScoutData>> compileData()
         {
             const int dataLength = 17;
@@ -168,6 +166,7 @@ namespace Team811Scout
             }
         }
 
+       
 
         //calcs
         public List<int> getRecPercentArray(List<List<CompiledScoutData>> c)
@@ -195,7 +194,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<string> getWinRecord(List<List<CompiledScoutData>> c)
+        public List<string> getWinRecordArray(List<List<CompiledScoutData>> c)
         {
             List<string> recsPerTeam = new List<string>();
 
@@ -229,7 +228,7 @@ namespace Team811Scout
 
                 for (int j = 0; j < c[i].Count; j++)
                 {
-                    recs.Add(c[i][j].wouldRecommend);
+                    recs.Add(c[i][j].result);
                 }
 
                 for (int j = 0; j < c[i].Count; j++)
@@ -249,7 +248,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getCargoPercent(List<List<CompiledScoutData>> c)
+        public List<int> getCargoPercentArray(List<List<CompiledScoutData>> c)
         {
             List<int> recsPerTeam = new List<int>();
 
@@ -273,7 +272,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getHatchPercent(List<List<CompiledScoutData>> c)
+        public List<int> getHatchPercentArray(List<List<CompiledScoutData>> c)
         {
             List<int> recsPerTeam = new List<int>();
 
@@ -297,7 +296,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getClimb2Percent(List<List<CompiledScoutData>> c)
+        public List<int> getClimb2PercentArray(List<List<CompiledScoutData>> c)
         {
             List<int> recsPerTeam = new List<int>();
 
@@ -324,7 +323,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getClimb3Percent(List<List<CompiledScoutData>> c)
+        public List<int> getClimb3PercentArray(List<List<CompiledScoutData>> c)
         {
             List<int> recsPerTeam = new List<int>();
 
@@ -351,7 +350,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getDriversPercent(List<List<CompiledScoutData>> c)
+        public List<int> getDriversPercentArray(List<List<CompiledScoutData>> c)
         {
             List<int> recsPerTeam = new List<int>();
 
@@ -375,7 +374,7 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getTeamNumbers(List<List<CompiledScoutData>> c)
+        public List<int> getTeamNumbersArray(List<List<CompiledScoutData>> c)
         {
             List<int> result = new List<int>();
 
@@ -387,7 +386,7 @@ namespace Team811Scout
             return result;
         }
 
-        public List<int> getTablePercent(List<List<CompiledScoutData>> c)
+        public List<int> getTablePercentArray(List<List<CompiledScoutData>> c)
         {
             List<int> recsPerTeam = new List<int>();
 
@@ -411,6 +410,281 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
+        //individual calcs
+        public int getRecPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(c[i].wouldRecommend);
+
+            }
+
+            double countYes = recs.Where(x => x.Equals(0)).Count();
+            double countNo = recs.Where(x => x.Equals(1)).Count();
+            double countMaybe = recs.Where(x => x.Equals(2)).Count();
+
+            double percent = (countYes + (0.5 * countMaybe)) / (countYes + countMaybe + countNo) * 100;
+
+            return (int)percent;
+        }
+
+        public string getWinRecord(List<CompiledScoutData> c)
+        {
+
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+                recs.Add(c[i].result);
+            }
+
+            int countWin = recs.Where(x => x.Equals(0)).Count();
+            int countLoss = recs.Where(x => x.Equals(1)).Count();
+            int countTie = recs.Where(x => x.Equals(2)).Count();
+
+            return (countWin.ToString() + "-" + countLoss.ToString() + "-" + countTie.ToString());
+
+        }
+
+
+        public int getWinPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+
+
+            for (int i = 0; i < c.Count; i++)
+            {
+                recs.Add(c[i].result);
+            }
+
+
+            double countWin = recs.Where(x => x.Equals(0)).Count();
+            double countLoss = recs.Where(x => x.Equals(1)).Count();
+            double countTie = recs.Where(x => x.Equals(2)).Count();
+
+            double percent = countWin / (countLoss + countTie) * 100;
+            return (int)percent;
+
+        }
+
+
+
+
+        public int getCargoPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(Convert.ToByte(c[i].cargo));
+
+            }
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
+
+            double percent = (countYes) / (countYes + countNo) * 100;
+            return (int)percent;
+        }
+
+        public int getHatchPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(Convert.ToByte(c[i].hatch));
+            }
+
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
+
+            double percent = (countYes) / (countYes + countNo) * 100;
+
+            return (int)percent;
+        }
+
+        public int getClimb2Percent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+
+                recs.Add(c[i].climb);
+
+            }
+                double count2 = recs.Where(x => x.Equals(2)).Count();
+                double count3 = recs.Where(x => x.Equals(3)).Count();
+                double countNone = recs.Where(x => x.Equals(0)).Count();
+
+                double twoPercent = (count2) / (count2 + count3 + countNone) * 100;
+
+            return (int)twoPercent;
+        }
+
+        public int getClimb3Percent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(c[i].climb);
+
+            }
+                double count2 = recs.Where(x => x.Equals(2)).Count();
+                double count3 = recs.Where(x => x.Equals(3)).Count();
+                double countNone = recs.Where(x => x.Equals(0)).Count();
+
+                double threePercent = (count3) / (count2 + count3 + countNone) * 100;
+
+                return (int)threePercent;
+        }
+
+        public int getDriversPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(Convert.ToByte(c[i].goodDrivers));
+            } 
+
+                double countYes = recs.Where(x => x.Equals(1)).Count();
+                double countNo = recs.Where(x => x.Equals(0)).Count();
+
+                double percent = ((countYes) / (countYes + countNo)) * 100;
+
+            return (int)percent;
+        }        
+
+        public int getTablePercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+                recs.Add(Convert.ToByte(c[i].isTable));
+            }
+        
+                double countYes = recs.Where(x => x.Equals(1)).Count();
+                double countNo = recs.Where(x => x.Equals(0)).Count();
+
+                double percent = (countYes) / (countYes + countNo) * 100;
+
+            return (int)percent;
+        }
+
+        public int getCargoSandstormPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(Convert.ToByte(c[i].sandstormCargo));
+
+            }
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
+
+            double percent = (countYes) / (countYes + countNo) * 100;
+            return (int)percent;
+        }
+        public int getHatchSandstormPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(Convert.ToByte(c[i].sandstormHatch));
+
+            }
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
+
+            double percent = (countYes) / (countYes + countNo) * 100;
+            return (int)percent;
+        }
+        public int getHabSandstormPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(Convert.ToByte(c[i].sandstormLine));
+
+            }
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
+
+            double percent = (countYes) / (countYes + countNo) * 100;
+            return (int)percent;
+        }
+        public int getAutoPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(c[i].sandstormMode);
+
+            }
+            double auto = recs.Where(x => x.Equals(0)).Count();
+            double teleop = recs.Where(x => x.Equals(1)).Count();
+            double nothing = recs.Where(x => x.Equals(2)).Count();
+
+            double percent = (auto) / (teleop + auto + nothing) * 100;
+
+            return (int)percent;
+        }
+        public int getTeleopPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(c[i].sandstormMode);
+
+            }
+            double auto = recs.Where(x => x.Equals(0)).Count();
+            double teleop = recs.Where(x => x.Equals(1)).Count();
+            double nothing = recs.Where(x => x.Equals(2)).Count();
+
+            double percent = (teleop) / (teleop + auto + nothing) * 100;
+
+            return (int)percent;
+        }
+        public int getNothingPercent(List<CompiledScoutData> c)
+        {
+            List<int> recs = new List<int>();
+
+            for (int i = 0; i < c.Count; i++)
+            {
+
+                recs.Add(c[i].sandstormMode);
+
+            }
+            double auto = recs.Where(x => x.Equals(0)).Count();
+            double teleop = recs.Where(x => x.Equals(1)).Count();
+            double nothing = recs.Where(x => x.Equals(2)).Count();
+
+            double percent = (nothing) / (teleop + auto + nothing) * 100;
+
+            return (int)percent;
+        }
     }
 
 }
