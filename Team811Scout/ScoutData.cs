@@ -83,6 +83,7 @@ namespace Team811Scout
         public int position { get; set; }
         //1-3: red 1-3; 4-6: blue 1-3
 
+        //get string representation of position
         public string getPosition()
         {
             if(position==0)
@@ -115,6 +116,8 @@ namespace Team811Scout
 
         public int sandstormMode { get; set; }
         //0 - auto, 1 - camera, 2 - nothing
+
+        //string representation of sandstorm mode
         public string getSandstormMode()
         {
             if(sandstormMode==0)
@@ -145,6 +148,8 @@ namespace Team811Scout
         public bool hatchWell { get; set; }
         public bool hatchBarely { get; set; }
         public int climb { get; set; }
+
+        //string for climb level
         public string getClimb()
         {
             if(climb==2)
@@ -165,6 +170,8 @@ namespace Team811Scout
 
         public int wouldRecommend { get; set; }
         //0 - yes; 1 - no; 2 - maybe
+
+        //string for recommendation
         public string getRecommendation()
         {
             if(wouldRecommend==0)
@@ -183,6 +190,8 @@ namespace Team811Scout
 
         public int result { get; set; }
         //0 - win; 1 - lose; 2 - tie
+
+        //string for result
         public string getResult()
         {
             if(result==0)

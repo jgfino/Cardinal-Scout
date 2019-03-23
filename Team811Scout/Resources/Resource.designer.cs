@@ -8311,8 +8311,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00c7
 			public const int b5p2 = 2131493063;
 			
-			// aapt resource value: 0x7f0c012d
-			public const int bAddTeam = 2131493165;
+			// aapt resource value: 0x7f0c012e
+			public const int bAddTeam = 2131493166;
 			
 			// aapt resource value: 0x7f0c00c8
 			public const int bCompile2 = 2131493064;
@@ -8326,8 +8326,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00b7
 			public const int bDelete = 2131493047;
 			
-			// aapt resource value: 0x7f0c013f
-			public const int bDeleteData = 2131493183;
+			// aapt resource value: 0x7f0c0140
+			public const int bDeleteData = 2131493184;
 			
 			// aapt resource value: 0x7f0c00b0
 			public const int bDeleteEvent = 2131493040;
@@ -8341,11 +8341,11 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00af
 			public const int bEditID = 2131493039;
 			
-			// aapt resource value: 0x7f0c0129
-			public const int bFinish = 2131493161;
+			// aapt resource value: 0x7f0c012a
+			public const int bFinish = 2131493162;
 			
-			// aapt resource value: 0x7f0c0138
-			public const int bGenerateQR = 2131493176;
+			// aapt resource value: 0x7f0c0139
+			public const int bGenerateQR = 2131493177;
 			
 			// aapt resource value: 0x7f0c0097
 			public const int bInstruct = 2131493015;
@@ -8356,14 +8356,14 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00ad
 			public const int bRefreshEvents = 2131493037;
 			
-			// aapt resource value: 0x7f0c012a
-			public const int bRefreshMatches = 2131493162;
+			// aapt resource value: 0x7f0c012b
+			public const int bRefreshMatches = 2131493163;
 			
-			// aapt resource value: 0x7f0c012f
-			public const int bSelect = 2131493167;
+			// aapt resource value: 0x7f0c0130
+			public const int bSelect = 2131493168;
 			
-			// aapt resource value: 0x7f0c0131
-			public const int bSelectView = 2131493169;
+			// aapt resource value: 0x7f0c0132
+			public const int bSelectView = 2131493170;
 			
 			// aapt resource value: 0x7f0c00b8
 			public const int bSetMaster = 2131493048;
@@ -8377,8 +8377,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0096
 			public const int bSync = 2131493014;
 			
-			// aapt resource value: 0x7f0c012c
-			public const int bViewData = 2131493164;
+			// aapt resource value: 0x7f0c012d
+			public const int bViewData = 2131493165;
 			
 			// aapt resource value: 0x7f0c0095
 			public const int bViewPrev = 2131493013;
@@ -8425,14 +8425,17 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c007a
 			public const int checkbox = 2131492986;
 			
-			// aapt resource value: 0x7f0c012e
-			public const int chooseList = 2131493166;
+			// aapt resource value: 0x7f0c012f
+			public const int chooseList = 2131493167;
 			
-			// aapt resource value: 0x7f0c0130
-			public const int choosetoView = 2131493168;
+			// aapt resource value: 0x7f0c0131
+			public const int choosetoView = 2131493169;
 			
 			// aapt resource value: 0x7f0c00f5
 			public const int chronometer = 2131493109;
+			
+			// aapt resource value: 0x7f0c011d
+			public const int climb0 = 2131493149;
 			
 			// aapt resource value: 0x7f0c011b
 			public const int climb2 = 2131493147;
@@ -8449,14 +8452,14 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0041
 			public const int collapseActionView = 2131492929;
 			
-			// aapt resource value: 0x7f0c0128
-			public const int comments = 2131493160;
+			// aapt resource value: 0x7f0c0129
+			public const int comments = 2131493161;
 			
 			// aapt resource value: 0x7f0c009f
 			public const int container = 2131493023;
 			
-			// aapt resource value: 0x7f0c0143
-			public const int contentFrame = 2131493187;
+			// aapt resource value: 0x7f0c0144
+			public const int contentFrame = 2131493188;
 			
 			// aapt resource value: 0x7f0c006d
 			public const int contentPanel = 2131492973;
@@ -8497,11 +8500,11 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0029
 			public const int disableHome = 2131492905;
 			
-			// aapt resource value: 0x7f0c011f
-			public const int driversNo = 2131493151;
+			// aapt resource value: 0x7f0c0120
+			public const int driversNo = 2131493152;
 			
-			// aapt resource value: 0x7f0c011e
-			public const int driversYes = 2131493150;
+			// aapt resource value: 0x7f0c011f
+			public const int driversYes = 2131493151;
 			
 			// aapt resource value: 0x7f0c0085
 			public const int edit_query = 2131492997;
@@ -8563,17 +8566,17 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00fe
 			public const int gridRecent = 2131493118;
 			
+			// aapt resource value: 0x7f0c013f
+			public const int gridViewMatches = 2131493183;
+			
 			// aapt resource value: 0x7f0c013e
-			public const int gridViewMatches = 2131493182;
+			public const int gridViewSandstorm = 2131493182;
 			
 			// aapt resource value: 0x7f0c013d
-			public const int gridViewSandstorm = 2131493181;
+			public const int gridViewStats = 2131493181;
 			
-			// aapt resource value: 0x7f0c013c
-			public const int gridViewStats = 2131493180;
-			
-			// aapt resource value: 0x7f0c0142
-			public const int gridViewTeam = 2131493186;
+			// aapt resource value: 0x7f0c0143
+			public const int gridViewTeam = 2131493187;
 			
 			// aapt resource value: 0x7f0c0117
 			public const int hatch = 2131493143;
@@ -8605,11 +8608,11 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0066
 			public const int image = 2131492966;
 			
-			// aapt resource value: 0x7f0c0136
-			public const int imgQR1 = 2131493174;
-			
 			// aapt resource value: 0x7f0c0137
-			public const int imgQR2 = 2131493175;
+			public const int imgQR1 = 2131493175;
+			
+			// aapt resource value: 0x7f0c0138
+			public const int imgQR2 = 2131493176;
 			
 			// aapt resource value: 0x7f0c00f6
 			public const int info = 2131493110;
@@ -8644,8 +8647,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00fd
 			public const int linearLayout2 = 2131493117;
 			
-			// aapt resource value: 0x7f0c013b
-			public const int linearLayout_gridtableLayout = 2131493179;
+			// aapt resource value: 0x7f0c013c
+			public const int linearLayout_gridtableLayout = 2131493180;
 			
 			// aapt resource value: 0x7f0c0026
 			public const int listMode = 2131492902;
@@ -8668,14 +8671,14 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0101
 			public const int main_toolbar = 2131493121;
 			
-			// aapt resource value: 0x7f0c0145
-			public const int masked = 2131493189;
+			// aapt resource value: 0x7f0c0146
+			public const int masked = 2131493190;
 			
 			// aapt resource value: 0x7f0c00ef
 			public const int media_actions = 2131493103;
 			
-			// aapt resource value: 0x7f0c0140
-			public const int message = 2131493184;
+			// aapt resource value: 0x7f0c0141
+			public const int message = 2131493185;
 			
 			// aapt resource value: 0x7f0c0039
 			public const int middle = 2131492921;
@@ -8809,8 +8812,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c011a
 			public const int radioClimb = 2131493146;
 			
-			// aapt resource value: 0x7f0c011d
-			public const int radioDrivers = 2131493149;
+			// aapt resource value: 0x7f0c011e
+			public const int radioDrivers = 2131493150;
 			
 			// aapt resource value: 0x7f0c010a
 			public const int radioLevel = 2131493130;
@@ -8818,11 +8821,11 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0110
 			public const int radioNothing = 2131493136;
 			
-			// aapt resource value: 0x7f0c0120
-			public const int radioRecommend = 2131493152;
+			// aapt resource value: 0x7f0c0121
+			public const int radioRecommend = 2131493153;
 			
-			// aapt resource value: 0x7f0c0124
-			public const int radioResult = 2131493156;
+			// aapt resource value: 0x7f0c0125
+			public const int radioResult = 2131493157;
 			
 			// aapt resource value: 0x7f0c010d
 			public const int radioSandstorm = 2131493133;
@@ -8830,29 +8833,29 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c010f
 			public const int radioTeleop = 2131493135;
 			
+			// aapt resource value: 0x7f0c0124
+			public const int recMaybe = 2131493156;
+			
 			// aapt resource value: 0x7f0c0123
-			public const int recMaybe = 2131493155;
+			public const int recNo = 2131493155;
 			
 			// aapt resource value: 0x7f0c0122
-			public const int recNo = 2131493154;
-			
-			// aapt resource value: 0x7f0c0121
-			public const int recYes = 2131493153;
+			public const int recYes = 2131493154;
 			
 			// aapt resource value: 0x7f0c00bc
 			public const int receiveDataChooser = 2131493052;
 			
-			// aapt resource value: 0x7f0c012b
-			public const int recentMatches = 2131493163;
-			
-			// aapt resource value: 0x7f0c0126
-			public const int resLoss = 2131493158;
+			// aapt resource value: 0x7f0c012c
+			public const int recentMatches = 2131493164;
 			
 			// aapt resource value: 0x7f0c0127
-			public const int resTie = 2131493159;
+			public const int resLoss = 2131493159;
 			
-			// aapt resource value: 0x7f0c0125
-			public const int resWin = 2131493157;
+			// aapt resource value: 0x7f0c0128
+			public const int resTie = 2131493160;
+			
+			// aapt resource value: 0x7f0c0126
+			public const int resWin = 2131493158;
 			
 			// aapt resource value: 0x7f0c0051
 			public const int right = 2131492945;
@@ -8932,23 +8935,23 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0090
 			public const int search_voice_btn = 2131493008;
 			
-			// aapt resource value: 0x7f0c013a
-			public const int seatLegendLayout = 2131493178;
+			// aapt resource value: 0x7f0c013b
+			public const int seatLegendLayout = 2131493179;
 			
 			// aapt resource value: 0x7f0c0091
 			public const int select_dialog_listview = 2131493009;
 			
-			// aapt resource value: 0x7f0c0135
-			public const int sendDataChooser = 2131493173;
-			
-			// aapt resource value: 0x7f0c0132
-			public const int shellcontent_appbar = 2131493170;
-			
-			// aapt resource value: 0x7f0c0134
-			public const int shellcontent_scrollview = 2131493172;
+			// aapt resource value: 0x7f0c0136
+			public const int sendDataChooser = 2131493174;
 			
 			// aapt resource value: 0x7f0c0133
-			public const int shellcontent_toolbar = 2131493171;
+			public const int shellcontent_appbar = 2131493171;
+			
+			// aapt resource value: 0x7f0c0135
+			public const int shellcontent_scrollview = 2131493173;
+			
+			// aapt resource value: 0x7f0c0134
+			public const int shellcontent_toolbar = 2131493172;
 			
 			// aapt resource value: 0x7f0c007b
 			public const int shortcut = 2131492987;
@@ -9031,8 +9034,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c001b
 			public const int text2 = 2131492891;
 			
-			// aapt resource value: 0x7f0c0141
-			public const int textEvent = 2131493185;
+			// aapt resource value: 0x7f0c0142
+			public const int textEvent = 2131493186;
 			
 			// aapt resource value: 0x7f0c0104
 			public const int textEventTitle = 2131493124;
@@ -9049,8 +9052,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0070
 			public const int textSpacerNoTitle = 2131492976;
 			
-			// aapt resource value: 0x7f0c0139
-			public const int textTeam = 2131493177;
+			// aapt resource value: 0x7f0c013a
+			public const int textTeam = 2131493178;
 			
 			// aapt resource value: 0x7f0c0105
 			public const int textTitle = 2131493125;
@@ -9142,8 +9145,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0016
 			public const int view_offset_helper = 2131492886;
 			
-			// aapt resource value: 0x7f0c0144
-			public const int visible = 2131493188;
+			// aapt resource value: 0x7f0c0145
+			public const int visible = 2131493189;
 			
 			// aapt resource value: 0x7f0c00db
 			public const int volume_item_container = 2131493083;

@@ -22,6 +22,16 @@ namespace Team811Scout.Data
 
             return conn;
         }
+
+        //get the path to the database
+        public static string getDatabasePath()
+        {
+            var sqliteFilename = "scoutdb.db3";
+            string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var path = Path.Combine(documentsPath, sqliteFilename);
+
+            return path;
+        }
        
     }
 }

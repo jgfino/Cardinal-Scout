@@ -77,7 +77,7 @@ namespace Team811Scout
             receiveDataSpinner.ItemSelected += SpinnerClick;
 
             //create an adapter for the DropDown picker with event names to choose from
-            ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetEventDisplayList(););
+            ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetEventDisplayList());
             receiveDataSpinner.Adapter = selectAdapt;
             
             //initialize QR scanner class

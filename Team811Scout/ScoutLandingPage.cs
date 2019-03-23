@@ -3,7 +3,6 @@ using Android.OS;
 using Android.Text;
 using Android.Widget;
 using System;
-using System.Collections.Generic;
 using static Android.Widget.AdapterView;
 
 namespace Team811Scout
@@ -63,6 +62,7 @@ namespace Team811Scout
             }
             else if((sender as Button)==bAddTeam)
             {
+                //each event can have a max of 80 matches; more makes reading QR codes difficult
                 if (eData.GetScoutDataForEvent(currentEvent.eventID).Count > 79)
                 {
                     Popup.Single("Alert", "Max 80 matches per event reached", "OK", this);

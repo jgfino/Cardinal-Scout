@@ -4,65 +4,82 @@ using System.Linq;
 
 namespace Team811Scout
 {
+    /*The CompiledScoutData class extends the ScoutData class. A CompiledScoutData can have all the same properties as
+     * a normal ScoutData, but it also can perform calculations and figure out percentages based on multiple
+     * other CompiledScoutDatas*/
+
     public class CompiledScoutData: ScoutData
     {
-
         public CompiledScoutData()
         {
-
         }
+
 
         public CompiledScoutData(string officialname, string start, string end, string qrdata, bool isactive, int id)
         {
+            //make the compiled scout data mimic the event details
             officialName = officialname;
-            rawData = qrdata;
-            cID = id;
             startDate = start;
             endDate = end;
+
+            //CompiledScoutData specific data
+            rawData = qrdata;
+            cID = id;
             ID = cID.ToString();
+            isActive = isactive;
+
+            //note the date and time modified
             dateMod = DateTime.Now.ToString("MM/dd/yyyy");
             timeMod = DateTime.Now.ToShortTimeString();
-            compileData();
-
 
         }
 
         public string officialName { get; set; }
+
+        //string of data collected from the QR codes
         public string rawData { get; set; }
+
         public bool isActive { get; set; }
         public string dateMod { get; set; }
         public string timeMod { get; set; }
 
+        //the official primary key for this class is a string, but cID is used in the database anyway
+        //the cID matches the event id for the compiled scout data
         public int cID { get; set; }
 
+        //compile the data and return it in a multidimensional list grouped by team number
         public List<List<CompiledScoutData>> compileData()
         {
+            //how many properties are we looking for:
             const int dataLength = 17;
+
             CompiledScoutData placeholder = new CompiledScoutData();
 
-            string matchData = rawData;
-
-            int substringStart = 0;
-
+            //list before putting it in team order
             List<CompiledScoutData> preOrder = new List<CompiledScoutData>();
 
+            //get a substring for the raw data
+            string matchData = rawData;
+            int substringStart = 0;
             while (matchData.Length > 1)
             {
                 int startIndex = 0;
 
+                //give default values to the placeholder
                 placeholder = new CompiledScoutData();
-
                 placeholder.officialName = officialName;
                 placeholder.cID = cID;
+                placeholder.isActive = false;
 
+                //set values which appear at the beginning of the QR string separated by commas
                 List<int> matchCommas = AllIndexesOf(matchData, ",").ToList<int>();
-
                 placeholder.teamNumber = int.Parse(matchData.Substring(0, matchCommas[0]));
                 placeholder.matchNumber = int.Parse(matchData.Substring(matchCommas[0] + 1, matchCommas[1] - matchCommas[0] - 1));
 
+                //create substring of data after the commas
                 matchData = matchData.Substring(matchCommas[1] + 1, dataLength);
-                placeholder.isActive = false;
 
+                //interpret numerical values
                 placeholder.result = int.Parse(matchData.Substring(startIndex, 1));
                 startIndex++;
                 placeholder.position = int.Parse(matchData.Substring(startIndex, 1));
@@ -97,65 +114,60 @@ namespace Team811Scout
                 startIndex++;
                 placeholder.wouldRecommend = int.Parse(matchData.Substring(startIndex, 1));
                 startIndex++;
-                substringStart += dataLength + matchCommas[1] + 1;
+
+                //add the CompiledScoutData
                 preOrder.Add(placeholder);
 
-                matchData = rawData.Substring(substringStart);
+                //move to the next team in the string
+                substringStart += dataLength + matchCommas[1] + 1;
+                matchData = matchData.Substring(substringStart);
             }
 
-            CompiledScoutData[] compiledData = new CompiledScoutData[preOrder.Count];
-            CompiledScoutData[] dataSort = preOrder.ToArray();
-
-            Array.Sort(dataSort, delegate (CompiledScoutData data1, CompiledScoutData data2)
+            //convert to an array to sort by team number
+            CompiledScoutData[] dataSorted = preOrder.ToArray();
+            Array.Sort(dataSorted, delegate (CompiledScoutData data1, CompiledScoutData data2)
             {
                 return data1.teamNumber.CompareTo(data2.teamNumber);
             });
 
+            //create a list of the teams contained in the raw data
             List<int> uniqueTeams = new List<int>();
-
-            int j = 0;
-            foreach (CompiledScoutData data in dataSort)
+            foreach (CompiledScoutData data in dataSorted)
             {
-                compiledData[j] = data;
-
                 if (!uniqueTeams.Contains(data.teamNumber))
                 {
                     uniqueTeams.Add(data.teamNumber);
                 }
-                j++;
+
             }
 
-            double loopCount = compiledData.Length / uniqueTeams.Count;
+            //create a multidimensional list to group that data
             List<List<CompiledScoutData>> groupedData = new List<List<CompiledScoutData>>();
             groupedData.Add(new List<CompiledScoutData>());
 
+            //starting first index
             int c = 0;
-            foreach (CompiledScoutData data in compiledData)
+            foreach (CompiledScoutData data in dataSorted)
             {
-
+                //add all matches by one team to one index of the list
                 if (data.teamNumber == uniqueTeams[c])
                 {
-
                     groupedData[c].Add(data);
-
                 }
+                //go to the next index after all matches by that team are added
                 else
                 {
                     c++;
                     groupedData.Add(new List<CompiledScoutData>());
                     groupedData[c].Add(data);
-
                 }
-
-
             }
 
-
+            //return the grouped data list
             return groupedData;
-
-
         }
 
+        //used to find where commas are in the rawData in order to split it up into teams/matches
         private IEnumerable<int> AllIndexesOf(string str, string searchstring)
         {
             int minIndex = str.IndexOf(searchstring);
@@ -166,11 +178,12 @@ namespace Team811Scout
             }
         }
 
-       
+        //Calculations with ScoutData
 
-        //calcs
-        public List<int> getRecPercentArray(List<List<CompiledScoutData>> c)
+        //Group calculations (arrays of percents/values for all teams in the data
+        public List<int> getRecPercentArray()
         {
+            List<List<CompiledScoutData>> c = compileData();
             List<int> recsPerTeam = new List<int>();
 
             for (int i = 0; i < c.Count; i++)
@@ -194,9 +207,10 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<string> getWinRecordArray(List<List<CompiledScoutData>> c)
+        public List<string> getWinRecordArray()
         {
             List<string> recsPerTeam = new List<string>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -218,9 +232,10 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getWinPercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getWinPercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -244,13 +259,13 @@ namespace Team811Scout
                 recsPerTeam.Add((int)Math.Round(percent));
 
             }
-
             return recsPerTeam;
         }
 
-        public List<int> getCargoPercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getCargoPercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -272,9 +287,10 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getHatchPercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getHatchPercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -296,9 +312,10 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getClimb2PercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getClimb2PercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -323,9 +340,10 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getClimb3PercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getClimb3PercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -350,9 +368,10 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getDriversPercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getDriversPercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -374,8 +393,9 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        public List<int> getTeamNumbersArray(List<List<CompiledScoutData>> c)
+        public List<int> getTeamNumbersArray()
         {
+            List<List<CompiledScoutData>> c = compileData();
             List<int> result = new List<int>();
 
             for (int i = 0; i < c.Count; i++)
@@ -386,9 +406,10 @@ namespace Team811Scout
             return result;
         }
 
-        public List<int> getTablePercentArray(List<List<CompiledScoutData>> c)
+        public List<int> getTablePercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -410,16 +431,33 @@ namespace Team811Scout
             return recsPerTeam;
         }
 
-        //individual calcs
-        public int getRecPercent(List<CompiledScoutData> c)
-        {
-            List<int> recs = new List<int>();
+        //calculations for an individual team
 
+        //get a list of the scoutdata for one team
+        private List<CompiledScoutData> dataForTeam(int team)
+        {
+            int index = -1;
+            for (int i = 0; i < compileData().Count; i++)
+            {
+                if (compileData()[i][0].teamNumber == team)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            List<CompiledScoutData> c = compileData()[index];
+            return c;
+        }
+
+        public int getRecPercentForTeam(int team)
+        {
+            List<int> recs = new List<int>();            
+
+            List<CompiledScoutData> c = dataForTeam(team);
             for (int i = 0; i < c.Count; i++)
             {
-
                 recs.Add(c[i].wouldRecommend);
-
             }
 
             double countYes = recs.Where(x => x.Equals(0)).Count();
@@ -431,10 +469,11 @@ namespace Team811Scout
             return (int)percent;
         }
 
-        public string getWinRecord(List<CompiledScoutData> c)
+        public string getWinRecordForTeam(int team)
         {
-
             List<int> recs = new List<int>();
+
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -449,18 +488,16 @@ namespace Team811Scout
 
         }
 
-
-        public int getWinPercent(List<CompiledScoutData> c)
+        public int getWinPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
 
-
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
                 recs.Add(c[i].result);
             }
-
 
             double countWin = recs.Where(x => x.Equals(0)).Count();
             double countLoss = recs.Where(x => x.Equals(1)).Count();
@@ -471,12 +508,10 @@ namespace Team811Scout
 
         }
 
-
-
-
-        public int getCargoPercent(List<CompiledScoutData> c)
+        public int getCargoPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -491,9 +526,10 @@ namespace Team811Scout
             return (int)percent;
         }
 
-        public int getHatchPercent(List<CompiledScoutData> c)
+        public int getHatchPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -509,9 +545,10 @@ namespace Team811Scout
             return (int)percent;
         }
 
-        public int getClimb2Percent(List<CompiledScoutData> c)
+        public int getClimb2PercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -520,18 +557,19 @@ namespace Team811Scout
                 recs.Add(c[i].climb);
 
             }
-                double count2 = recs.Where(x => x.Equals(2)).Count();
-                double count3 = recs.Where(x => x.Equals(3)).Count();
-                double countNone = recs.Where(x => x.Equals(0)).Count();
+            double count2 = recs.Where(x => x.Equals(2)).Count();
+            double count3 = recs.Where(x => x.Equals(3)).Count();
+            double countNone = recs.Where(x => x.Equals(0)).Count();
 
-                double twoPercent = (count2) / (count2 + count3 + countNone) * 100;
+            double twoPercent = (count2) / (count2 + count3 + countNone) * 100;
 
             return (int)twoPercent;
         }
 
-        public int getClimb3Percent(List<CompiledScoutData> c)
+        public int getClimb3PercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -539,53 +577,56 @@ namespace Team811Scout
                 recs.Add(c[i].climb);
 
             }
-                double count2 = recs.Where(x => x.Equals(2)).Count();
-                double count3 = recs.Where(x => x.Equals(3)).Count();
-                double countNone = recs.Where(x => x.Equals(0)).Count();
+            double count2 = recs.Where(x => x.Equals(2)).Count();
+            double count3 = recs.Where(x => x.Equals(3)).Count();
+            double countNone = recs.Where(x => x.Equals(0)).Count();
 
-                double threePercent = (count3) / (count2 + count3 + countNone) * 100;
+            double threePercent = (count3) / (count2 + count3 + countNone) * 100;
 
-                return (int)threePercent;
+            return (int)threePercent;
         }
 
-        public int getDriversPercent(List<CompiledScoutData> c)
+        public int getDriversPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
 
                 recs.Add(Convert.ToByte(c[i].goodDrivers));
-            } 
+            }
 
-                double countYes = recs.Where(x => x.Equals(1)).Count();
-                double countNo = recs.Where(x => x.Equals(0)).Count();
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
 
-                double percent = ((countYes) / (countYes + countNo)) * 100;
+            double percent = ((countYes) / (countYes + countNo)) * 100;
 
             return (int)percent;
-        }        
+        }
 
-        public int getTablePercent(List<CompiledScoutData> c)
+        public int getTablePercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
                 recs.Add(Convert.ToByte(c[i].isTable));
             }
-        
-                double countYes = recs.Where(x => x.Equals(1)).Count();
-                double countNo = recs.Where(x => x.Equals(0)).Count();
 
-                double percent = (countYes) / (countYes + countNo) * 100;
+            double countYes = recs.Where(x => x.Equals(1)).Count();
+            double countNo = recs.Where(x => x.Equals(0)).Count();
+
+            double percent = (countYes) / (countYes + countNo) * 100;
 
             return (int)percent;
         }
 
-        public int getCargoSandstormPercent(List<CompiledScoutData> c)
+        public int getCargoSandstormPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -599,9 +640,10 @@ namespace Team811Scout
             double percent = (countYes) / (countYes + countNo) * 100;
             return (int)percent;
         }
-        public int getHatchSandstormPercent(List<CompiledScoutData> c)
+        public int getHatchSandstormPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -615,9 +657,10 @@ namespace Team811Scout
             double percent = (countYes) / (countYes + countNo) * 100;
             return (int)percent;
         }
-        public int getHabSandstormPercent(List<CompiledScoutData> c)
+        public int getHabSandstormPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -631,9 +674,10 @@ namespace Team811Scout
             double percent = (countYes) / (countYes + countNo) * 100;
             return (int)percent;
         }
-        public int getAutoPercent(List<CompiledScoutData> c)
+        public int getAutoPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -649,9 +693,10 @@ namespace Team811Scout
 
             return (int)percent;
         }
-        public int getTeleopPercent(List<CompiledScoutData> c)
+        public int getTeleopPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -667,9 +712,10 @@ namespace Team811Scout
 
             return (int)percent;
         }
-        public int getNothingPercent(List<CompiledScoutData> c)
+        public int getNothingPercentForTeam(int team)
         {
             List<int> recs = new List<int>();
+            List<CompiledScoutData> c = dataForTeam(team);
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -682,7 +728,6 @@ namespace Team811Scout
             double nothing = recs.Where(x => x.Equals(2)).Count();
 
             double percent = (nothing) / (teleop + auto + nothing) * 100;
-
             return (int)percent;
         }
     }

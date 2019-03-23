@@ -363,7 +363,18 @@
 					
 					android:layout_marginLeft="20dp"
 					android:layout_marginBottom="5dp" />
+
+				<RadioButton
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"					
+					android:text="No climb"
+					android:id="@+id/climb0"
+					android:textSize="25dp"
+					
+					android:layout_marginLeft="20dp"
+					android:layout_marginBottom="5dp" />
 			</RadioGroup>
+
 			
 			<TextView
 				android:text="Do Drivers Know What They Are Doing? (consider penalties, aggression, etc)"

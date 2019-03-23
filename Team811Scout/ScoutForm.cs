@@ -6,95 +6,76 @@ using static Android.Widget.AdapterView;
 
 namespace Team811Scout
 {
+    /*this activity creates a new ScoutData based off of information inputted by users while scouting a match*/
     [Activity(Label = "ScoutForm", Theme = "@style/AppTheme", MainLauncher = false)]
     class ScoutForm: Activity
     {
-        EventDatabase eData;
-        Event currentEvent;
+        //declare objects that wil refer to controls        
+        
         TextView textTitle;
         EditText vMatchNumber;
         EditText vTeamNumber;
         Spinner position;
-
-        RadioGroup radioSandstorm;
-        int sandstormMode;
-
+        CheckBox table;
         RadioGroup radioLevel;
-        int sandLevel;
-
+        RadioGroup radioSandstorm;
         CheckBox sandCargo;
         CheckBox sandHatch;
         CheckBox sandHab;
-
         CheckBox cargo;
         CheckBox cargoWell;
         CheckBox cargoBarely;
         CheckBox hatch;
         CheckBox hatchWell;
         CheckBox hatchBarely;
-
-        int climb = 0;
         RadioGroup radioClimb;
-
-        CheckBox table;
-
         RadioGroup radioDrivers;
-        bool goodDrivers;
-
         RadioGroup radioRecommend;
-        int wouldRecommend;
-
         RadioGroup radioResult;
-        int result;
-
         MultiAutoCompleteTextView comments;
         Button bFinish;
 
+        int sandstormMode;        
+        int sandLevel;
+        int climb = 0;    
+        bool goodDrivers;      
+        int wouldRecommend;       
+        int result;       
+
+        //placeholder for new ScoutData and current event
+        Event currentEvent;
         ScoutData scoutData;
 
-        int spinnerIndex;
-        string spinnerItem;
-
-
-        
-
+        //get database instance
+        EventDatabase eData = new EventDatabase();  
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.scout_form);
-            eData = new EventDatabase();
-           
+            SetContentView(Resource.Layout.scout_form);          
 
+            //get controls from layout and assign event handlers
             textTitle = FindViewById<TextView>(Resource.Id.textEventTitle);
             vMatchNumber = FindViewById<EditText>(Resource.Id.vMatchNumber);
             vTeamNumber = FindViewById<EditText>(Resource.Id.vTeamNumber);
             position = FindViewById<Spinner>(Resource.Id.vPosition);
             position.ItemSelected+=SpinnerClick;
-
-            string[] positions = new string[] { "Red 1", "Red 2", "Red 3", "Blue 1", "Blue 2", "Blue 3" };
-            ArrayAdapter posAdapt = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, positions);
-            position.Adapter = posAdapt;
-        
-
+            table = FindViewById<CheckBox>(Resource.Id.table);
+            radioLevel = FindViewById<RadioGroup>(Resource.Id.radioLevel);
+            radioLevel.CheckedChange += RadioClicked;
             radioSandstorm = FindViewById<RadioGroup>(Resource.Id.radioSandstorm);
             radioSandstorm.CheckedChange += RadioClicked;
             sandCargo = FindViewById<CheckBox>(Resource.Id.sandCargo);
             sandHatch = FindViewById<CheckBox>(Resource.Id.sandHatch);
             sandHab = FindViewById<CheckBox>(Resource.Id.sandHab);
-            radioLevel = FindViewById<RadioGroup>(Resource.Id.radioLevel);
-            radioLevel.CheckedChange += RadioClicked;
-
             cargo = FindViewById<CheckBox>(Resource.Id.cargo);
             cargoWell = FindViewById<CheckBox>(Resource.Id.cargoWell);
             cargoBarely = FindViewById<CheckBox>(Resource.Id.cargoBarely);
             hatch = FindViewById<CheckBox>(Resource.Id.hatch);
             hatchWell = FindViewById<CheckBox>(Resource.Id.hatchWell);
             hatchBarely = FindViewById<CheckBox>(Resource.Id.hatchBarely);
-
             radioClimb = FindViewById<RadioGroup>(Resource.Id.radioClimb);
-            radioClimb.CheckedChange += RadioClicked;
-            table = FindViewById<CheckBox>(Resource.Id.table);
+            radioClimb.CheckedChange += RadioClicked;            
             radioDrivers = FindViewById<RadioGroup>(Resource.Id.radioDrivers);
             radioDrivers.CheckedChange += RadioClicked;
             radioRecommend = FindViewById<RadioGroup>(Resource.Id.radioRecommend);
@@ -105,27 +86,25 @@ namespace Team811Scout
             bFinish = FindViewById<Button>(Resource.Id.bFinish);
             bFinish.Click += ButtonClicked;
 
-            //get current event
+            //put positions into dropdown
+            string[] positions = new string[] { "Red 1", "Red 2", "Red 3", "Blue 1", "Blue 2", "Blue 3" };
+            ArrayAdapter posAdapt = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, positions);
+            position.Adapter = posAdapt;
+
+            //get current event and set title text
             currentEvent = eData.GetCurrentEvent();
             textTitle.Text += currentEvent.eventName+"'";
 
-        }
-
-        int TeamNum;
-        int MatchNum;
+        }       
 
         private void ButtonClicked(object sender, EventArgs e)
-        {
-            
-
+        {            
+            //decide which button was clicked 
             if ((sender as Button) == bFinish)
             {
                 try
                 {
-                    string scoutID = currentEvent.eventID.ToString() + ","+ vMatchNumber.Text;
-
-                    TeamNum = int.Parse(vTeamNumber.Text);
-                    MatchNum = int.Parse(vMatchNumber.Text);
+                    string scoutID = currentEvent.eventID.ToString() + ","+ vMatchNumber.Text;                    
 
                     scoutData = new ScoutData(
                     scoutID,
@@ -155,47 +134,47 @@ namespace Team811Scout
                     false,
                     currentEvent.eventID);
 
+                    //add the new match
                     eData.AddScoutData(scoutData);
 
+                    //go back to the main scouting page
                     StartActivity(typeof(ScoutLandingPage));
                     Finish();
                 }
+
+                //not putting a match or team number will throw an exception; so will a duplicate match number since the ScoutData id
+                //is based off of match number
                 catch
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                    AlertDialog missingDetails = dialog.Create();
-                    missingDetails.SetTitle("Alert");
-                    missingDetails.SetMessage("Please Enter At Least the Match and Team Number//Possible Duplicate Match Number");
-                    missingDetails.SetButton("OK", (c, ev) =>
-                    {
-
-                    });
-                    missingDetails.Show();
+                    Popup.Single("Alert", "Please Enter At Least the Match and Team Number//Possible Duplicate Match Number", "OK", this);
                 }
-
-                
-
             }
         }
 
+        //get driverstation position
+        int spinnerIndex;
         private void SpinnerClick(object sender, ItemSelectedEventArgs e)
         {
             spinnerIndex = e.Position;            
-        }
-
-        
+        }       
 
         //handle radio buttons
         private void RadioClicked(object sender, EventArgs e)
-        {
-            int placeHolder;
+        {            
+            //which group of radio buttons was modified
             RadioGroup selectedGroup = sender as RadioGroup;
+
+            //index of which button was clicked in the group
+            int placeHolder;
             placeHolder = selectedGroup.CheckedRadioButtonId;
             RadioButton clickedButton = FindViewById<RadioButton>(placeHolder);
+
+            //check the clicked button
             clickedButton.Checked = true;
 
             int childIndex = selectedGroup.IndexOfChild(clickedButton);
 
+            //device which group was modified
             if (selectedGroup == radioSandstorm)
             {
                 sandstormMode = selectedGroup.IndexOfChild(clickedButton);

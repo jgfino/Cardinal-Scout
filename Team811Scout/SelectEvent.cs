@@ -3,7 +3,6 @@ using Android.OS;
 using Android.Text;
 using Android.Widget;
 using System;
-using System.Collections.Generic;
 using static Android.Widget.AdapterView;
 
 namespace Team811Scout
@@ -54,7 +53,6 @@ namespace Team811Scout
             {
                 Popup.Single("Alert", "Please select an event to scout", "OK", this);
             }
-
 
         }
 

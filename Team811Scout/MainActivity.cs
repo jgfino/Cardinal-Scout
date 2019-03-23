@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
 using System;
+using Team811Scout.Data;
 
 namespace Team811Scout
 {
@@ -27,9 +28,9 @@ namespace Team811Scout
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
             //uncomment this to reset database on launch
-            //var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "scoutdb.db3");
-            //this.DeleteDatabase(path);
+            //DeleteDatabase(SQLite_android.getDatabasePath());
 
 
             // Set our view from the "main" layout resource

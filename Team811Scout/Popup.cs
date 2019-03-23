@@ -9,6 +9,7 @@ namespace Team811Scout
 
     public static class Popup
     {
+        //dialog with one button
         public static void Single(string title, string message, string button, Context context)
         {
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
@@ -22,7 +23,8 @@ namespace Team811Scout
             popup.Show();
         }
 
-        public static void Double(string title, string message, string button1, string button2, Context context, Action ifNo)
+        //dialog with yes/no
+        public static void Double(string title, string message, string button1, string button2, Context context, Action ifYes)
         {
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             AlertDialog popup = dialog.Create();
@@ -31,7 +33,7 @@ namespace Team811Scout
 
             popup.SetButton(button1, (c, ev) =>
             {
-                ifNo();
+                ifYes();
             });
 
             popup.SetButton2(button2, (c, ev) => { });

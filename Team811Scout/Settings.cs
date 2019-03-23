@@ -1,49 +1,56 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Widget;
-
 using System;
-using System.IO;
+using Team811Scout.Data;
 
 namespace Team811Scout
 {
+    /*this activity contains instructions for using the app and an option to factory reset it,
+     * which deletes the entire database (everything). It also has a button to edit existing events
+     * to delete individual events or change event ids*/
+
     [Activity(Label = "InstructSettings", Theme = "@style/AppTheme", MainLauncher = false)]
     public class Settings : Activity
     {
+        //declare objects for controls
         Button bDelete;
         Button bEditEvent;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.instructions_settings);
 
+            //get controls from layout and assign event handlers
             bDelete = FindViewById<Button>(Resource.Id.bDelete);
             bDelete.Click += ButtonClicked;
             bEditEvent = FindViewById<Button>(Resource.Id.bEditEvent);
             bEditEvent.Click += ButtonClicked;
-
-
         }
 
         private void ButtonClicked(object sender, EventArgs e)
         {
+            //decide which button was pressed
             if ((sender as Button) == bDelete)
             {
-                var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "scoutdb.db3");
-
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                AlertDialog confirmDelete = dialog.Create();
-                confirmDelete.SetTitle("WARNING");
-                confirmDelete.SetMessage("Are you SURE you want to delete the ENTIRE database (all events, matches, files, etc?");
-
-                confirmDelete.SetButton("Yes", (c, ev) =>
+                //double check to make sure the user wants to delete
+                Popup.Double("WARNING", "Are you SURE you want to delete the ENTIRE database (all events, matches, files, etc?", "Yes", "CANCEL", this, yes1);
+                
+                void yes1()
                 {
-                    this.DeleteDatabase(path);
-                    StartActivity(typeof(MainActivity));
-                });
-                confirmDelete.SetButton2("CANCEL", (c, ev) => { });
-                confirmDelete.Show();
+                    Popup.Double("WARNING", "Are you ABSOLUTELY sure?", "Yes, I'm sure", "CANCEL", this, yes2);
+
+                    void yes2()
+                    {
+                        //delete database and go back to the main page
+                        DeleteDatabase(SQLite_android.getDatabasePath());
+                        StartActivity(typeof(MainActivity));
+                    }
+                }                    
             }
+
+            //go to editevents page
             else if ((sender as Button) == bEditEvent)
             {
                 StartActivity(typeof(EditEvents));
