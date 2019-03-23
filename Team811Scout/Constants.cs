@@ -1,4 +1,6 @@
-﻿namespace Team811Scout
+﻿using Android.Graphics;
+
+namespace Team811Scout
 {
 
     /*contains constants for calculations of the compiled data. Thresholds are the percents which determine between yes/no or true/false
@@ -22,5 +24,8 @@
         public static readonly int sandstorm_modeDiff = 10;
         public static readonly int sandstormThresh = 50;
 
+        //colors
+        public static readonly Color appGreen = Color.Rgb(0, 137, 9);
+        public static readonly Color appRed = Color.Rgb(255, 0, 0);
     }
 }

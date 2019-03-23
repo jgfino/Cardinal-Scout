@@ -20,18 +20,15 @@ namespace Team811Scout
         Button bNewEvent;
         Button bContinue;
         Button bInstruct;
-        ImageView teamPhoto;
-
-        //get databse instance
-        EventDatabase eData = new EventDatabase();        
+        ImageView teamPhoto;        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             //uncomment this to reset database on launch
             //DeleteDatabase(SQLite_android.getDatabasePath());
-
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);

@@ -119,8 +119,8 @@ namespace Team811Scout
                 preOrder.Add(placeholder);
 
                 //move to the next team in the string
-                substringStart += dataLength + matchCommas[1] + 1;
-                matchData = matchData.Substring(substringStart);
+                substringStart += dataLength + matchCommas[1]+1;
+                matchData = rawData.Substring(substringStart);
             }
 
             //convert to an array to sort by team number

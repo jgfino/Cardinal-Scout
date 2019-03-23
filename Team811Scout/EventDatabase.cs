@@ -277,8 +277,29 @@ namespace Team811Scout
 
         }
 
-    //get a list of ids for current compiled scout data entries (for use with indexing in ListView, etc)
-    public List<int> CompiledIDList()
+        public List<CompiledScoutData> GetCompiledScoutDataForIndex(int index)
+        {
+           CompiledScoutData placeholder = new CompiledScoutData();
+           List<CompiledScoutData> result = new List<CompiledScoutData>();
+           foreach(CompiledScoutData c in _connection.Table<CompiledScoutData>())
+            {
+                if(c.isActive)
+                {
+                    placeholder = c;
+                }
+            }
+
+            foreach (CompiledScoutData c in placeholder.compileData()[index])
+            {
+                result.Add(c);
+            }
+
+            result.Reverse();
+            return result;
+        }
+
+        //get a list of ids for current compiled scout data entries (for use with indexing in ListView, etc)
+        public List<int> CompiledIDList()
     {
         List<int> ids = new List<int>();
         foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())

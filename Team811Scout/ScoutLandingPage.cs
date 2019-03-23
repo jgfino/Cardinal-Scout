@@ -24,7 +24,7 @@ namespace Team811Scout
         Event currentEvent;
 
         //get database instance
-        EventDatabase eData;
+        EventDatabase eData = new EventDatabase();
         
         protected override void OnCreate(Bundle savedInstanceState)
         {

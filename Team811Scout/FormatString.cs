@@ -1,4 +1,5 @@
-﻿using Android.Text;
+﻿using Android.Graphics;
+using Android.Text;
 using Android.Text.Style;
 
 namespace Team811Scout
@@ -14,18 +15,18 @@ namespace Team811Scout
             return result;
         }
 
-        public static SpannableString setColor(string input, int r, int g, int b)
+        public static SpannableString setColor(string input, Color color)
         {
             SpannableString result = new SpannableString(input);
-            result.SetSpan(new ForegroundColorSpan(Android.Graphics.Color.Rgb(r,g,b)), 0, input.Length, 0);
+            result.SetSpan(new ForegroundColorSpan(color), 0, input.Length, 0);
             return result;
         }
 
-        public static SpannableString setColorBold(string input, int r, int g, int b)
+        public static SpannableString setColorBold(string input, Color color)
         {
             SpannableString result = new SpannableString(input);
-            result.SetSpan(new ForegroundColorSpan(Android.Graphics.Color.Rgb(r, g, b)), 0, input.Length, 0);
-            result.SetSpan(new StyleSpan(Android.Graphics.TypefaceStyle.Bold), 0, input.Length, 0);
+            result.SetSpan(new ForegroundColorSpan(color), 0, input.Length, 0);
+            result.SetSpan(new StyleSpan(TypefaceStyle.Bold), 0, input.Length, 0);
             return result;
         }
 

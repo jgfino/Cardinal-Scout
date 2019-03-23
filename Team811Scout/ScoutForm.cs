@@ -35,11 +35,11 @@ namespace Team811Scout
         MultiAutoCompleteTextView comments;
         Button bFinish;
 
-        int sandstormMode;        
-        int sandLevel;
+        int sandstormMode = 2;        
+        int sandLevel = 1;
         int climb = 0;    
-        bool goodDrivers;      
-        int wouldRecommend;       
+        bool goodDrivers = false;      
+        int wouldRecommend = 1;       
         int result;       
 
         //placeholder for new ScoutData and current event
