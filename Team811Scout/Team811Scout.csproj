@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="CompiledScoutData.cs" />
     <Compile Include="CompiledTeamIndex.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="CreateEvent.cs" />
     <Compile Include="Data\SQLite_android.cs" />
     <Compile Include="EditEvents.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="EventDatabase.cs" />
     <Compile Include="EventID.cs" />
     <Compile Include="FormatString.cs" />
+    <Compile Include="Popup.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ISQLite.cs" />
     <Compile Include="MainActivity.cs" />
@@ -183,7 +185,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\scoutLandingPage.axml">
+    <AndroidResource Include="Resources\layout\scout_landing_page.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

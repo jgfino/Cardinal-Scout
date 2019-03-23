@@ -1,40 +1,32 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
-using Android.Runtime;
 using Android.Widget;
 using System;
 
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-
-//using Xamarin.Forms;
-
-
 namespace Team811Scout
 {
+    /*This is the home page for the app. It shows up first when the app is launched and contains buttons
+     * to go to other areas in the app*/
 
     [Activity(Label = "Team 811 Scouting", Theme = "@style/AppTheme", MainLauncher = true)]
 
     public class MainActivity : AppCompatActivity
     {
-        //declare buttons globally
-        Android.Widget.Button bViewPrev;
-        Android.Widget.Button bSync;
-        Android.Widget.Button bNewEvent;
-        Android.Widget.Button bContinue;
+        //declare objects to refer to controls
+        Button bViewPrev;
+        Button bSync;
+        Button bNewEvent;
+        Button bContinue;
         Button bInstruct;
         ImageView teamPhoto;
 
-        EventDatabase eData;
-        
-        
+        //get databse instance
+        EventDatabase eData = new EventDatabase();        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             //uncomment this to reset database on launch
             //var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "scoutdb.db3");
             //this.DeleteDatabase(path);
@@ -43,39 +35,37 @@ namespace Team811Scout
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            //get buttons from XAML file
-            bViewPrev = FindViewById<Android.Widget.Button>(Resource.Id.bViewPrev);
+            //get controls and assign event handlers
+            bViewPrev = FindViewById<Button>(Resource.Id.bViewPrev);
             bViewPrev.Click += ButtonClicked;
-            bSync = FindViewById<Android.Widget.Button>(Resource.Id.bSync);
+            bSync = FindViewById<Button>(Resource.Id.bSync);
             bSync.Click += ButtonClicked;
-            bNewEvent = FindViewById<Android.Widget.Button>(Resource.Id.bNewEvent);
+            bNewEvent = FindViewById<Button>(Resource.Id.bNewEvent);
             bNewEvent.Click += ButtonClicked;
-            bContinue = FindViewById<Android.Widget.Button>(Resource.Id.bContinue);
+            bContinue = FindViewById<Button>(Resource.Id.bContinue);
             bContinue.Click += ButtonClicked;
             bInstruct = FindViewById<Button>(Resource.Id.bInstruct);
             bInstruct.Click += ButtonClicked;
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
             teamPhoto = FindViewById<ImageView>(Resource.Id.teamPhoto);
             teamPhoto.SetImageResource(Resource.Drawable.DSC_0947);
-            eData = new EventDatabase();
 
         }
 
-
+        //handle button clicks
         private void ButtonClicked(object sender, EventArgs e)
         {          
-
-            if ((sender as Android.Widget.Button) == bViewPrev)
+            //decide which button was pressed and start appropriate activity
+            if ((sender as Button) == bViewPrev)
             {
                 StartActivity(typeof(SelectEventView));
                 
             }
-            else if ((sender as Android.Widget.Button) == bSync)
+            else if ((sender as Button) == bSync)
             {
                 StartActivity(typeof(MasterSlaveSelect));
             }
-            else if ((sender as Android.Widget.Button) == bNewEvent)
+            else if ((sender as Button) == bNewEvent)
             {
                 StartActivity(typeof(CreateEvent));
             }
@@ -84,7 +74,7 @@ namespace Team811Scout
                 StartActivity(typeof(Settings));
 
             }
-            else if ((sender as Android.Widget.Button) == bContinue)
+            else if ((sender as Button) == bContinue)
             {
                 StartActivity(typeof(SelectEvent));               
             }          

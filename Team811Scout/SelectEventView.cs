@@ -30,7 +30,7 @@ namespace Team811Scout
             bSelect = FindViewById<Button>(Resource.Id.bSelectView);
             bSelect.Click += ButtonClicked;
 
-            eventNames = eData.GetCompiledList();
+            eventNames = eData.GetCompiledDisplayList();
 
             var eventAdapter = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
             eventList.Adapter = eventAdapter;

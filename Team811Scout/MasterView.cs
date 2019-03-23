@@ -11,11 +11,13 @@ using static Android.Widget.AdapterView;
 
 namespace Team811Scout
 {
+    /*This activity assigns the current device as "master" and collects data from the other 5 devices by scanning their generated QR codes
+     * After gathering the data, it creates a new instance of the CompiledScoutData class which contains the raw text from the QR codes*/
+
     [Activity(Label = "MasterView")]
     public class MasterView: Activity
     {
-
-
+        //declare objects for controls
         Spinner receiveDataSpinner;
         Button b1p1;
         Button b1p2;
@@ -27,26 +29,17 @@ namespace Team811Scout
         Button b4p2;
         Button b5p1;
         Button b5p2;
-        EventDatabase eData;
-        List<SpannableString> eventNames;
-
         Button bCompile;
 
-
-     
-
-
+        //get database instance
+        EventDatabase eData = new EventDatabase();        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            eData = new EventDatabase();
-            eventNames = new List<SpannableString>();
-
-
-
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.master_view);
 
+            //get controls and assign event handlers
             b1p1 = FindViewById<Button>(Resource.Id.b1p1);
             b1p1.Click += ButtonClicked;
 
@@ -81,86 +74,82 @@ namespace Team811Scout
             bCompile.Click += compileData;
 
             receiveDataSpinner = FindViewById<Spinner>(Resource.Id.receiveDataChooser);
-
-            eventNames = eData.GetEventDisplayList();
-
-            ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
-            receiveDataSpinner.Adapter = selectAdapt;
-
             receiveDataSpinner.ItemSelected += SpinnerClick;
 
+            //create an adapter for the DropDown picker with event names to choose from
+            ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetEventDisplayList(););
+            receiveDataSpinner.Adapter = selectAdapt;
+            
+            //initialize QR scanner class
             MobileBarcodeScanner.Initialize(Application);
         }
 
+        //placeholder button
         Button clickedButton;
         async void ButtonClicked(object sender, EventArgs e)
         {
+            //remember which button was pressed
             clickedButton = sender as Button;
             var scanner = new MobileBarcodeScanner();
             var opt = new MobileBarcodeScanningOptions();
+            
+            //make sure the scanner only looks for QR codes
             opt.PossibleFormats = new List<BarcodeFormat> { BarcodeFormat.QR_CODE };
 
-            scanner.TopText = "Hold the camera up to the barcode\nAbout 6 inches away";
-            scanner.BottomText = "Wait for the barcode to automatically scan!";
+            scanner.TopText = "Hold the camera up to the QR Code";
+            scanner.BottomText = "Wait for the QR Code to automatically scan!";
 
             //This will start scanning
             ZXing.Result result = await scanner.Scan();
 
             //Show the result returned.
             HandleResult(result);
-
         }
 
+        //create a string to store collected values
         string concatedQR = null;
         void HandleResult(ZXing.Result result)
         {
+            //default message
             var msg = "Failed, Please try again";
 
-
+            //make sure the scanner detected a valid QR code
             if (result != null && result.BarcodeFormat == BarcodeFormat.QR_CODE)
             {
                 clickedButton.Text = "Success";
                 clickedButton.SetBackgroundColor(Color.Rgb(121, 234, 144));
+                //add result to the combined result string
                 concatedQR += result.Text;
                 msg = result.Text;
 
             }
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            AlertDialog missingDetails = dialog.Create();
-            missingDetails.SetTitle("Alert");
-            missingDetails.SetMessage(msg);
-            missingDetails.SetButton("OK", (c, ev) =>
-            {
-
-            });
-            missingDetails.Show();
+            Popup.Single("Alert", msg, "OK", this);
 
         }
-
-        Event currentEvent;
+       
+        //create a new CompiledScoutData
         void compileData(object sender, EventArgs e)
         {
-
             try
-
             {
                 bool isDuplicate = false;
 
+                //get a list of already existing CompiledScoutData items
                 IEnumerable<CompiledScoutData> currentData = eData.GetCompiledScoutData();
 
                 foreach (CompiledScoutData q in currentData)
                 {
-                    if (q.cID == currentEvent.eventID)
+                    if (q.cID == selectedEvent.eventID)
                     {
                         isDuplicate = true;
                         break;
                     }
                 }
 
-                ScoutData[] scoutListArray = eData.GetDataForEvent(currentEvent.eventID).ToArray();
-
-                for (int i = 0; i < scoutListArray.Length; i++)
+                //add data from the master device
+                List<ScoutData> scoutListArray = eData.GetScoutDataForEvent(selectedEvent.eventID);
+                for (int i = 0; i < scoutListArray.Count; i++)
                 {
                     concatedQR += scoutListArray[i].teamNumber.ToString() + "," +
                       scoutListArray[i].matchNumber.ToString() + "," +
@@ -183,57 +172,40 @@ namespace Team811Scout
                       scoutListArray[i].wouldRecommend.ToString();
                 }
 
+                //make sure there is some data
                 if (concatedQR != null)
                 {
+                    //make sure it isnt a duplicate
                     if (!isDuplicate)
-                    {
-                       
-                        CompiledScoutData newCompilation = new CompiledScoutData(currentEvent.eventName, currentEvent.startDate, currentEvent.endDate, concatedQR, false, currentEvent.eventID);
+                    {     
+                        //create a new compiled scout data and add it to the database
+                        CompiledScoutData newCompilation = new CompiledScoutData(selectedEvent.eventName, selectedEvent.startDate, selectedEvent.endDate, concatedQR, false, selectedEvent.eventID);
                         eData.AddCompiledScoutData(newCompilation);
 
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                        AlertDialog missingDetails = dialog.Create();
-                        missingDetails.SetTitle("Alert");
-                        missingDetails.SetMessage("Successfully generated data for event '" + currentEvent.eventName+"'.");
-                        ;
-                        missingDetails.SetButton("OK", (c, ev) =>
-                        {
-                            Finish();                            
-                        });
-                        missingDetails.Show();
+                        Popup.Single("Alert", "Successfully generated data for event '" + selectedEvent.eventName + "'.", "OK", this);                        
 
                     }
+                    //if it is a duplicate
                     else
                     {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                        AlertDialog missingDetails = dialog.Create();
-                        missingDetails.SetTitle("Alert");
-                        missingDetails.SetMessage("Data for this event has already been generated on this device. Please delete it in 'View Data' from the home screen first if you want to generate new data");
-                        ;
-                        missingDetails.SetButton("OK", (c, ev) =>
-                        {
-
-                        });
-                        missingDetails.Show();
+                        Popup.Single("Alert", "Data for this event has already been generated on this device. " +
+                            "Please delete it in 'View Data' from the home screen first if you want to generate new data", "OK", this);
+                        
+                        //reset, clear QR data, etc
                         this.Recreate();
                     }
                 }
+                //if the QR data is completely blank
                 else
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                    AlertDialog missingDetails = dialog.Create();
-                    missingDetails.SetTitle("Alert");
-                    missingDetails.SetMessage("No data collected, please start over");
-                    ;
-                    missingDetails.SetButton("OK", (c, ev) =>
-                    {
-
-                    });
-                    missingDetails.Show();
+                    Popup.Single("Alert", "No data collected, please start over", "OK", this);
+                    //reset
                     this.Recreate();
 
                 }
             }
+
+            //if this happens I'll be impressed
             catch
             {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -251,11 +223,13 @@ namespace Team811Scout
 
         }
 
+        //determine which event was selected and put it in the current event placeholder
         int spinnerIndex;
+        Event selectedEvent;
         private void SpinnerClick(object sender, ItemSelectedEventArgs e)
         {
             spinnerIndex = e.Position;
-            currentEvent = eData.GetEvent(eData.EventIDList()[spinnerIndex]);
+            selectedEvent = eData.GetEvent(eData.EventIDList()[spinnerIndex]);
         }
 
 

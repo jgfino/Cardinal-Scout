@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 //this creates a new connection to the database
 //the file for the database is stored on the device at the path name given
+//uses a dependency service for android
 
 [assembly: Dependency(typeof(Team811Scout.Data.SQLite_android))]
 namespace Team811Scout.Data

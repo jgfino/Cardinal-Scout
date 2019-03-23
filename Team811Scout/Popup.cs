@@ -1,0 +1,41 @@
+﻿using System;
+
+using Android.App;
+using Android.Content;
+
+namespace Team811Scout
+{ 
+    /*this is a custom class to make using AlertDialogs easier*/
+
+    public static class Popup
+    {
+        public static void Single(string title, string message, string button, Context context)
+        {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            AlertDialog popup = dialog.Create();
+            popup.SetTitle(title);
+            popup.SetMessage(message);
+            popup.SetButton(button, (c, ev) =>
+            {
+
+            });
+            popup.Show();
+        }
+
+        public static void Double(string title, string message, string button1, string button2, Context context, Action ifNo)
+        {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            AlertDialog popup = dialog.Create();
+            popup.SetTitle(title);
+            popup.SetMessage(message);
+
+            popup.SetButton(button1, (c, ev) =>
+            {
+                ifNo();
+            });
+
+            popup.SetButton2(button2, (c, ev) => { });
+            popup.Show();
+        }
+    }
+}

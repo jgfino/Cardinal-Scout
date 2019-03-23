@@ -4,12 +4,10 @@ namespace Team811Scout
 {
     public class Event
     {
+        /*This class stores an event and its properties: name, start date, end date, and id*/
         
-        
-
         public Event()
         {
-
         }
 
         public Event(string start, string end, string name, int id, bool isCurrent)
@@ -40,6 +38,7 @@ namespace Team811Scout
             get; set;
         }
 
+        //events are identified by their Event ID in the SQL Database; set this as the Primary Key
         [PrimaryKey]
         public int eventID { get; set; }
     }

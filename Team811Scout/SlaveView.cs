@@ -76,7 +76,7 @@ namespace Team811Scout
 
                 try
                 {
-                    scoutListArray = eData.GetDataForEvent(selectedEvent.eventID).ToArray();
+                    scoutListArray = eData.GetScoutDataForEvent(selectedEvent.eventID).ToArray();
                     scoutArray1 = new ScoutData[40];
                     scoutArray2 = new ScoutData[40];
 

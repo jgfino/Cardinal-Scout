@@ -33,7 +33,7 @@ namespace Team811Scout
 
             textRecent = FindViewById<TextView>(Resource.Id.textEvent);
 
-            currentCompiled = eData.CurrentCompiled();
+            currentCompiled = eData.GetCurrentCompiled();
             compiled = currentCompiled.compileData();
 
            //eData.DeleteCompiledScoutData(currentCompiled.cID);
@@ -63,6 +63,7 @@ namespace Team811Scout
 
             };
 
+           
             List<int> teamNumbers = currentCompiled.getTeamNumbersArray(compiled);
             List<int> recPerc = currentCompiled.getRecPercentArray(compiled);
             List<string> record = currentCompiled.getWinRecordArray(compiled);
@@ -87,7 +88,7 @@ namespace Team811Scout
 
                 display.Add(new FormatString(teamNumbers[i].ToString()).getBold());
 
-                if (recPerc[i] > 74)
+                if (recPerc[i] > Constants.recommendThresh)
                 {
                     display.Add(new FormatString(recPerc[i].ToString() + "%").setColorBold(0, 137, 9));
                 }

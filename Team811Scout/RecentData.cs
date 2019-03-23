@@ -3,53 +3,55 @@ using Android.OS;
 using Android.Text;
 using Android.Widget;
 using System;
+using System.Collections.Generic;
 
 namespace Team811Scout
 {
+    /*This class displays the data for a scouted match in a list*/
+
     [Activity(Label = "RecentData", Theme = "@style/AppTheme", MainLauncher = false)]
     public class RecentData: Activity
     {
-
-
+        //get database instance
+        EventDatabase eData = new EventDatabase();
         ScoutData currentMatch;
-        EventDatabase eData;
-        TextView textRecent;
-        string[] data;
-        string[] properties;
+        
+        //declare objects for controls
+        TextView textRecent;        
         Button bDeleteMatch;
-
-        FormatString[] propertiesFormat;
-        SpannableString[] display;
-
-        GridView gridRecent;
-
+        GridView gridRecent;        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.recent_data);
-            eData = new EventDatabase();
-
+            
+            //get controls from layout and assign event handlers
             bDeleteMatch = FindViewById<Button>(Resource.Id.bDeleteMatch);
             bDeleteMatch.Click += ButtonClicked;
-
             gridRecent = FindViewById<GridView>(Resource.Id.gridRecent);
-
             textRecent = FindViewById<TextView>(Resource.Id.textRecent);
 
-            currentMatch = eData.CurrentMatch();
+            //get the current match to display data for
+            currentMatch = eData.GetCurrentMatch();
 
             SpannableString[] textDisp = new SpannableString[]
             {
-                new FormatString("Viewing Data For - Match: ").getNormal(),
-                new FormatString(currentMatch.matchNumber.ToString()).getBold(),
-                new FormatString(" /// Team: ").getNormal(),
-                new FormatString(currentMatch.teamNumber.ToString()).getBold()
+                FormatString.setNormal("Viewing Data For - Match: "),
+                FormatString.setBold(currentMatch.matchNumber.ToString()),
+                FormatString.setNormal(" /// Team: "),
+                FormatString.setBold(currentMatch.teamNumber.ToString())
             };
 
+            //set title text
             textRecent.TextFormatted = new SpannableString(TextUtils.ConcatFormatted(textDisp));
 
-            properties = new string[]
+            //make display lists
+            List<SpannableString> data = new List<SpannableString>();
+            List<SpannableString> properties = new List<SpannableString>();
+            List<SpannableString> display = new List<SpannableString>();
+
+            string[]propertiesPre = new string[]
             {
                 "Match Number",
                "Team Number",
@@ -73,7 +75,13 @@ namespace Team811Scout
                 "Additional Comments",
             };
 
-            data = new string[]
+            //format the properties
+            for(int i = 0; i<propertiesPre.Length;i++)
+            {
+                properties.Add(FormatString.setBold(propertiesPre[i]));
+            }
+
+            string[] dataPre = new string[]
             {
                currentMatch.matchNumber.ToString(),
                currentMatch.teamNumber.ToString(),
@@ -97,25 +105,20 @@ namespace Team811Scout
                currentMatch.additionalComments,
             };
 
-            propertiesFormat = new FormatString[properties.Length];
-
-
-            for (int i = 0; i < propertiesFormat.Length; i++)
+            //format the data
+            for (int i = 0; i<dataPre.Length;i++)
             {
-                propertiesFormat[i] = new FormatString(properties[i]);
-
+                data.Add(FormatString.setNormal(dataPre[i]));
+            }
+            
+            //combine properties and data
+            for (int i = 0; i < properties.Count; i += 2)
+            {
+                display.Add(properties[i]);
+                display.Add(data[i]);
             }
 
-            display = new SpannableString[propertiesFormat.Length + data.Length];
-
-            int j = 0;
-            for (int i = 0; i < display.Length; i += 2)
-            {
-                display[i] = propertiesFormat[j].getBold();
-                display[i + 1] = new SpannableString(data[j]);
-                j++;
-            }
-
+            //adapt the lists to be displayed in the grid
             ArrayAdapter gridAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, display);
             gridRecent.Adapter = gridAdapt;
 
@@ -123,24 +126,17 @@ namespace Team811Scout
 
         private void ButtonClicked(object sender, EventArgs e)
         {
+            //decide which button was pressed
             if ((sender as Button) == bDeleteMatch)
             {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                AlertDialog confirmDelete = dialog.Create();
-                confirmDelete.SetTitle("Alert");
-                confirmDelete.SetMessage("Are you sure you want to delete match " + currentMatch.matchNumber);
-
-                confirmDelete.SetButton("Yes", (c, ev) =>
+                Popup.Double("Alert", "Are you sure you want to delete match " + currentMatch.matchNumber + "?", "Yes", "CANCEL", this, Delete);
+                
+                void Delete()
                 {
-
                     eData.DeleteScoutData(currentMatch.ID);
                     StartActivity(typeof(ScoutLandingPage));
                     Finish();
-
-
-                });
-                confirmDelete.SetButton2("CANCEL", (c, ev) => { });
-                confirmDelete.Show();
+                }
             }
 
 

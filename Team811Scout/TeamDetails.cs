@@ -47,7 +47,7 @@ namespace Team811Scout
 
 
 
-            currentCompiled = eData.CurrentCompiled();
+            currentCompiled = eData.GetCurrentCompiled();
 
 
             List<CompiledScoutData> compiled = new List<CompiledScoutData>();

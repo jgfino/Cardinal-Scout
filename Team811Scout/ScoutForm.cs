@@ -106,7 +106,7 @@ namespace Team811Scout
             bFinish.Click += ButtonClicked;
 
             //get current event
-            currentEvent = eData.CurrentEvent();
+            currentEvent = eData.GetCurrentEvent();
             textTitle.Text += currentEvent.eventName+"'";
 
         }

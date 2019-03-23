@@ -9464,7 +9464,7 @@ namespace Team811Scout
 			public const int scout_form = 2130968648;
 			
 			// aapt resource value: 0x7f040049
-			public const int scoutLandingPage = 2130968649;
+			public const int scout_landing_page = 2130968649;
 			
 			// aapt resource value: 0x7f04004a
 			public const int select_dialog_item_material = 2130968650;

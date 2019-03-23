@@ -5,15 +5,19 @@ using System.Linq;
 using Xamarin.Forms;
 namespace Team811Scout
 {
+
+    /*This class contains the SQLite database used by the app to store data. Each type of data has its own
+     * "table" in the databse. In each table, each instance of a type has its properties stored in "columns"
+     * Each type of data has a "PrimaryKey" which is how it can be put in/taken out of the database*/
+
     public class EventDatabase
     {
-        private SQLiteConnection _connection;
-
+        //get a connection
+        private SQLiteConnection _connection = DependencyService.Get<ISQLite>().GetConnection();
 
         public EventDatabase()
         {
-
-            _connection = DependencyService.Get<ISQLite>().GetConnection();
+            //create tables for types of data that will be in the database
             _connection.CreateTable<ScoutData>();
             _connection.CreateTable<Event>();
             _connection.CreateTable<CompiledScoutData>();
@@ -21,8 +25,7 @@ namespace Team811Scout
 
         }
 
-
-        //Event database
+        //Database for Events
         public Event GetEvent(int id)
         {
             return _connection.Table<Event>().FirstOrDefault(t => t.eventID == id);
@@ -35,11 +38,8 @@ namespace Team811Scout
         {
             _connection.Insert(putEvent);
         }
-        public IEnumerable<Event> GetEvents()
-        {
-            return (from t in _connection.Table<Event>()
-                    select t).ToList();
-        }
+        
+        //get a formatted list of events and properties that can be put in a ListView/DropDown
         public List<SpannableString> GetEventDisplayList()
         {
             SpannableString[] result;
@@ -50,26 +50,21 @@ namespace Team811Scout
 
                 result = new SpannableString[]
                 {
-                    new FormatString("'"+e.eventName+"'").getBold(),
-                    new FormatString(" | ").getBold(),
-                    new FormatString("("+e.startDate+" - "+e.endDate+")").getNormal(),                    
-                    new FormatString(" | ").getBold(),
-                    new FormatString("ID: " + e.eventID).getBold(),
+                    FormatString.setBold("'"+e.eventName+"'"),
+                    FormatString.setBold(" | "),
+                    FormatString.setNormal("("+e.startDate+" - "+e.endDate+")"),                    
+                    FormatString.setBold(" | "),
+                    FormatString.setBold("ID: " + e.eventID),
                 };
 
                 final.Add(new SpannableString(TextUtils.ConcatFormatted(result)));
-
             }
 
+            //reverse so that newest event is first
             final.Reverse();
             return final;
         }
-        public int eventCount()
-        {
-            return (from t in _connection.Table<Event>()
-                    select t).ToList().Count;
-        }
-        public Event CurrentEvent()
+        public Event GetCurrentEvent()
         {
             foreach (Event e in _connection.Table<Event>())
             {
@@ -85,7 +80,7 @@ namespace Team811Scout
             foreach (Event e in _connection.Table<Event>())
             {
                 Event placeholder = e;
-
+                //set all other events to not current
                 placeholder.isCurrentEvent = false;
                 _connection.Delete<Event>(e.eventID);
                 _connection.Insert(placeholder);
@@ -98,6 +93,7 @@ namespace Team811Scout
                 }
             }
         }
+        //get a list of event ids in order (used for relating to indices in ListView/DropDowns
         public List<int> EventIDList()
         {
             List<int> ids = new List<int>();
@@ -110,6 +106,7 @@ namespace Team811Scout
         }
         public void ChangeEventID(int oldid, int newid)
         {
+            //change id for event
             foreach (Event e in _connection.Table<Event>())
             {
                 Event placeholder = e;
@@ -120,6 +117,7 @@ namespace Team811Scout
                     _connection.Delete<Event>(oldid);
                 }
             }
+            //change id for matches associated with the event
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
                 ScoutData placeholder = s;
@@ -127,18 +125,17 @@ namespace Team811Scout
                 
                 if (s.eventID==oldid)
                 {
+                    //ScoutData IDs are strings (eventID,matchNumber)
                     placeholder.ID = newid.ToString() + "," + s.ID.Substring(s.ID.IndexOf(",") + 1);
                     placeholder.eventID = newid;
                     _connection.Insert(placeholder);
                     _connection.Delete<ScoutData>(id);
-                }            
-                
+                }               
                 
             }
         }
 
-
-        //ScoutData Database
+        //Database for ScoutData
         public ScoutData GetScoutData(string id)
         {
             return _connection.Table<ScoutData>().FirstOrDefault(t => t.ID == id);
@@ -150,18 +147,8 @@ namespace Team811Scout
         public void AddScoutData(ScoutData putScoutData)
         {
             _connection.Insert(putScoutData);
-        }
-        public IEnumerable<ScoutData> GetScoutData()
-        {
-            return (from t in _connection.Table<ScoutData>()
-                    select t).ToList();
-        }
-        public int ScoutDataCount()
-        {
-            return (from t in _connection.Table<ScoutData>()
-                    select t).ToList().Count;
-        }
-        public ScoutData CurrentMatch()
+        }        
+        public ScoutData GetCurrentMatch()
         {
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
@@ -177,7 +164,7 @@ namespace Team811Scout
             foreach (ScoutData s in _connection.Table<ScoutData>())
             {
                 ScoutData placeholder = s;
-
+                //set all to false first
                 placeholder.isCurrentMatch = false;
                 _connection.Delete<ScoutData>(s.ID);
                 _connection.Insert(placeholder);
@@ -190,24 +177,24 @@ namespace Team811Scout
                 }
             }
         }
-        public void DeleteDataForEvent(int eid)
+        //delete matches associated with an event
+        public void DeleteScoutDataForEvent(int eid)
         {
             List<ScoutData> result = new List<ScoutData>();
             foreach (ScoutData s in _connection.Table<ScoutData>())
-            {
-                
+            {                
                 if (eid == s.eventID)
                 {
                     _connection.Delete<ScoutData>(s.ID);
                 }
             }
         }
-        public List<ScoutData> GetDataForEvent(int eid)
+        //get matches associated with an event
+        public List<ScoutData> GetScoutDataForEvent(int eid)
         {
             List<ScoutData> result = new List<ScoutData>();
             foreach (ScoutData s in _connection.Table<ScoutData>())
-            {
-                
+            {                
                 if (s.eventID == eid)
                 {
                     result.Add(s);
@@ -216,6 +203,7 @@ namespace Team811Scout
             result.Reverse();
             return result;
         }
+        //get formatted list of matches for use in ListView, etc
         public List<SpannableString> GetMatchDisplayList(int eid)
         {
             List<SpannableString> result = new List<SpannableString>();
@@ -227,22 +215,22 @@ namespace Team811Scout
                 {
                     disp = new SpannableString[]
                     {
-                        new FormatString("Match ").getNormal(),
-                        new FormatString(s.matchNumber.ToString()).getBold(),
-                        new FormatString(" (Team: ").getNormal(),
-                        new FormatString(s.teamNumber.ToString()).getBold(),
-                        new FormatString(")").getNormal()
+                        FormatString.setNormal("Match "),
+                        FormatString.setBold(s.matchNumber.ToString()),
+                        FormatString.setNormal(" (Team: "),
+                        FormatString.setBold(s.teamNumber.ToString()),
+                        FormatString.setNormal(")"),
                     };
 
                     result.Add(new SpannableString(TextUtils.ConcatFormatted(disp)));
                 }
             }
+            //put newest match first
             result.Reverse();
             return result;
         }
 
-
-        //Compiled data
+        //Database for Compiled Scout Data
         public CompiledScoutData GetCompiledScoutData(int id)
         {
             return _connection.Table<CompiledScoutData>().FirstOrDefault(t => t.cID == id);
@@ -255,17 +243,13 @@ namespace Team811Scout
         {
             _connection.Insert(putScoutData);
         }
+        //get a list of all current compiled scout data
         public IEnumerable<CompiledScoutData> GetCompiledScoutData()
         {
             return (from t in _connection.Table<CompiledScoutData>()
                     select t).ToList();
         }
-        public int CompiledScoutDataCount()
-        {
-            return (from t in _connection.Table<CompiledScoutData>()
-                    select t).ToList().Count;
-        }
-        public List<SpannableString> GetCompiledList()
+        public List<SpannableString> GetCompiledDisplayList()
         {
             SpannableString[] result;
             List<SpannableString> final = new List<SpannableString>();
@@ -275,23 +259,25 @@ namespace Team811Scout
 
                 result = new SpannableString[]
                 {
-                    new FormatString("'"+e.officialName+"'").getBold(),
-                    new FormatString(" | ").getBold(),                   
-                    new FormatString("Date Modified: " + e.dateMod + " at ").getNormal(),
-                    new FormatString(e.timeMod).getBold(),
-                    new FormatString(" | ").getBold(),
-                    new FormatString("ID: " + e.cID).getBold(),
+                    FormatString.setBold("'"+e.officialName+"'"),
+                    FormatString.setBold(" | "),                   
+                    FormatString.setNormal("Date Modified: " + e.dateMod + " at "),
+                    FormatString.setBold(e.timeMod),
+                    FormatString.setBold(" | "),
+                    FormatString.setBold("ID: " + e.cID),
                 };
 
                 final.Add(new SpannableString(TextUtils.ConcatFormatted(result)));
 
             }
 
+            //newest first
             final.Reverse();
             return final;
 
         }
-        
+
+    //get a list of ids for current compiled scout data entries (for use with indexing in ListView, etc)
     public List<int> CompiledIDList()
     {
         List<int> ids = new List<int>();
@@ -302,7 +288,7 @@ namespace Team811Scout
         ids.Reverse();
         return ids;
     }
-    public CompiledScoutData CurrentCompiled()
+    public CompiledScoutData GetCurrentCompiled()
     {
         foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
         {
@@ -319,7 +305,7 @@ namespace Team811Scout
         foreach (CompiledScoutData e in _connection.Table<CompiledScoutData>())
         {
             CompiledScoutData placeholder = e;
-
+            //set to false first
             placeholder.isActive = false;
             _connection.Delete<CompiledScoutData>(e.cID);
             _connection.Insert(placeholder);
@@ -333,8 +319,8 @@ namespace Team811Scout
         }
     }
 
-
-    //index
+    /*Compiled Scout Data index - workaround for SQLite foreign keys; the index of the current
+    *team in a compiled scout data.*/
     public CompiledTeamIndex getTeamIndex()
     {
         foreach (CompiledTeamIndex c in _connection.Table<CompiledTeamIndex>())

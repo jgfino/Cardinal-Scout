@@ -2,73 +2,61 @@
 using Android.OS;
 using Android.Widget;
 using System;
-using System.Collections.Generic;
-using static Android.Widget.AdapterView;
 
 namespace Team811Scout
 {
+    /*this activity is used to reassign event ids to events if for whatever reason the ids dont match
+     * across the 6 devices being used for scouting*/
+
     [Activity(Label = "EventID", Theme = "@style/AppTheme", MainLauncher = false)]
     public class EventID: Activity
     {
+        //declare objects for controls
         Button bConfirm;
         EditText newID;
         TextView title;
         Event currentEvent;
-        EventDatabase eData;
-        
+
+        //get database instance
+        EventDatabase eData = new EventDatabase();       
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.event_id);
 
+            //get controls from layout and assign event handlers
             bConfirm = FindViewById<Button>(Resource.Id.bConfirmID);
             bConfirm.Click += ButtonClicked;
-
             newID = FindViewById<EditText>(Resource.Id.textID);
-
             title = FindViewById<TextView>(Resource.Id.titleID);
+            
+            //get event we will be editing
+            currentEvent = eData.GetCurrentEvent();
 
-            eData = new EventDatabase();
-
-            currentEvent = eData.CurrentEvent();
-
+            //display current event name at the top
             title.Text += "'" + currentEvent.eventName + "'";
 
         }
 
         private void ButtonClicked(object sender, EventArgs e)
         {
+            //decide which button was clicked
             if ((sender as Button) == bConfirm)
             {
                 try
                 {
+                    //change the id based on entered value
                     eData.ChangeEventID(currentEvent.eventID, int.Parse(newID.Text));
+                    Popup.Single("Alert", "Success", "OK", this);                    
+                    StartActivity(typeof(EditEvents));
+                    Finish();
 
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                    AlertDialog missingDetails = dialog.Create();
-                    missingDetails.SetTitle("Alert");
-                    missingDetails.SetMessage("Success");
-                    missingDetails.SetButton("OK", (c, ev) =>
-                    {
-                        StartActivity(typeof(EditEvents));
-                        Finish();
-                    });
-                    missingDetails.Show();                  
-
-                 
                 }
+                //if the database has a duplicate id, it will throw an exception
                 catch
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                    AlertDialog missingDetails = dialog.Create();
-                    missingDetails.SetTitle("Alert");
-                    missingDetails.SetMessage("Please Enter a New ID Not Used by an Existing Event");
-                    missingDetails.SetButton("OK", (c, ev) =>
-                    {
-
-                    });
-                    missingDetails.Show();
+                    Popup.Single("Alert", "Please enter a new ID not used by an existing event", "OK", this);
                 }
             }
            

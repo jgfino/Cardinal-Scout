@@ -8,98 +8,91 @@ using static Android.Widget.AdapterView;
 
 namespace Team811Scout
 {
+
+    /*This activity is started when "edit events" is clicked in instructions/settings.
+     * It lists events and allows the user to edit an incorrect event id or delete an event
+     * and its associated matches"*/
+
     [Activity(Label = "editevents", Theme = "@style/AppTheme", MainLauncher = false)]
     public class EditEvents: Activity
     {
+        //declare objects that will refer to controls
         ListView eventList;
-        EventDatabase eData;
-        List<SpannableString> eventNames;
         Button bDeleteEvent;
         Button bEditID;
-        int selectedIndex;
-        Event selectedEvent;
-        
         Button bRefresh;
 
+        //selected Index of the ListView
+        int selectedIndex;
+        //placeholder to refer to selected event
+        Event selectedEvent;
 
+        //get database instance
+        EventDatabase eData = new EventDatabase();
 
         protected override void OnCreate(Bundle savedInstanceState)
-        {            
+        {
 
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.edit_events);
-            Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            eData = new EventDatabase();
+
+            //get controls/assign event handlers
             eventList = FindViewById<ListView>(Resource.Id.eventList);
+            eventList.ItemClick += ListViewClick;
             bDeleteEvent = FindViewById<Button>(Resource.Id.bDeleteEvent);
             bDeleteEvent.Click += ButtonClicked;
-
             bEditID = FindViewById<Button>(Resource.Id.bEditID);
             bEditID.Click += ButtonClicked;
-
             bRefresh = FindViewById<Button>(Resource.Id.bRefreshEvents);
-            bRefresh.Click += ButtonClicked;
+            bRefresh.Click += ButtonClicked;           
 
-            eventNames = eData.GetEventDisplayList();           
-
-            var eventAdapter = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eventNames);
+            //use an ArrayAdapter to convert the string to ListView format
+            var eventAdapter = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetEventDisplayList());
             eventList.Adapter = eventAdapter;
-
-            eventList.ItemClick += ListViewClick;
 
         }
 
         private void ButtonClicked(object sender, EventArgs e)
         {
             try
-
             {
+                //decide which button was pressed
                 if ((sender as Button) == bDeleteEvent)
                 {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                    AlertDialog confirmDelete = dialog.Create();
-                    confirmDelete.SetTitle("Alert");
-                    confirmDelete.SetMessage("Are you sure you want to delete the event '" + selectedEvent.eventName + "' AND all associated matches?");
+                    Popup.Double("Alert", "Are you sure you want to delete the event '" +
+                        selectedEvent.eventName + "' AND all associated matches?", "Yes", "CANCEL", this, Delete);
 
-                    confirmDelete.SetButton("Yes", (c, ev) =>
+                    //if user presses delete
+                    void Delete()
                     {
-
                         eData.DeleteEvent(selectedEvent.eventID);
-                        eData.DeleteDataForEvent(selectedEvent.eventID);
-
+                        eData.DeleteScoutDataForEvent(selectedEvent.eventID);
+                        Popup.Single("Alert", "Event Deleted", "OK", this);
                         this.Recreate();
-
-
-                    });
-                    confirmDelete.SetButton2("CANCEL", (c, ev) => { });
-                    confirmDelete.Show();
+                    }
                 }
 
                 else if ((sender as Button) == bEditID)
                 {
-
+                    //set current event so it can be accessed by the next activity
                     eData.SetCurrentEvent(selectedEvent.eventID);
                     Finish();
                     StartActivity(typeof(EventID));
 
                 }
+
                 else if ((sender as Button) == bRefresh)
                 {
+                    //refresh
                     this.Recreate();
                 }
 
             }
+
+            //if no event is selected, selected event will be null and throw an exception
             catch
             {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                AlertDialog missingDetails = dialog.Create();
-                missingDetails.SetTitle("Alert");
-                missingDetails.SetMessage("Please select an event to edit");
-                missingDetails.SetButton("OK", (c, ev) =>
-                {
-
-                });
-                missingDetails.Show();
+                Popup.Single("Alert", "Please select an event to edit", "OK", this);
             }
 
         }
@@ -107,6 +100,8 @@ namespace Team811Scout
         private void ListViewClick(object sender, ItemClickEventArgs e)
         {
             selectedIndex = e.Position;
+
+            //get a list of current event ids and have them correspond to index of ListView
             selectedEvent = eData.GetEvent(eData.EventIDList()[selectedIndex]);
         }
 

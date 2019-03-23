@@ -2,8 +2,12 @@
 
 namespace Team811Scout
 {
+    /*This class stores data for individual scouted matches. The data comes from the user input
+     * on the scouting form*/
+
     public class ScoutData
     {
+        //the PrimaryKey for this class is a string (eventID,matchNumber)
         [PrimaryKey]
         public string ID { get; set; }
 
@@ -69,10 +73,13 @@ namespace Team811Scout
 
         }
 
+        //make sure we can easily identify which event the match belongs to
+        public int eventID { get; set; }
 
         public int matchNumber { get; set; }
-        public int eventID { get; set; }
+        
         public int teamNumber { get; set; }
+
         public int position { get; set; }
         //1-3: red 1-3; 4-6: blue 1-3
 
@@ -155,6 +162,7 @@ namespace Team811Scout
         }
         
         public bool goodDrivers { get; set; }
+
         public int wouldRecommend { get; set; }
         //0 - yes; 1 - no; 2 - maybe
         public string getRecommendation()
@@ -172,7 +180,6 @@ namespace Team811Scout
                 return "Maybe";
             }
         }
-
 
         public int result { get; set; }
         //0 - win; 1 - lose; 2 - tie

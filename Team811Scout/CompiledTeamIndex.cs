@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using SQLite;
-
+﻿using SQLite;
 namespace Team811Scout
 {
+    /*This class stores the index of the current team in a CompiledScoutData multidimensional list*/
+
     public class CompiledTeamIndex
     {
         public CompiledTeamIndex()
@@ -25,6 +15,7 @@ namespace Team811Scout
             ID = id;
         }
 
+        //set key for SQL
         [PrimaryKey]
         public int ID { get; set; }
     }
