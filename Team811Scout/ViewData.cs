@@ -25,8 +25,7 @@ namespace Team811Scout
 
         //get database instance
         EventDatabase eData = new EventDatabase();
-
-        List<List<CompiledScoutData>> compiled;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -55,6 +54,7 @@ namespace Team811Scout
             //set title display text
             textRecent.TextFormatted = TextUtils.ConcatFormatted(textDisp);
 
+            //column titles
             properties = new string[]
             {
                 "Team",
@@ -80,9 +80,7 @@ namespace Team811Scout
 
             List<SpannableString> display = new List<SpannableString>();
 
-
-            //format data in the right order for the grid
-            //make this nicer
+            //format data in the right order for the grid based on values            
             for (int i = 0; i < properties.Length; i++)
             {
                 display.Add(FormatString.setBold(properties[i]));
@@ -90,49 +88,77 @@ namespace Team811Scout
 
             for (int i = 0; i < currentCompiled.compileData().Count; i++)
             {
-
+                //add the team number
                 display.Add(FormatString.setBold(teamNumbers[i].ToString()));
 
-                if (recPerc[i] > Constants.recommendThresh)
+                //recommendation percent
+                if (recPerc[i] >= Constants.recommendThreshHigh)
                 {
                     display.Add(FormatString.setColorBold(recPerc[i].ToString() + "%", Constants.appGreen));
                 }
-                else
+                else if (recPerc[i] <= Constants.recommendThreshLow)
                 {
                     display.Add(FormatString.setColorBold(recPerc[i].ToString() + "%", Constants.appRed));
                 }
+                else
+                {
+                    display.Add(FormatString.setNormal(recPerc[i].ToString() + "%"));
+                }
 
-                if (winPerc[i] > 74)
+                //win-loss-tie record
+                if (winPerc[i] >= Constants.winThreshHigh)
                 {
                     display.Add(FormatString.setColorBold(record[i], Constants.appGreen));
+                }
+                else if (winPerc[i] <= Constants.winThreshLow)
+                {
+                    display.Add(FormatString.setColorBold(record[i], Constants.appRed));
                 }
                 else
                 {
                     display.Add(FormatString.setNormal(record[i]));
                 }
 
-                display.Add(FormatString.setNormal(cargoPerc[i].ToString() + "% / " + hatchPerc[i].ToString() + "%"));
-
-                if (climbPerc3[i] > 49)
+                //cargo/hatch percents
+                if(cargoPerc[i]>=Constants.hatch_cargoThreshHigh)
                 {
-                    SpannableString[] disp = new SpannableString[]
-                    {
-                        FormatString.setNormal(climbPerc2[i].ToString() + "% / "),
-                        FormatString.setColorBold(climbPerc3[i].ToString() + "%",Constants.appGreen)
-                    };
-
-                    display.Add(new SpannableString(TextUtils.ConcatFormatted(disp)));
+                    display.Add(FormatString.setColorBold(cargoPerc[i].ToString() + "% / " + hatchPerc[i].ToString() + "%",Constants.appGreen));
+                }
+                else if(cargoPerc[i]<=Constants.hatch_cargoThreshLow)
+                {
+                    display.Add(FormatString.setColorBold(cargoPerc[i].ToString() + "% / " + hatchPerc[i].ToString() + "%",Constants.appRed));
                 }
                 else
                 {
-                    display.Add(FormatString.setNormal(climbPerc2[i].ToString() + "% / " + climbPerc3[i].ToString() + "%"));
+                    display.Add(FormatString.setNormal(cargoPerc[i].ToString() + "% / " + hatchPerc[i].ToString() + "%"));
                 }
 
-                if (driversPerc[i] < 34)
+                //climbing percents
+                List<SpannableString> climbDisplay = new List<SpannableString>();
+                if(climbPerc2[i]>=Constants.climb2Thresh)
                 {
-                    display.Add(FormatString.setColorBold(driversPerc[i].ToString() + "%",Constants.appRed));
+                    climbDisplay.Add(FormatString.setColorBold(climbPerc2[i].ToString()+"% / ", Constants.appGreen));
                 }
-                else if (driversPerc[i] > 79)
+                else
+                {
+                    climbDisplay.Add(FormatString.setNormal(climbPerc2[i].ToString()+"% / "));
+                }
+                if (climbPerc3[i] >= Constants.climb3Thresh)
+                {
+                    climbDisplay.Add(FormatString.setColorBold(climbPerc3[i].ToString() + "%", Constants.appGreen));
+                }
+                else
+                {
+                    climbDisplay.Add(FormatString.setNormal(climbPerc3[i].ToString() + "%"));
+                }
+                display.Add(new SpannableString(TextUtils.ConcatFormatted(climbDisplay.ToArray())));
+
+                //driveteam percents
+                if (driversPerc[i] >= Constants.driversThreshHigh)
+                {
+                    display.Add(FormatString.setColorBold(driversPerc[i].ToString() + "%",Constants.appGreen));
+                }
+                else if (driversPerc[i] <= Constants.driversThreshLow)
                 {
                     display.Add(FormatString.setColorBold(driversPerc[i].ToString() + "%",Constants.appRed));
                 }
@@ -141,13 +167,14 @@ namespace Team811Scout
                     display.Add(FormatString.setNormal(driversPerc[i].ToString() + "%"));
                 }
 
-                if (tablePerc[i] > 32)
+                //table percent
+                if (tablePerc[i] >= Constants.tableTresh)
                 {
                     display.Add(FormatString.setColorBold(tablePerc[i].ToString() + "%",Constants.appRed));
                 }
                 else
                 {
-                    display.Add(FormatString.setColorBold(tablePerc[i].ToString() + "%",Constants.appRed));
+                    display.Add(FormatString.setColorBold(tablePerc[i].ToString() + "%",Constants.appGreen));
                 }
 
             }

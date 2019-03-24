@@ -2,7 +2,6 @@
 using Android.OS;
 using Android.Text;
 using Android.Widget;
-using System;
 using System.Collections.Generic;
 
 namespace Team811Scout
@@ -10,13 +9,12 @@ namespace Team811Scout
     [Activity(Label = "TeamDetails")]
     public class TeamDetails: Activity
     {
-
         //declare objects for controls
         GridView gridStats;
         GridView gridSandstorm;
         GridView gridMatches;
         TextView textTitle;
-       
+
         //placeholder for the current compiled data
         CompiledScoutData currentCompiled;
         EventDatabase eData = new EventDatabase();
@@ -33,7 +31,7 @@ namespace Team811Scout
             textTitle = FindViewById<TextView>(Resource.Id.textTeam);
 
             //get current compiled data
-            currentCompiled = eData.GetCurrentCompiled();            
+            currentCompiled = eData.GetCurrentCompiled();
 
             List<CompiledScoutData> compiled = eData.GetCompiledScoutDataForIndex(eData.getTeamIndex().ID);
             int currentTeam = compiled[0].teamNumber;
@@ -57,35 +55,67 @@ namespace Team811Scout
             int teleopPerc = currentCompiled.getTeleopPercentForTeam(currentTeam);
             int nothingPerc = currentCompiled.getNothingPercentForTeam(currentTeam);
 
+            //first two rows
             List<SpannableString> statsDisp = new List<SpannableString>()
             {
-                FormatString.setNormal("Cargo/Hatch%"),
-                FormatString.setNormal("Climb Level 2% / Level 3%"),
+                FormatString.setNormal("Cargo / Hatch"),
+                FormatString.setNormal("Climb Level 2 / Level 3"),
                 FormatString.setNormal("Reccomendation %"),
                 FormatString.setBold(cargoPerc.ToString()+"% / "+hatchPerc.ToString()+"%"),
                 FormatString.setBold(climbPerc2.ToString()+"% / "+climbPerc3.ToString()+"%"),
                 FormatString.setBold(recPerc.ToString()+"%"),
-
             };
 
-            if (cargoPerc > 49 && hatchPerc > 49)
+            //third row (decide)
+
+            //cargo or hatch bot
+            if (cargoPerc >= Constants.hatch_cargoMin && hatchPerc > Constants.hatch_cargoMin)
             {
-                if (Math.Abs(cargoPerc - hatchPerc) < 16)
-                {
-                    statsDisp.Add(FormatString.setColorBold("Both",Constants.appGreen));
-                }
-                else if (cargoPerc > hatchPerc)
-                {
-                    statsDisp.Add(FormatString.setColorBold("Cargo",Constants.appRed));
-                }
-                else
-                {
-                    statsDisp.Add(FormatString.setColorBold("Hatch",Constants.appGreen));
-                }
+                statsDisp.Add(FormatString.setColorBold("Both", Constants.appGreen));
+            }
+            else if (cargoPerc >= Constants.hatch_cargoMin)
+            {
+                statsDisp.Add(FormatString.setColorBold("Cargo", Constants.appGreen));
+            }
+            else if (hatchPerc >= Constants.hatch_cargoMin)
+            {
+                statsDisp.Add(FormatString.setColorBold("Hatch", Constants.appGreen));
             }
             else
             {
-                statsDisp.Add(FormatString.setColorBold("Neither",Constants.appRed));
+                statsDisp.Add(FormatString.setColorBold("Neither", Constants.appRed));
+            }
+
+            //what kind of climber
+            if (climbPerc2 >= Constants.climb2Min && climbPerc3 >= Constants.climb3Min)
+            {
+                statsDisp.Add(FormatString.setColorBold("Level 2/3 Climber", Constants.appGreen));
+            }
+            else if (climbPerc3 >= Constants.climb3Min)
+            {
+                statsDisp.Add(FormatString.setColorBold("Level 3 Climber", Constants.appGreen));
+            }
+            else if (climbPerc2 >= Constants.climb2Min)
+            {
+                statsDisp.Add(FormatString.setColorBold("Level 2 Climer", Constants.appGreen));
+            }
+            else
+            {
+                statsDisp.Add(FormatString.setColorBold("No reliable climber", Constants.appRed));
+            }
+
+            //recommendation
+            if (recPerc >= Constants.recommendThreshHigh)
+            {
+                statsDisp.Add(FormatString.setColorBold("Recommended", Constants.appGreen));
+            }
+            else if (recPerc <= Constants.recommendThreshLow)
+            {
+                statsDisp.Add(FormatString.setColorBold("Not Recommended", Constants.appRed));
+            }
+            else
+            {
+                statsDisp.Add(FormatString.setColorBold("Possible Recommend", Constants.appYellow));
             }
 
             //display general stats in first grid box
@@ -93,12 +123,13 @@ namespace Team811Scout
             gridStats.Adapter = gridStatsAdapt;
 
             //figure out which sandstorm mode they use the most often
+
             string primaryMode;
-            if(autoPerc>teleopPerc&&autoPerc>nothingPerc)
+            if (autoPerc > teleopPerc && autoPerc > nothingPerc)
             {
                 primaryMode = "Auto";
             }
-            else if(teleopPerc>autoPerc&&teleopPerc>nothingPerc)
+            else if (teleopPerc > autoPerc && teleopPerc > nothingPerc)
             {
                 primaryMode = "Teleop w/Camera";
             }
@@ -107,24 +138,24 @@ namespace Team811Scout
                 primaryMode = "Nothing";
             }
 
-            SpannableString cargo = FormatString.setColorBold("NO (" + cargoSandstormPerc.ToString() + ") %",Constants.appRed);
-            SpannableString hatch = FormatString.setColorBold("NO (" + hatchSandstormPerc.ToString() + ") %",Constants.appRed);
-            SpannableString hab = FormatString.setColorBold("NO (" + habPerc.ToString() + ") %",Constants.appRed);
+            SpannableString cargo = FormatString.setColorBold("NO (" + cargoSandstormPerc.ToString() + "%) ", Constants.appRed);
+            SpannableString hatch = FormatString.setColorBold("NO (" + hatchSandstormPerc.ToString() + "%) ", Constants.appRed);
+            SpannableString hab = FormatString.setColorBold("NO (" + habPerc.ToString() + "%) ", Constants.appRed);
 
-            if (cargoSandstormPerc>49)
+            if (cargoSandstormPerc >= Constants.sandstorm_Hatch_CargoThresh)
             {
-                cargo = FormatString.setColorBold("YES (" + cargoSandstormPerc.ToString() + ") %",Constants.appGreen);
+                cargo = FormatString.setColorBold("YES (" + cargoSandstormPerc.ToString() + "%) ", Constants.appGreen);
             }
-            
 
-            if(hatchSandstormPerc>49)
+
+            if (hatchSandstormPerc >= Constants.sandstorm_Hatch_CargoThresh)
             {
-                hatch = FormatString.setColorBold("YES (" + hatchSandstormPerc.ToString() + ") %",Constants.appGreen);
+                hatch = FormatString.setColorBold("YES (" + hatchSandstormPerc.ToString() + "%) ", Constants.appGreen);
             }
-            
-            if(habPerc>49)
+
+            if (habPerc >= Constants.sandstorm_Hatch_CargoThresh)
             {
-                hab = FormatString.setColorBold("YES (" + habPerc.ToString() + ") %",Constants.appGreen);
+                hab = FormatString.setColorBold("YES (" + habPerc.ToString() + "%) ", Constants.appGreen);
             }
 
 
@@ -133,17 +164,14 @@ namespace Team811Scout
                 FormatString.setNormal("Primary Sandstorm Mode: "),
                 FormatString.setBold(primaryMode),
 
-
                 FormatString.setNormal("Cargo? "),
                 cargo,
-                
 
                 FormatString.setNormal("Hatch? "),
                 hatch,
-               
 
                 FormatString.setNormal("Crossed Hab Line? "),
-                hab,                
+                hab,
 
             };
 
@@ -154,10 +182,9 @@ namespace Team811Scout
             //display a list of matches the team was in and the details from each one
             string[] properties = new string[]
             {
-
                 "Result of Team's Alliance",
                 "Position",
-               "Table",
+                "Table",
                 "Started Off Level",
                 "Sandstorm Mode",
                 "Hatch in Sandstorm",
@@ -175,139 +202,230 @@ namespace Team811Scout
             };
 
             gridMatches.NumColumns = compiled.Count + 1;
-            List<string> display = new List<string>();
+            List<SpannableString> display = new List<SpannableString>();
 
-            //rows
-            display.Add("Match Number:");
+            //rows            
             {
+                display.Add(FormatString.setBold("Match Number:"));
                 for (int i = 0; i < compiled.Count; i++)
                 {
-                    display.Add(compiled[i].matchNumber.ToString());
+                    display.Add(FormatString.setBold(compiled[i].matchNumber.ToString()));
                 }
 
                 int p = 0;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].getResult());
+                    if (compiled[j].result == 0)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].getResult(), Constants.appGreen));
+                    }
+                    else if(compiled[j].result==1)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].getResult(), Constants.appRed));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal(compiled[j].getResult()));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].getPosition());
+                    if(compiled[j].position>=3)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].getPosition(),Constants.appBlue));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].getPosition(), Constants.appRed));
+                    }
+                    
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].isTable.ToString().ToUpper());
+                    if(compiled[j].isTable)
+                    {
+                       display.Add(FormatString.setColorBold(compiled[j].isTable.ToString().ToUpper(),Constants.appRed));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColorBold(compiled[j].isTable.ToString().ToUpper(), Constants.appGreen));
+                    }
+                    
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add("Level " + compiled[j].sandstormStartLevel.ToString());
+                    if (compiled[j].sandstormStartLevel == 2)
+                    {
+                        display.Add(FormatString.setBold("Level " + compiled[j].sandstormStartLevel.ToString()));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal("Level " + compiled[j].sandstormStartLevel.ToString()));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].getSandstormMode());
+                    display.Add(FormatString.setNormal(compiled[j].getSandstormMode()));
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].sandstormHatch.ToString());
+                    if(compiled[j].sandstormHatch)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].sandstormHatch.ToString(),Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].sandstormHatch.ToString(), Constants.appRed));
+                    }
+                    
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].sandstormCargo.ToString());
+                    if (compiled[j].sandstormCargo)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].sandstormCargo.ToString(), Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].sandstormCargo.ToString(), Constants.appRed));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].sandstormLine.ToString());
+                    if (compiled[j].sandstormLine)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].sandstormLine.ToString(), Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].sandstormLine.ToString(), Constants.appRed));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].cargo.ToString());
+                    display.Add(FormatString.setNormal(compiled[j].cargo.ToString()));                    
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].cargoWell.ToString());
+                    if(compiled[j].cargoWell)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].cargoWell.ToString(),Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal(compiled[j].cargoWell.ToString()));
+                    }                    
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].cargoBarely.ToString());
+                    if (compiled[j].cargoBarely)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].cargoWell.ToString(), Constants.appRed));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal(compiled[j].cargoWell.ToString()));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].hatch.ToString());
+                    display.Add(FormatString.setNormal(compiled[j].hatch.ToString()));
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].hatchWell.ToString());
+                    if (compiled[j].hatchWell)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].hatchWell.ToString(), Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal(compiled[j].hatchWell.ToString()));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].hatchBarely.ToString());
+                    if (compiled[j].hatchBarely)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].hatchBarely.ToString(), Constants.appRed));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal(compiled[j].hatchBarely.ToString()));
+                    }
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].getClimb());
+                    if(compiled[j].climb == 3)
+                    {
+                        display.Add(FormatString.setColorBold(compiled[j].getClimb(),Constants.appGreen));
+                    }
+                    else if(compiled[j].climb==2)
+                    {
+                        display.Add(FormatString.setBold(compiled[j].getClimb()));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setNormal(compiled[j].getClimb()));
+                    }
+                    
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].goodDrivers.ToString());
+                    display.Add(FormatString.setNormal(compiled[j].goodDrivers.ToString()));
                 }
                 p++;
-                display.Add(properties[p]);
+                display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-
-                    display.Add(compiled[j].getRecommendation());
+                    if(compiled[j].wouldRecommend==0)
+                    {
+                        display.Add(FormatString.setColorBold(compiled[j].getRecommendation(),Constants.appGreen));
+                    }
+                    else if(compiled[j].wouldRecommend==1)
+                    {
+                        display.Add(FormatString.setColorBold(compiled[j].getRecommendation(), Constants.appRed));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColorBold(compiled[j].getRecommendation(), Constants.appYellow));
+                    }
+                    
                 }
             }
-            
+
             //put matches in the third grid
-            ArrayAdapter gridMatchesAdapt = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, display);
+            ArrayAdapter gridMatchesAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, display);
             gridMatches.Adapter = gridMatchesAdapt;
         }
     }
