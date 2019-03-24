@@ -119,7 +119,7 @@ namespace Team811Scout
                 preOrder.Add(placeholder);
 
                 //move to the next team in the string
-                substringStart += dataLength + matchCommas[1]+1;
+                substringStart += dataLength + matchCommas[1] + 1;
                 matchData = rawData.Substring(substringStart);
             }
 
@@ -265,6 +265,9 @@ namespace Team811Scout
         public List<int> getCargoPercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<int> recsWellPerTeam = new List<int>();
+            List<int> recsBarelyPerTeam = new List<int>();
+
             List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
@@ -274,12 +277,21 @@ namespace Team811Scout
                 for (int j = 0; j < c[i].Count; j++)
                 {
                     recs.Add(Convert.ToByte(c[i][j].cargo));
+                    recsWellPerTeam.Add(Convert.ToByte(c[i][j].cargoWell));
+                    recsBarelyPerTeam.Add(Convert.ToByte(c[i][j].cargoBarely));
                 }
 
                 double countYes = recs.Where(x => x.Equals(1)).Count();
                 double countNo = recs.Where(x => x.Equals(0)).Count();
 
-                double percent = (countYes) / (countYes + countNo) * 100;
+                double countWell = recsWellPerTeam.Where(x => x.Equals(1)).Count();
+                double countBarely = recsBarelyPerTeam.Where(x => x.Equals(1)).Count();
+
+                double percent = (countYes + countWell*Constants.well_barelyWeight) / (countYes + countNo + countBarely*Constants.well_barelyWeight) * 100;
+                if(percent>100)
+                {
+                    percent = 100;
+                }
                 recsPerTeam.Add((int)Math.Round(percent));
 
             }
@@ -290,6 +302,9 @@ namespace Team811Scout
         public List<int> getHatchPercentArray()
         {
             List<int> recsPerTeam = new List<int>();
+            List<int> recsWellPerTeam = new List<int>();
+            List<int> recsBarelyPerTeam = new List<int>();
+
             List<List<CompiledScoutData>> c = compileData();
 
             for (int i = 0; i < c.Count; i++)
@@ -299,12 +314,21 @@ namespace Team811Scout
                 for (int j = 0; j < c[i].Count; j++)
                 {
                     recs.Add(Convert.ToByte(c[i][j].hatch));
+                    recsWellPerTeam.Add(Convert.ToByte(c[i][j].hatchWell));
+                    recsBarelyPerTeam.Add(Convert.ToByte(c[i][j].hatchBarely));
                 }
 
                 double countYes = recs.Where(x => x.Equals(1)).Count();
                 double countNo = recs.Where(x => x.Equals(0)).Count();
 
-                double percent = (countYes) / (countYes + countNo) * 100;
+                double countWell = recsWellPerTeam.Where(x => x.Equals(1)).Count();
+                double countBarely = recsBarelyPerTeam.Where(x => x.Equals(1)).Count();
+
+                double percent = (countYes + countWell * Constants.well_barelyWeight) / (countYes + countNo + countBarely * Constants.well_barelyWeight) * 100;
+                if (percent > 100)
+                {
+                    percent = 100;
+                }
                 recsPerTeam.Add((int)Math.Round(percent));
 
             }
@@ -452,7 +476,7 @@ namespace Team811Scout
 
         public int getRecPercentForTeam(int team)
         {
-            List<int> recs = new List<int>();            
+            List<int> recs = new List<int>();
 
             List<CompiledScoutData> c = dataForTeam(team);
             for (int i = 0; i < c.Count; i++)

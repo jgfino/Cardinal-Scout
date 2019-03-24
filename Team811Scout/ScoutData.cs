@@ -139,7 +139,7 @@ namespace Team811Scout
         public bool sandstormLine { get; set; }
 
         public int sandstormStartLevel { get; set; }
-        //1,2,3
+        //1,2
        
         public bool cargo { get; set; }
         public bool cargoWell { get; set; }

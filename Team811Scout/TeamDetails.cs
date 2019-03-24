@@ -37,7 +37,7 @@ namespace Team811Scout
             int currentTeam = compiled[0].teamNumber;
 
             //display current team in the title
-            textTitle.TextFormatted = TextUtils.ConcatFormatted(FormatString.setNormal("Viewing Stats for Team: "), FormatString.setBold(currentTeam.ToString()));
+            textTitle.TextFormatted = TextUtils.ConcatFormatted(FormatString.setNormal("Viewing Stats for Team: '"), FormatString.setBold(currentTeam.ToString()), FormatString.setNormal("'"));
 
             int recPerc = currentCompiled.getRecPercentForTeam(currentTeam);
             string record = currentCompiled.getWinRecordForTeam(currentTeam);
@@ -56,6 +56,7 @@ namespace Team811Scout
             int nothingPerc = currentCompiled.getNothingPercentForTeam(currentTeam);
 
             //first two rows
+            
             List<SpannableString> statsDisp = new List<SpannableString>()
             {
                 FormatString.setNormal("Cargo / Hatch"),
@@ -97,7 +98,7 @@ namespace Team811Scout
             }
             else if (climbPerc2 >= Constants.climb2Min)
             {
-                statsDisp.Add(FormatString.setColorBold("Level 2 Climer", Constants.appGreen));
+                statsDisp.Add(FormatString.setColorBold("Level 2 Climber", Constants.appGreen));
             }
             else
             {
@@ -124,18 +125,18 @@ namespace Team811Scout
 
             //figure out which sandstorm mode they use the most often
 
-            string primaryMode;
+            SpannableString primaryMode;
             if (autoPerc > teleopPerc && autoPerc > nothingPerc)
             {
-                primaryMode = "Auto";
+                primaryMode = FormatString.setColorBold("Auto", Constants.appGreen);
             }
             else if (teleopPerc > autoPerc && teleopPerc > nothingPerc)
             {
-                primaryMode = "Teleop w/Camera";
+                primaryMode = FormatString.setColorBold("Teleop w/Camera", Constants.appGreen);
             }
             else
             {
-                primaryMode = "Nothing";
+                primaryMode = FormatString.setColorBold("Nothing", Constants.appRed);
             }
 
             SpannableString cargo = FormatString.setColorBold("NO (" + cargoSandstormPerc.ToString() + "%) ", Constants.appRed);
@@ -161,16 +162,16 @@ namespace Team811Scout
 
             List<SpannableString> sandstormDisp = new List<SpannableString>()
             {
-                FormatString.setNormal("Primary Sandstorm Mode: "),
-                FormatString.setBold(primaryMode),
+                FormatString.setBold("Primary Sandstorm Mode: "),
+                primaryMode,
 
-                FormatString.setNormal("Cargo? "),
+                FormatString.setBold("Cargo? "),
                 cargo,
 
-                FormatString.setNormal("Hatch? "),
+                FormatString.setBold("Hatch? "),
                 hatch,
 
-                FormatString.setNormal("Crossed Hab Line? "),
+                FormatString.setBold("Crossed Hab Line? "),
                 hab,
 
             };
@@ -226,7 +227,7 @@ namespace Team811Scout
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal(compiled[j].getResult()));
+                        display.Add(FormatString.setColor(compiled[j].getResult(),Constants.appYellow));
                     }
                 }
                 p++;
@@ -239,7 +240,7 @@ namespace Team811Scout
                     }
                     else
                     {
-                        display.Add(FormatString.setColor(compiled[j].getPosition(), Constants.appRed));
+                        display.Add(FormatString.setColor(compiled[j].getPosition(), Constants.appOrange));
                     }
                     
                 }
@@ -253,7 +254,7 @@ namespace Team811Scout
                     }
                     else
                     {
-                        display.Add(FormatString.setColorBold(compiled[j].isTable.ToString().ToUpper(), Constants.appGreen));
+                        display.Add(FormatString.setColor(compiled[j].isTable.ToString().ToUpper(), Constants.appGreen));
                     }
                     
                 }
@@ -261,20 +262,27 @@ namespace Team811Scout
                 display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-                    if (compiled[j].sandstormStartLevel == 2)
+                    if (compiled[j].sandstormStartLevel == 1)
                     {
-                        display.Add(FormatString.setBold("Level " + compiled[j].sandstormStartLevel.ToString()));
+                        display.Add(FormatString.setNormal("Level " + compiled[j].sandstormStartLevel.ToString()));
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal("Level " + compiled[j].sandstormStartLevel.ToString()));
+                        display.Add(FormatString.setColor("Level " + compiled[j].sandstormStartLevel.ToString(),Constants.appGreen));
                     }
                 }
                 p++;
                 display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-                    display.Add(FormatString.setNormal(compiled[j].getSandstormMode()));
+                    if (compiled[j].sandstormMode == 0 || compiled[j].sandstormMode==1)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].getSandstormMode(),Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].getSandstormMode(),Constants.appRed));
+                    }                    
                 }
                 p++;
                 display.Add(FormatString.setBold(properties[p]));
@@ -320,7 +328,15 @@ namespace Team811Scout
                 display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-                    display.Add(FormatString.setNormal(compiled[j].cargo.ToString()));                    
+                    if(compiled[j].cargo)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].cargo.ToString(),Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].cargo.ToString(), Constants.appRed));
+                    }
+                    
                 }
                 p++;
                 display.Add(FormatString.setBold(properties[p]));
@@ -332,7 +348,7 @@ namespace Team811Scout
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal(compiled[j].cargoWell.ToString()));
+                        display.Add(FormatString.setColor(compiled[j].cargoWell.ToString(),Constants.appRed));
                     }                    
                 }
                 p++;
@@ -341,18 +357,25 @@ namespace Team811Scout
                 {
                     if (compiled[j].cargoBarely)
                     {
-                        display.Add(FormatString.setColor(compiled[j].cargoWell.ToString(), Constants.appRed));
+                        display.Add(FormatString.setColor(compiled[j].cargoBarely.ToString(), Constants.appRed));
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal(compiled[j].cargoWell.ToString()));
+                        display.Add(FormatString.setColor(compiled[j].cargoBarely.ToString(), Constants.appGreen));
                     }
                 }
                 p++;
                 display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-                    display.Add(FormatString.setNormal(compiled[j].hatch.ToString()));
+                    if (compiled[j].hatch)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].hatch.ToString(), Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].hatch.ToString(), Constants.appRed));
+                    }
                 }
                 p++;
                 display.Add(FormatString.setBold(properties[p]));
@@ -364,7 +387,7 @@ namespace Team811Scout
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal(compiled[j].hatchWell.ToString()));
+                        display.Add(FormatString.setColor(compiled[j].hatchWell.ToString(),Constants.appRed));
                     }
                 }
                 p++;
@@ -377,7 +400,7 @@ namespace Team811Scout
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal(compiled[j].hatchBarely.ToString()));
+                        display.Add(FormatString.setColor(compiled[j].hatchBarely.ToString(),Constants.appGreen));
                     }
                 }
                 p++;
@@ -390,11 +413,11 @@ namespace Team811Scout
                     }
                     else if(compiled[j].climb==2)
                     {
-                        display.Add(FormatString.setBold(compiled[j].getClimb()));
+                        display.Add(FormatString.setColor(compiled[j].getClimb(),Constants.appGreen));
                     }
                     else
                     {
-                        display.Add(FormatString.setNormal(compiled[j].getClimb()));
+                        display.Add(FormatString.setColor(compiled[j].getClimb(),Constants.appRed));
                     }
                     
                 }
@@ -402,7 +425,15 @@ namespace Team811Scout
                 display.Add(FormatString.setBold(properties[p]));
                 for (int j = 0; j < compiled.Count; j++)
                 {
-                    display.Add(FormatString.setNormal(compiled[j].goodDrivers.ToString()));
+                    if(compiled[j].goodDrivers)
+                    {
+                        display.Add(FormatString.setColor(compiled[j].goodDrivers.ToString(),Constants.appGreen));
+                    }
+                    else
+                    {
+                        display.Add(FormatString.setColor(compiled[j].goodDrivers.ToString(), Constants.appRed));
+                    }
+                    
                 }
                 p++;
                 display.Add(FormatString.setBold(properties[p]));

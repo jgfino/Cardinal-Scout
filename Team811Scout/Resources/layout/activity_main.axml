@@ -43,7 +43,7 @@
 				android:id="@+id/bSync"
 				android:onClick="ButtonPressed" />
 			<Button
-				android:text="Instructions/Settings/Edit Events"
+				android:text="Settings/Edit Events"
 				android:layout_width="match_parent"
 				android:layout_height="70dp"
 				android:id="@+id/bInstruct"

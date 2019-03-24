@@ -37,7 +37,7 @@
 				android:textSize="15sp"
 				android:textStyle="bold" />
 			<TextView
-				android:text="Some instructions"
+				android:text=""
 				android:layout_width="match_parent"
 				android:layout_height="627.0dp"
 				android:id="@+id/textView1"
