@@ -141,8 +141,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent">
 					<LinearLayout
-						android:id="@+id/linearLayout_gridtableLayout"
-						android:layout_width="3000dp"
+						android:id="@+id/linearMatches"
+						android:layout_width="wrap_content"
 						android:layout_height="900dp"
 						android:orientation="horizontal">
 						<GridView
@@ -163,13 +163,7 @@
 
 
 			
-			<Button
-				android:text="DELETE Data"
-				android:layout_width="match_parent"
-				android:layout_height="97.0dp"
-				android:id="@+id/bDeleteData"
-				android:backgroundTint="#ffff0000"
-				android:textSize="30sp"/>
+			
 		</LinearLayout>
 		
 	</ScrollView>

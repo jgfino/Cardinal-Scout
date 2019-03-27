@@ -14,6 +14,7 @@ namespace Team811Scout
         GridView gridSandstorm;
         GridView gridMatches;
         TextView textTitle;
+        LinearLayout linearMatches;
 
         //placeholder for the current compiled data
         CompiledScoutData currentCompiled;
@@ -29,11 +30,16 @@ namespace Team811Scout
             gridSandstorm = FindViewById<GridView>(Resource.Id.gridViewSandstorm);
             gridMatches = FindViewById<GridView>(Resource.Id.gridViewMatches);
             textTitle = FindViewById<TextView>(Resource.Id.textTeam);
+            linearMatches = FindViewById<LinearLayout>(Resource.Id.linearMatches);
 
             //get current compiled data
             currentCompiled = eData.GetCurrentCompiled();
 
             List<CompiledScoutData> compiled = eData.GetCompiledScoutDataForIndex(eData.getTeamIndex().ID);
+            FrameLayout.LayoutParams _params = new FrameLayout.LayoutParams(compiled.Count*450,900);
+
+            linearMatches.LayoutParameters = _params;
+
             int currentTeam = compiled[0].teamNumber;
 
             //display current team in the title
@@ -70,7 +76,7 @@ namespace Team811Scout
             //third row (decide)
 
             //cargo or hatch bot
-            if (cargoPerc >= Constants.hatch_cargoMin && hatchPerc > Constants.hatch_cargoMin)
+            if (cargoPerc >= Constants.hatch_cargoMin && hatchPerc >= Constants.hatch_cargoMin)
             {
                 statsDisp.Add(FormatString.setColorBold("Both", Constants.appGreen));
             }

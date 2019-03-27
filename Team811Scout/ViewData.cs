@@ -19,6 +19,7 @@ namespace Team811Scout
         string[] properties;
         Button bDeleteData;
         GridView gridTeams;
+        LinearLayout viewDataHeight;
 
         //placeholder for current compiled scout data to view
         CompiledScoutData currentCompiled;
@@ -37,6 +38,7 @@ namespace Team811Scout
             gridTeams = FindViewById<GridView>(Resource.Id.gridViewTeam);
             gridTeams.ItemClick += gridClicked;
             textRecent = FindViewById<TextView>(Resource.Id.textEvent);
+            viewDataHeight = FindViewById<LinearLayout>(Resource.Id.viewDataHeight);
 
             //get current compiled data
             currentCompiled = eData.GetCurrentCompiled();            
@@ -79,6 +81,10 @@ namespace Team811Scout
             List<int> winPerc = currentCompiled.getWinPercentArray();
 
             List<SpannableString> display = new List<SpannableString>();
+
+            FrameLayout.LayoutParams _params = new FrameLayout.LayoutParams(1230, currentCompiled.compileData().Count * 54);
+            viewDataHeight.LayoutParameters = _params;
+           
 
             //format data in the right order for the grid based on values            
             for (int i = 0; i < properties.Length; i++)

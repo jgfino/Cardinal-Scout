@@ -11,7 +11,7 @@ namespace Team811Scout
     class ScoutForm: Activity
     {
         //declare objects that wil refer to controls        
-        
+
         TextView textTitle;
         EditText vMatchNumber;
         EditText vTeamNumber;
@@ -35,31 +35,32 @@ namespace Team811Scout
         MultiAutoCompleteTextView comments;
         Button bFinish;
 
-        int sandstormMode = 2;        
+        int sandstormMode = 2;
         int sandLevel = 1;
-        int climb = 0;    
-        bool goodDrivers = false;      
-        int wouldRecommend = 1;       
-        int result;       
+        int climb = 0;
+        bool goodDrivers = false;
+        int wouldRecommend = 1;
+        int result = 1;
 
         //placeholder for new ScoutData and current event
         Event currentEvent;
         ScoutData scoutData;
 
         //get database instance
-        EventDatabase eData = new EventDatabase();  
+        EventDatabase eData = new EventDatabase();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.scout_form);          
+            SetContentView(Resource.Layout.scout_form);
+
 
             //get controls from layout and assign event handlers
             textTitle = FindViewById<TextView>(Resource.Id.textEventTitle);
             vMatchNumber = FindViewById<EditText>(Resource.Id.vMatchNumber);
             vTeamNumber = FindViewById<EditText>(Resource.Id.vTeamNumber);
             position = FindViewById<Spinner>(Resource.Id.vPosition);
-            position.ItemSelected+=SpinnerClick;
+            position.ItemSelected += SpinnerClick;
             table = FindViewById<CheckBox>(Resource.Id.table);
             radioLevel = FindViewById<RadioGroup>(Resource.Id.radioLevel);
             radioLevel.CheckedChange += RadioClicked;
@@ -69,13 +70,19 @@ namespace Team811Scout
             sandHatch = FindViewById<CheckBox>(Resource.Id.sandHatch);
             sandHab = FindViewById<CheckBox>(Resource.Id.sandHab);
             cargo = FindViewById<CheckBox>(Resource.Id.cargo);
+            cargo.CheckedChange += CheckboxClicked;
             cargoWell = FindViewById<CheckBox>(Resource.Id.cargoWell);
+            cargoWell.CheckedChange += CheckboxClicked;
             cargoBarely = FindViewById<CheckBox>(Resource.Id.cargoBarely);
+            cargoBarely.CheckedChange += CheckboxClicked;
             hatch = FindViewById<CheckBox>(Resource.Id.hatch);
+            hatch.CheckedChange += CheckboxClicked;
             hatchWell = FindViewById<CheckBox>(Resource.Id.hatchWell);
+            hatchWell.CheckedChange += CheckboxClicked;
             hatchBarely = FindViewById<CheckBox>(Resource.Id.hatchBarely);
+            hatchBarely.CheckedChange += CheckboxClicked;
             radioClimb = FindViewById<RadioGroup>(Resource.Id.radioClimb);
-            radioClimb.CheckedChange += RadioClicked;            
+            radioClimb.CheckedChange += RadioClicked;
             radioDrivers = FindViewById<RadioGroup>(Resource.Id.radioDrivers);
             radioDrivers.CheckedChange += RadioClicked;
             radioRecommend = FindViewById<RadioGroup>(Resource.Id.radioRecommend);
@@ -93,18 +100,18 @@ namespace Team811Scout
 
             //get current event and set title text
             currentEvent = eData.GetCurrentEvent();
-            textTitle.Text += currentEvent.eventName+"'";
+            textTitle.Text += currentEvent.eventName + "'";
 
-        }       
+        }
 
         private void ButtonClicked(object sender, EventArgs e)
-        {            
+        {
             //decide which button was clicked 
             if ((sender as Button) == bFinish)
             {
                 try
                 {
-                    string scoutID = currentEvent.eventID.ToString() + ","+ vMatchNumber.Text;                    
+                    string scoutID = currentEvent.eventID.ToString() + "," + vMatchNumber.Text;
 
                     scoutData = new ScoutData(
                     scoutID,
@@ -155,12 +162,12 @@ namespace Team811Scout
         int spinnerIndex;
         private void SpinnerClick(object sender, ItemSelectedEventArgs e)
         {
-            spinnerIndex = e.Position;            
-        }       
+            spinnerIndex = e.Position;
+        }
 
         //handle radio buttons
         private void RadioClicked(object sender, EventArgs e)
-        {            
+        {
             //which group of radio buttons was modified
             RadioGroup selectedGroup = sender as RadioGroup;
 
@@ -194,13 +201,13 @@ namespace Team811Scout
                     goodDrivers = false;
                 }
             }
-            else if(selectedGroup==radioClimb)
+            else if (selectedGroup == radioClimb)
             {
-                if(childIndex==0)
+                if (childIndex == 0)
                 {
                     climb = 2;
                 }
-                else if (childIndex==1)
+                else if (childIndex == 1)
                 {
                     climb = 3;
                 }
@@ -216,6 +223,30 @@ namespace Team811Scout
             else if (selectedGroup == radioResult)
             {
                 result = childIndex;
+            }
+
+        }
+        private void CheckboxClicked(object sender, EventArgs e)
+        {
+            CheckBox clicked = sender as CheckBox;
+
+            if (clicked == hatchBarely || clicked == hatchWell && clicked.Checked)
+            {
+                hatch.Checked = true;
+            }
+            else if (clicked == cargoBarely || clicked == cargoWell && clicked.Checked)
+            {
+                cargo.Checked = true;
+            }
+            else if(clicked==cargo&&!clicked.Checked)
+            {
+                cargoBarely.Checked = false;
+                cargoWell.Checked = false;
+            }
+            else if(clicked==hatch&&!clicked.Checked)
+            {
+                hatchBarely.Checked = false;                
+                hatchWell.Checked = false;
             }
 
         }

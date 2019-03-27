@@ -182,7 +182,9 @@ namespace Team811Scout
                         CompiledScoutData newCompilation = new CompiledScoutData(selectedEvent.eventName, selectedEvent.startDate, selectedEvent.endDate, concatedQR, false, selectedEvent.eventID);
                         eData.AddCompiledScoutData(newCompilation);
 
-                        Popup.Single("Alert", "Successfully generated data for event '" + selectedEvent.eventName + "'.", "OK", this);                        
+                        Popup.Single("Alert", "Successfully generated data for event '" + selectedEvent.eventName + "'.", "OK", this);
+                        StartActivity(typeof(MainActivity));
+                        Finish();
 
                     }
                     //if it is a duplicate

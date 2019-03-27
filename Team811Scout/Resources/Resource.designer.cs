@@ -8326,8 +8326,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00b7
 			public const int bDelete = 2131493047;
 			
-			// aapt resource value: 0x7f0c0140
-			public const int bDeleteData = 2131493184;
+			// aapt resource value: 0x7f0c0142
+			public const int bDeleteData = 2131493186;
 			
 			// aapt resource value: 0x7f0c00b0
 			public const int bDeleteEvent = 2131493040;
@@ -8458,8 +8458,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c009f
 			public const int container = 2131493023;
 			
-			// aapt resource value: 0x7f0c0144
-			public const int contentFrame = 2131493188;
+			// aapt resource value: 0x7f0c0147
+			public const int contentFrame = 2131493191;
 			
 			// aapt resource value: 0x7f0c006d
 			public const int contentPanel = 2131492973;
@@ -8566,8 +8566,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c00fe
 			public const int gridRecent = 2131493118;
 			
-			// aapt resource value: 0x7f0c013f
-			public const int gridViewMatches = 2131493183;
+			// aapt resource value: 0x7f0c0140
+			public const int gridViewMatches = 2131493184;
 			
 			// aapt resource value: 0x7f0c013e
 			public const int gridViewSandstorm = 2131493182;
@@ -8575,8 +8575,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c013d
 			public const int gridViewStats = 2131493181;
 			
-			// aapt resource value: 0x7f0c0143
-			public const int gridViewTeam = 2131493187;
+			// aapt resource value: 0x7f0c0146
+			public const int gridViewTeam = 2131493190;
 			
 			// aapt resource value: 0x7f0c0117
 			public const int hatch = 2131493143;
@@ -8650,6 +8650,9 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c013c
 			public const int linearLayout_gridtableLayout = 2131493180;
 			
+			// aapt resource value: 0x7f0c013f
+			public const int linearMatches = 2131493183;
+			
 			// aapt resource value: 0x7f0c0026
 			public const int listMode = 2131492902;
 			
@@ -8671,8 +8674,8 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0101
 			public const int main_toolbar = 2131493121;
 			
-			// aapt resource value: 0x7f0c0146
-			public const int masked = 2131493190;
+			// aapt resource value: 0x7f0c0149
+			public const int masked = 2131493193;
 			
 			// aapt resource value: 0x7f0c00ef
 			public const int media_actions = 2131493103;
@@ -9034,8 +9037,11 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c001b
 			public const int text2 = 2131492891;
 			
-			// aapt resource value: 0x7f0c0142
-			public const int textEvent = 2131493186;
+			// aapt resource value: 0x7f0c0144
+			public const int textClick = 2131493188;
+			
+			// aapt resource value: 0x7f0c0143
+			public const int textEvent = 2131493187;
 			
 			// aapt resource value: 0x7f0c0104
 			public const int textEventTitle = 2131493124;
@@ -9142,11 +9148,14 @@ namespace Team811Scout
 			// aapt resource value: 0x7f0c0107
 			public const int vTeamNumber = 2131493127;
 			
+			// aapt resource value: 0x7f0c0145
+			public const int viewDataHeight = 2131493189;
+			
 			// aapt resource value: 0x7f0c0016
 			public const int view_offset_helper = 2131492886;
 			
-			// aapt resource value: 0x7f0c0145
-			public const int visible = 2131493189;
+			// aapt resource value: 0x7f0c0148
+			public const int visible = 2131493192;
 			
 			// aapt resource value: 0x7f0c00db
 			public const int volume_item_container = 2131493083;

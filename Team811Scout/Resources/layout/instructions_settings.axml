@@ -37,9 +37,45 @@
 				android:textSize="15sp"
 				android:textStyle="bold" />
 			<TextView
-				android:text=""
+				android:text="Basic Instructions:
+
+				1) Create a new event from the main page
+						-Enter the title, date, and ID (ask head scouter)
+				
+				2) Click Scout and select the current event to add
+				matches to. After clicking selecting the event, a 
+				list of recent matches and teams is shown
+				
+				3) Click 'Add Match' to start scouting, or select a
+				recent match from the list to view detailed data 
+				about that team
+				
+				4) Gathering Data:
+						a) When all data for an event has been gathered,
+				decide which device will collect and store the data.
+				Click 'Manage Data' on all the devices. Select 'gather
+				data' on one of them and 'send data on the rest'
+						b) Generate the QR codes by selecting the event
+				from the dropdown and pressing generate. It will 
+				generate a part 1 and part 2.
+						c) On the device gathering data, press the button
+				corresponding to the device and QR code part you
+				want to scan and scan the data. Make sure to select
+				the correct event on the device gathering data as well
+						d) Press 'Compile'
+				
+				5) Viewing Data
+						a) Click 'View Data' on the main screen. Select
+				the event you would like to view data for
+						b) The first page displays a general list of
+				the teams from the event and their general stats. 
+				Clicking on a teamm number will display detailed data
+				/calculations for that team from that event"
+				
+				
+
 				android:layout_width="match_parent"
-				android:layout_height="627.0dp"
+				android:layout_height="wrap_content"
 				android:id="@+id/textView1"
 				android:textSize="20sp"
 				android:textStyle="bold"
@@ -47,6 +83,7 @@
 			<Button
 				android:text="FACTORY RESET APP"
 				android:layout_width="match_parent"
+				android:layout_marginTop="20dp"
 				android:layout_height="109.0dp"
 				android:id="@+id/bDelete"
 				android:textAllCaps="false"
