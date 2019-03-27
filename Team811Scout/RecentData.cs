@@ -112,7 +112,7 @@ namespace Team811Scout
             }
             
             //combine properties and data
-            for (int i = 0; i < properties.Count; i += 2)
+            for (int i = 0; i < properties.Count; i++)
             {
                 display.Add(properties[i]);
                 display.Add(data[i]);

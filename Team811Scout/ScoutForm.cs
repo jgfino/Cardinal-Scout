@@ -242,11 +242,13 @@ namespace Team811Scout
             {
                 cargoBarely.Checked = false;
                 cargoWell.Checked = false;
+                clicked.Checked = false;
             }
             else if(clicked==hatch&&!clicked.Checked)
             {
                 hatchBarely.Checked = false;                
                 hatchWell.Checked = false;
+                clicked.Checked = false;
             }
 
         }
