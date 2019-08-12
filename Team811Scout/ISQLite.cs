@@ -1,4 +1,5 @@
 ﻿using SQLite;
+
 //get a connection
 namespace Team811Scout
 {

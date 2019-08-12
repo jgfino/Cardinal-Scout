@@ -1,544 +1,491 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:minWidth="25dp"
-	android:minHeight="25dp">
-	<Toolbar
-		android:minHeight="?android:attr/actionBarSize"
-		android:background="?android:attr/colorPrimary"
-		android:minWidth="25dp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/toolbar1"
-		android:title="Team 811 Scouting"
-		android:titleTextColor="#ffffffff"
-		android:subtitleTextColor="#ffdec5c5" />
-	<ScrollView
-		android:minWidth="25dp"
-		android:minHeight="25dp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/scrollView1">
-		<LinearLayout
-			android:orientation="vertical"
-			android:minWidth="25dp"
-			android:minHeight="25dp"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/linearLayout1">
-			<TextView
-				android:text="Adding Match to Event: '"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textEventTitle"
-				android:textSize="25dp"
-				android:textColor="#ff000000"
-				android:layout_marginLeft="20dp"
-				android:layout_marginTop="10dp"
-				android:textStyle="italic" />
-			<TextView
-				android:text="Match Number:"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<EditText
-				android:inputType="number"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/vMatchNumber"
-				android:layout_marginRight="50dp"
-				android:layout_marginLeft="50dp"
-				android:singleLine="true" />
-			<TextView
-				android:text="Team Number:"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<EditText
-				android:inputType="number"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/vTeamNumber"
-				android:layout_marginRight="50dp"
-				android:layout_marginLeft="50dp"
-				android:singleLine="true" />
-			<TextView
-				android:text="Position:"
-				android:layout_width="match_parent"
-				android:layout_height="47.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<Spinner
-				android:layout_width="match_parent"
-				android:layout_height="62.0dp"
-				android:id="@+id/vPosition"
-				android:layout_marginBottom="7dp"
-				android:layout_marginRight="20dp"
-				android:layout_marginLeft="20dp" />
-			<CheckBox
-				android:text="TABLE/NOT MOVING"
-				android:layout_width="350dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/table"
-				android:textAllCaps="false"
-				android:textStyle="bold"
-				android:textSize="20dp"
-				android:scaleX="1.3"
-				android:scaleY="1.3"
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="20dp"
-				android:layout_marginBottom="20dp"
-				android:textColor="#ffea1717" />
-			<TextView
-				android:text="Started Off Level:"
-				android:layout_width="match_parent"
-				android:layout_height="47.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<RadioGroup
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/radioLevel">
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="1"
-					android:id="@+id/start1"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="2"
-					android:id="@+id/start2"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				
-			</RadioGroup>
-			<TextView
-				android:text="Mode For Sandstorm (closest)"
-				android:layout_width="match_parent"
-				android:layout_height="47.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<RadioGroup
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/radioSandstorm">
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Autonomous"
-					android:id="@+id/radioAuto"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Teleop w/Camera"
-					android:id="@+id/radioTeleop"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Nothing"
-					android:id="@+id/radioNothing"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-			</RadioGroup>
-			
-			<TextView
-				android:text="During Sandstorm:"
-				android:layout_width="match_parent"
-				android:layout_height="47.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<CheckBox
-				android:text="Placed Cargo"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/sandCargo"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"
-				android:scaleX="1.3"
-				android:scaleY="1.3"
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Placed Hatch"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/sandHatch"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"
-				android:scaleX="1.3"
-				android:scaleY="1.3"
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Crossed Hab Line"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/sandHab"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"
-				android:scaleX="1.3"
-				android:scaleY="1.3"
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<TextView
-				android:text="Can They Do:"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<CheckBox
-				android:text="Cargo?"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/cargo"
-				android:textAllCaps="false"
-				android:textStyle="bold"
-				android:textSize="20dp"
-				android:scaleX="1.3"
-				android:scaleY="1.3"
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Very Well?"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/cargoWell"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"				
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Barely?"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/cargoBarely"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"				
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Hatches?"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/hatch"
-				android:textAllCaps="false"
-				android:textStyle="bold"
-				android:textSize="20dp"
-				android:scaleX="1.3"
-				android:scaleY="1.3"
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Very Well?"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/hatchWell"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"				
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<CheckBox
-				android:text="Barely?"
-				android:layout_width="235.0dp"
-				android:layout_height="wrap_content"
-				android:id="@+id/hatchBarely"
-				android:textAllCaps="false"
-				
-				android:textSize="20dp"				
-				android:layout_marginLeft="60dp"
-				android:layout_marginTop="10dp"
-				android:layout_marginBottom="10dp" />
-			<TextView
-				android:text="Climb:"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-				<RadioGroup
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/radioClimb">
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"					
-					android:text="Level 2"
-					android:id="@+id/climb2"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"					
-					android:text="Level 3"
-					android:id="@+id/climb3"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"					
-					android:text="No climb"
-					android:id="@+id/climb0"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-			</RadioGroup>
-
-			
-			<TextView
-				android:text="Do Drivers Know What They Are Doing? (consider penalties, aggression, etc)"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:layout_marginBottom="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<RadioGroup
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/radioDrivers">
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Yes"
-					android:id="@+id/driversYes"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="No"
-					android:id="@+id/driversNo"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				
-			</RadioGroup>
-			<TextView
-				android:text="Would You Recommend this Team? (pick one)"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<RadioGroup
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/radioRecommend">
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Yes"
-					android:id="@+id/recYes"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="No"
-					android:id="@+id/recNo"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Maybe (explain in comments)"
-					android:id="@+id/recMaybe"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-			</RadioGroup>
-			<TextView
-				android:text="Result of Team's Alliance"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			<RadioGroup
-				android:minWidth="25px"
-				android:minHeight="25px"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/radioResult">
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Win"
-					android:id="@+id/resWin"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Loss"
-					android:id="@+id/resLoss"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-				<RadioButton
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					
-					android:text="Tie"
-					android:id="@+id/resTie"
-					android:textSize="25dp"
-					
-					android:layout_marginLeft="20dp"
-					android:layout_marginBottom="5dp" />
-			</RadioGroup>
-			<TextView
-				android:text="Additional Comments:"
-				android:layout_width="match_parent"
-				android:layout_height="56.0dp"
-				android:id="@+id/textTitle"
-				android:textSize="27dp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:layout_marginLeft="10dp"
-				android:textAlignment="center"
-				android:layout_marginTop="15dp" />
-			
-			<MultiAutoCompleteTextView
-				android:layout_width="match_parent"
-				android:layout_height="100.0dp"
-				android:id="@+id/comments"
-				android:layout_margin="10dp" />
-			<Button
-				android:text="Finish"
-				android:layout_width="match_parent"
-				android:layout_height="97.0dp"
-				android:id="@+id/bFinish"
-				android:backgroundTint="#79ea90"
-				android:textSize="30dp"/>
-		</LinearLayout>
-	</ScrollView>
-	
-	
-
-</LinearLayout>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+  <LinearLayout
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:weightSum="1"
+  android:id="@+id/linearLayout1">
+    <Toolbar
+    android:minHeight="?android:attr/actionBarSize"
+    android:background="?android:attr/colorPrimary"
+    android:minWidth="25sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar1"
+    android:title="CardinalScout"
+    android:titleTextColor="#ffffffff"
+    android:subtitleTextColor="#ffdec5c5" />
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.96"
+    android:weightSum="1"
+    android:id="@+id/linearLayout1">
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+      <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.94"
+      android:weightSum="1"
+      android:id="@+id/linearLayout1">
+        <TextView
+        android:text="Adding Match to Event: '"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textEventTitle"
+        android:textSize="23dp"
+        android:textColor="#ff000000"
+        android:textStyle="italic" />
+        <ScrollView
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+          <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:paddingTop="5dp"
+          android:id="@+id/linearLayout1">
+            <TextView
+            android:text="Match Number:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <EditText
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vMatchNumber"
+            android:singleLine="true" />
+            <TextView
+            android:text="Team Number:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <EditText
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vTeamNumber"
+            android:singleLine="true" />
+            <TextView
+            android:text="Position:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vPosition"
+            android:layout_marginBottom="7dp" />
+            <CheckBox
+            android:text="TABLE/NOT MOVING"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/table"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="#ffea1717"
+            android:layout_marginTop="15dp" />
+            <TextView
+            android:text="Started Off Level:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioLevel">
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="1"
+              android:id="@+id/start1"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="2"
+              android:id="@+id/start2"
+              android:textSize="25sp" />
+            </RadioGroup>
+            <TextView
+            android:text="Mode For Sandstorm (closest)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp" />
+            <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioSandstorm">
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Autonomous"
+              android:id="@+id/radioAuto"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp"
+              android:layout_marginTop="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Teleop w/Camera"
+              android:id="@+id/radioTeleop"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Nothing"
+              android:id="@+id/radioNothing"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+            </RadioGroup>
+            <TextView
+            android:text="During Sandstorm:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <CheckBox
+            android:text="Placed Cargo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sandCargo"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp" />
+            <CheckBox
+            android:text="Placed Hatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sandHatch"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp" />
+            <CheckBox
+            android:text="Crossed Hab Line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sandHab"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp" />
+            <TextView
+            android:text="Can They Do:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <CheckBox
+            android:text="Cargo?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cargo"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp" />
+            <CheckBox
+            android:text="Very Well?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cargoWell"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+            <CheckBox
+            android:text="Barely?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cargoBarely"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+            <CheckBox
+            android:text="Hatches?"
+            android:layout_width="235.0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/hatch"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp" />
+            <CheckBox
+            android:text="Very Well?"
+            android:layout_width="235.0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/hatchWell"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+            <CheckBox
+            android:text="Barely?"
+            android:layout_width="235.0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/hatchBarely"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+            <TextView
+            android:text="Climb:"
+            android:layout_width="match_parent"
+            android:layout_height="56.0dp"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioClimb">
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Level 2"
+              android:id="@+id/climb2"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Level 3"
+              android:id="@+id/climb3"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No climb"
+              android:id="@+id/climb0"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+            </RadioGroup>
+            <TextView
+            android:text="Do Drivers Know What They Are Doing? (consider penalties, aggression, etc)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioDrivers">
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Yes"
+              android:id="@+id/driversYes"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No"
+              android:id="@+id/driversNo"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+            </RadioGroup>
+            <TextView
+            android:text="Would You Recommend this Team? (pick one)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioRecommend">
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Yes"
+              android:id="@+id/recYes"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No"
+              android:id="@+id/recNo"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Maybe (explain in comments)"
+              android:id="@+id/recMaybe"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+            </RadioGroup>
+            <TextView
+            android:text="Result of Team's Alliance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioResult">
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Win"
+              android:id="@+id/resWin"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Loss"
+              android:id="@+id/resLoss"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+              <RadioButton
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Tie"
+              android:id="@+id/resTie"
+              android:textSize="25sp"
+              android:layout_marginBottom="5dp" />
+            </RadioGroup>
+            <TextView
+            android:text="Additional Comments:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitle"
+            android:textSize="25sp"
+            android:textColor="#ff000000"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp" />
+            <MultiAutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/comments"
+            android:layout_margin="10dp" />
+            <Button
+            android:text="Finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bFinish"
+            android:backgroundTint="#79ea90"
+            android:textSize="30sp" />
+          </LinearLayout>
+        </ScrollView>
+      </LinearLayout>
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+  </LinearLayout>
+</RelativeLayout>

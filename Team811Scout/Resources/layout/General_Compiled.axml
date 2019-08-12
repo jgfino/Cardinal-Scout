@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+  <LinearLayout
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:weightSum="1"
+  android:id="@+id/linearLayout1">
+    <Toolbar
+    android:minHeight="?android:attr/actionBarSize"
+    android:background="?android:attr/colorPrimary"
+    android:minWidth="25sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar1"
+    android:title="CardinalScout"
+    android:titleTextColor="#ffffffff"
+    android:subtitleTextColor="#ffdec5c5" />
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.96"
+    android:weightSum="1"
+    android:id="@+id/linearLayout1">
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+      <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.94"
+      android:weightSum="1"
+      android:id="@+id/linearLayout1">
+        <TextView
+        android:text="Viewing Data for Event: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:id="@+id/textEvent"
+        android:textSize="20sp"
+        android:textColor="#ff000000"
+        android:padding="5dp" />
+        <TextView
+        android:text="Click on a TEAM NUMBER to View Data for that Team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:id="@+id/textEvent"
+        android:textSize="15sp"
+        android:textColor="#ff000000"
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.85"
+        android:id="@+id/linearLayout1">
+          <HorizontalScrollView
+          android:layout_width="match_parent"
+          android:layout_height="fill_parent"
+          android:layout_below="@+id/seatLegendLayout">
+            <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+              <LinearLayout
+              android:id="@+id/viewDataHeight"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+                <GridView
+                android:id="@+id/gridViewTeam"
+                android:numColumns="7"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="4dp"
+                android:gravity="center|center_vertical"
+                android:horizontalSpacing="5dp"
+                android:scrollbars="horizontal"
+                android:verticalSpacing="1dp">
+                </GridView>
+              </LinearLayout>
+            </FrameLayout>
+          </HorizontalScrollView>
+        </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="DELETE Data"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bDeleteData"
+          android:backgroundTint="#ffff0000"
+          android:textSize="25sp" />
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+  </LinearLayout>
+</RelativeLayout>

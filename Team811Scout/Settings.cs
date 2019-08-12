@@ -11,17 +11,17 @@ namespace Team811Scout
      * to delete individual events or change event ids*/
 
     [Activity(Label = "InstructSettings", Theme = "@style/AppTheme", MainLauncher = false)]
-    public class Settings : Activity
+    public class Settings: Activity
     {
         //declare objects for controls
-        Button bDelete;
-        Button bEditEvent;
+        private Button bDelete;
+
+        private Button bEditEvent;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.instructions_settings);
-
+            SetContentView(Resource.Layout.Instructions_Settings);
             //get controls from layout and assign event handlers
             bDelete = FindViewById<Button>(Resource.Id.bDelete);
             bDelete.Click += ButtonClicked;
@@ -36,20 +36,18 @@ namespace Team811Scout
             {
                 //double check to make sure the user wants to delete
                 Popup.Double("WARNING", "Are you SURE you want to delete the ENTIRE database (all events, matches, files, etc?", "Yes", "CANCEL", this, yes1);
-                
                 void yes1()
                 {
                     Popup.Double("WARNING", "Are you ABSOLUTELY sure?", "Yes, I'm sure", "CANCEL", this, yes2);
-
                     void yes2()
                     {
                         //delete database and go back to the main page
                         DeleteDatabase(SQLite_android.getDatabasePath());
                         StartActivity(typeof(MainActivity));
+                        Finish();
                     }
-                }                    
+                }
             }
-
             //go to editevents page
             else if ((sender as Button) == bEditEvent)
             {

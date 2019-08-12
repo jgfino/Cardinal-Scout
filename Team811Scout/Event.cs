@@ -5,29 +5,30 @@ namespace Team811Scout
     public class Event
     {
         /*This class stores an event and its properties: name, start date, end date, and id*/
-        
+
         public Event()
         {
         }
 
-        public Event(string start, string end, string name, int id, bool isCurrent)
+        public Event(string start, string end, string name, int ID, bool isCurrent)
         {
             startDate = start;
             endDate = end;
             eventName = name;
-            eventID = id;
-            isCurrentEvent = isCurrent;          
-
+            eventID = ID;
+            isCurrentEvent = isCurrent;
         }
 
         public string startDate
         {
             get; set;
         }
+
         public string endDate
         {
             get; set;
         }
+
         public string eventName
         {
             get; set;

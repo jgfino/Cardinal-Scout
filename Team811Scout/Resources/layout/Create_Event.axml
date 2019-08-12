@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+  <LinearLayout
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:weightSum="1"
+  android:id="@+id/linearLayout1">
+    <Toolbar
+    android:minHeight="?android:attr/actionBarSize"
+    android:background="?android:attr/colorPrimary"
+    android:minWidth="25sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar1"
+    android:title="CardinalScout"
+    android:titleTextColor="#ffffffff"
+    android:subtitleTextColor="#ffdec5c5" />
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.96"
+    android:weightSum="1"
+    android:id="@+id/linearLayout1">
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+      <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.94"
+      android:weightSum="1"
+      android:id="@+id/linearLayout1">
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.83"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout1">
+          <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/scrollView1">
+            <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout1">
+              <TextView
+              android:text="Event Name:"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/textView1"
+              android:textSize="20sp"
+              android:textStyle="bold"
+              android:textAlignment="center"
+              android:textColor="#ff000000" />
+              <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/txtEventName"
+              android:textSize="20sp"
+              android:layout_marginBottom="20dp"
+              android:singleLine="true" />
+              <TextView
+              android:text="Event ID (ask head scouter):"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:id="@+id/textView1"
+              android:fontFamily="@string/abc_font_family_display_3_material"
+              android:textSize="20sp"
+              android:textAlignment="center"
+              android:layout_marginTop="20dp" />
+              <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/txtEventID"
+              android:textSize="20sp"
+              android:layout_marginBottom="20dp"
+              android:singleLine="true"
+              android:numeric="integer" />
+              <TextView
+              android:text="Start Date:"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/textView2"
+              android:textAlignment="center"
+              android:textSize="20dp"
+              android:textStyle="bold"
+              android:layout_marginTop="5dp"
+              android:textColor="#ff000000" />
+              <HorizontalScrollView
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content">
+                <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startDate"
+                android:datePickerMode="spinner" />
+              </HorizontalScrollView>
+              <TextView
+              android:text="End Date:"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/textView2"
+              android:textAlignment="center"
+              android:textSize="20dp"
+              android:textStyle="bold"
+              android:layout_marginTop="15dp"
+              android:layout_marginBottom="15dp"
+              android:textColor="#ff000000" />
+              <HorizontalScrollView
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content">
+                <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endDate"
+                android:datePickerMode="spinner" />
+              </HorizontalScrollView>
+            </LinearLayout>
+          </ScrollView>
+        </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.01"
+        android:id="@+id/linearLayout1" />
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.16"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="Create Event"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bCreate"
+          android:textSize="20sp"
+          android:backgroundTint="@color/buttonPositive" />
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+  </LinearLayout>
+</RelativeLayout>

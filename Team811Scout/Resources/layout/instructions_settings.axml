@@ -1,100 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:minWidth="25sp"
-	android:minHeight="25sp">
-	<Toolbar
-		android:minHeight="?android:attr/actionBarSize"
-		android:background="?android:attr/colorPrimary"
-		android:minWidth="25sp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/toolbar1"
-		android:title="Team 811 Scouting"
-		android:titleTextColor="#ffffffff"
-		android:subtitleTextColor="#ffdec5c5" />
-	<ScrollView
-		android:minWidth="25sp"
-		android:minHeight="25sp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/scrollView1" >
-		<LinearLayout
-			android:orientation="vertical"
-			android:minWidth="25sp"
-			android:minHeight="25sp"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/linearLayout1">
-			<Button
-				android:text="Edit Events"
-				android:layout_width="match_parent"
-				android:layout_height="88.0dp"
-				android:id="@+id/bEditEvent"
-				android:textSize="15sp"
-				android:textStyle="bold" />
-			<TextView
-				android:text="Basic Instructions:
-
-				1) Create a new event from the main page
-						-Enter the title, date, and ID (ask head scouter)
-				
-				2) Click Scout and select the current event to add
-				matches to. After clicking selecting the event, a 
-				list of recent matches and teams is shown
-				
-				3) Click 'Add Match' to start scouting, or select a
-				recent match from the list to view detailed data 
-				about that team
-				
-				4) Gathering Data:
-						a) When all data for an event has been gathered,
-				decide which device will collect and store the data.
-				Click 'Manage Data' on all the devices. Select 'gather
-				data' on one of them and 'send data on the rest'
-						b) Generate the QR codes by selecting the event
-				from the dropdown and pressing generate. It will 
-				generate a part 1 and part 2.
-						c) On the device gathering data, press the button
-				corresponding to the device and QR code part you
-				want to scan and scan the data. Make sure to select
-				the correct event on the device gathering data as well
-						d) Press 'Compile'
-				
-				5) Viewing Data
-						a) Click 'View Data' on the main screen. Select
-				the event you would like to view data for
-						b) The first page displays a general list of
-				the teams from the event and their general stats. 
-				Clicking on a teamm number will display detailed data
-				/calculations for that team from that event"
-				
-				
-
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/textView1"
-				android:textSize="20sp"
-				android:textStyle="bold"
-				android:layout_margin="20sp" />
-			<Button
-				android:text="FACTORY RESET APP"
-				android:layout_width="match_parent"
-				android:layout_marginTop="20dp"
-				android:layout_height="109.0dp"
-				android:id="@+id/bDelete"
-				android:textAllCaps="false"
-				android:textColor="#ffffffff"
-				android:textStyle="bold"
-				android:textSize="30sp"
-				android:backgroundTint="#ffff0000"
-				 
-				 />
-			</LinearLayout>
-	</ScrollView>
-	
-
-</LinearLayout>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+  <LinearLayout
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:weightSum="1"
+  android:id="@+id/linearLayout1">
+    <Toolbar
+    android:minHeight="?android:attr/actionBarSize"
+    android:background="?android:attr/colorPrimary"
+    android:minWidth="25sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar1"
+    android:title="CardinalScout"
+    android:titleTextColor="#ffffffff"
+    android:subtitleTextColor="#ffdec5c5" />
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.96"
+    android:weightSum="1"
+    android:id="@+id/linearLayout1">
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+      <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.94"
+      android:weightSum="1"
+      android:id="@+id/linearLayout1">
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="Edit Events"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bEditEvent" />
+        </LinearLayout>
+        <ScrollView
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:id="@+id/linearLayout1">
+          <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:id="@+id/linearLayout1">
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recentMatches"
+            android:padding="5dp"
+            android:text="Instructions"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="30sp" />
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recentMatches"
+            android:paddingLeft="30dp"
+            android:text="@string/instructions"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+          </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="FACTORY RESET APP"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bDelete"
+          android:textColor="@android:color/white"
+          android:backgroundTint="#ffff0000"
+          android:textSize="25sp" />
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+  </LinearLayout>
+</RelativeLayout>

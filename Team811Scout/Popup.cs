@@ -1,10 +1,9 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
+using System;
 
 namespace Team811Scout
-{ 
+{
     /*this is a custom class to make using AlertDialogs easier*/
 
     public static class Popup
@@ -18,7 +17,6 @@ namespace Team811Scout
             popup.SetMessage(message);
             popup.SetButton(button, (c, ev) =>
             {
-
             });
             popup.Show();
         }
@@ -30,12 +28,10 @@ namespace Team811Scout
             AlertDialog popup = dialog.Create();
             popup.SetTitle(title);
             popup.SetMessage(message);
-
             popup.SetButton(button1, (c, ev) =>
             {
                 ifYes();
             });
-
             popup.SetButton2(button2, (c, ev) => { });
             popup.Show();
         }

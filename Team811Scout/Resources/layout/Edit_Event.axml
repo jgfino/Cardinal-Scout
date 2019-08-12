@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+  <LinearLayout
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:weightSum="1"
+  android:id="@+id/linearLayout1">
+    <Toolbar
+    android:minHeight="?android:attr/actionBarSize"
+    android:background="?android:attr/colorPrimary"
+    android:minWidth="25sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar1"
+    android:title="CardinalScout"
+    android:titleTextColor="#ffffffff"
+    android:subtitleTextColor="#ffdec5c5" />
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.96"
+    android:weightSum="1"
+    android:id="@+id/linearLayout1">
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+      <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.94"
+      android:weightSum="1"
+      android:id="@+id/linearLayout1">
+        <TextView
+        android:text="Select an Event to Edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:id="@+id/textView1"
+        android:textSize="25sp"
+        android:textColor="#ff000000"
+        android:padding="5dp"
+        android:textStyle="bold" />
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="Refresh"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bRefreshEvents" />
+        </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:id="@+id/linearLayout1">
+          <ListView
+          android:minWidth="25sp"
+          android:minHeight="25sp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/eventList"
+          android:contextClickable="true"
+          android:drawSelectorOnTop="false"
+          android:listSelector="#ffffc9ad"
+          android:isScrollContainer="true" />
+        </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="Edit Event ID"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bEditID"
+          android:backgroundTint="#79ea90"
+          android:textSize="30sp" />
+        </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/linearLayout1">
+          <Button
+          android:text="Delete Event"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/bDeleteEvent"
+          android:backgroundTint="#ffff0000"
+          android:textSize="30sp"
+          android:textColor="#ffffffff" />
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+  </LinearLayout>
+</RelativeLayout>

@@ -1,13 +1,13 @@
 ﻿using SQLite;
+
 namespace Team811Scout
 {
-    /*This class stores the index of the current team in a CompiledScoutData multidimensional list*/
+    /*This class stores the index of a current teams in a CompiledEventData multidimensional list*/
 
     public class CompiledTeamIndex
     {
         public CompiledTeamIndex()
         {
-
         }
 
         public CompiledTeamIndex(int id)

@@ -11,7 +11,7 @@ namespace Team811Scout
         public static SpannableString setBold(string input)
         {
             SpannableString result = new SpannableString(input);
-            result.SetSpan(new StyleSpan(Android.Graphics.TypefaceStyle.Bold),0,input.Length,0);
+            result.SetSpan(new StyleSpan(Android.Graphics.TypefaceStyle.Bold), 0, input.Length, 0);
             return result;
         }
 
@@ -32,9 +32,8 @@ namespace Team811Scout
 
         public static SpannableString setNormal(string input)
         {
-            SpannableString result = new SpannableString(input);            
+            SpannableString result = new SpannableString(input);
             return result;
-        }        
-
+        }
     }
 }

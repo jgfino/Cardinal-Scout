@@ -20,33 +20,31 @@ namespace Team811Scout
     public class SlaveView: Activity
     {
         //declare objects for controls
-        ImageView QR1;
-        ImageView QR2;
-        Button bGenerate;
-        Spinner selectEvent;        
+        private ImageView QR1;
+
+        private ImageView QR2;
+        private Button bGenerate;
+        private Spinner selectEvent;
 
         //get databse instance
-        EventDatabase eData = new EventDatabase();
+        private EventDatabase eData = new EventDatabase();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.slave_view);
-
+            SetContentView(Resource.Layout.Slave_View);
             //get controls from layout and assign event handlers
             QR1 = FindViewById<ImageView>(Resource.Id.imgQR1);
             QR2 = FindViewById<ImageView>(Resource.Id.imgQR2);
             bGenerate = FindViewById<Button>(Resource.Id.bGenerateQR);
             bGenerate.Click += ButtonClicked;
             selectEvent = FindViewById<Spinner>(Resource.Id.sendDataChooser);
-            selectEvent.ItemSelected += SpinnerClick;                   
-
+            selectEvent.ItemSelected += SpinnerClick;
             //put events in the dropdown
             ArrayAdapter selectAdapt = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetEventDisplayList());
             selectEvent.Adapter = selectAdapt;
-
         }
-        
+
         private void ButtonClicked(object sender, EventArgs e)
         {
             if ((sender as Button) == bGenerate)
@@ -55,10 +53,8 @@ namespace Team811Scout
                 {
                     string QRdata1 = null;
                     string QRdata2 = null;
-
-                    //get the scoutdata for the selected event
-                    List<ScoutData> scoutList = eData.GetScoutDataForEvent(selectedEvent.eventID);
-                    
+                    //get the MatchData for the selected event
+                    List<MatchData> scoutList = eData.GetMatchDataForEvent(selectedEvent.eventID);
                     for (int i = 0; i < scoutList.Count; i++)
                     {
                         //split data into two
@@ -106,70 +102,58 @@ namespace Team811Scout
                               Convert.ToByte(scoutList[i].goodDrivers).ToString() +
                               scoutList[i].wouldRecommend.ToString();
                         }
-
                     }
-
                     //get QR code writer
                     Writer writer = new QRCodeWriter();
-
+                    int width = this.Resources.DisplayMetrics.WidthPixels;
                     //create the QR codes
                     try
-                    {                        
-                        BitMatrix bm1 = writer.encode(QRdata1, BarcodeFormat.QR_CODE, 900, 900);
+                    {
+                        BitMatrix bm1 = writer.encode(QRdata1, BarcodeFormat.QR_CODE, width, width);
                         BitmapRenderer bit1 = new BitmapRenderer();
                         QR1.SetImageBitmap(bit1.Render(bm1, BarcodeFormat.QR_CODE, QRdata1));
-
                         Popup.Single("Alert", "Data for Event: '" + selectedEvent.eventName + "' Event ID: " +
                             selectedEvent.eventID.ToString() + " Generated. Please make sure that the receiving " +
-                            "device has the correct event selected and that the event ids match", "OK", this);                       
+                            "device has the correct event selected and that the event ids match", "OK", this);
                     }
-
                     //exception thrown if QR data strings are empty
                     catch
                     {
                         Popup.Single("Alert", "No data for this match", "OK", this);
                     }
-
                     //try to generate a second QR code
                     try
                     {
-                        BitMatrix bm2 = writer.encode(QRdata2, BarcodeFormat.QR_CODE, 900, 900);
+                        BitMatrix bm2 = writer.encode(QRdata2, BarcodeFormat.QR_CODE, width, width);
                         BitmapRenderer bit2 = new BitmapRenderer();
                         QR2.SetImageBitmap(bit2.Render(bm2, BarcodeFormat.QR_CODE, QRdata2));
                     }
-
                     //do nothing if there is not enough data for a second QR code
                     catch
                     {
-
-                    }                  
-
+                    }
                 }
-
                 //if no event is selected, it throws an exception
                 catch
                 {
-                    Popup.Single("Alert", "Please select an event to generate data for", "OK", this);                    
+                    Popup.Single("Alert", "Please select an event to generate data for", "OK", this);
                 }
-
             }
-
         }
 
         //placeholders for dropdown index and selected event
-        int spinnerIndex;
-        Event selectedEvent;
+        private int spinnerIndex;
+
+        private Event selectedEvent;
+
         private void SpinnerClick(object sender, ItemSelectedEventArgs e)
         {
             spinnerIndex = e.Position;
-            selectedEvent = eData.GetEvent(eData.EventIDList()[spinnerIndex]);            
-
+            selectedEvent = eData.GetEvent(eData.EventIDList()[spinnerIndex]);
             //clear QR codes from previous events
             QR1.SetImageBitmap(null);
             QR2.SetImageBitmap(null);
-
             Popup.Single("Alert", "Selected event Changed. Please click generate again to update the data", "OK", this);
-
         }
     }
 }

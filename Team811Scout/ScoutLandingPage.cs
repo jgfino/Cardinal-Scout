@@ -14,43 +14,40 @@ namespace Team811Scout
     public class ScoutLandingPage: Activity
     {
         //declare objects for controls
-        Button bAddTeam;
-        ListView recentMatches;
-        TextView textTitle;
-        Button bRefresh;
-        Button bViewEvent;
+        private Button bAddTeam;
+
+        private ListView recentMatches;
+        private TextView textTitle;
+        private Button bRefresh;
+        private Button bViewEvent;
 
         //placeholder for current event being scouted for
-        Event currentEvent;
+        private Event currentEvent;
 
         //get database instance
-        EventDatabase eData = new EventDatabase();
-        
+        private EventDatabase eData = new EventDatabase();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.scout_landing_page);
-
+            SetContentView(Resource.Layout.Scout_Landing_Page);
             //get controls from layout and assign event handlers
             bAddTeam = FindViewById<Button>(Resource.Id.bAddTeam);
             bAddTeam.Click += ButtonClicked;
             recentMatches = FindViewById<ListView>(Resource.Id.recentMatches);
             recentMatches.ItemClick += ListViewClick;
-            textTitle = FindViewById<TextView>(Resource.Id.textTitle);            
+            textTitle = FindViewById<TextView>(Resource.Id.textTitle);
             bRefresh = FindViewById<Button>(Resource.Id.bRefreshMatches);
             bRefresh.Click += ButtonClicked;
             bViewEvent = FindViewById<Button>(Resource.Id.bViewData);
-            bViewEvent.Click += ButtonClicked;            
-
+            bViewEvent.Click += ButtonClicked;
             //get the current event from the database
-            currentEvent = eData.GetCurrentEvent();        
-            
+            currentEvent = eData.GetCurrentEvent();
             //display recent matches in ListView
             var matchAdapter = new ArrayAdapter<SpannableString>(this, Android.Resource.Layout.SimpleListItem1, eData.GetMatchDisplayList(currentEvent.eventID));
-            recentMatches.Adapter = matchAdapter;            
-
+            recentMatches.Adapter = matchAdapter;
             //set title text based on current event
-            textTitle.Text += currentEvent.eventName+"'";
+            textTitle.Text += currentEvent.eventName + "'";
         }
 
         private void ButtonClicked(object sender, EventArgs e)
@@ -60,10 +57,10 @@ namespace Team811Scout
             {
                 this.Recreate();
             }
-            else if((sender as Button)==bAddTeam)
+            else if ((sender as Button) == bAddTeam)
             {
                 //each event can have a max of 80 matches; more makes reading QR codes difficult
-                if (eData.GetScoutDataForEvent(currentEvent.eventID).Count > 79)
+                if (eData.GetMatchDataForEvent(currentEvent.eventID).Count > 79)
                 {
                     Popup.Single("Alert", "Max 80 matches per event reached", "OK", this);
                 }
@@ -74,15 +71,13 @@ namespace Team811Scout
                     Finish();
                 }
             }
-
-            else if((sender as Button)==bViewEvent)
+            else if ((sender as Button) == bViewEvent)
             {
                 try
                 {
                     //set the current match to view to the selected match
-                    eData.SetCurrentMatch(eData.GetScoutDataForEvent(currentEvent.eventID)[selectedIndex].ID);
-                    Finish();
-                    StartActivity(typeof(RecentData));
+                    eData.SetCurrentMatch(eData.GetMatchDataForEvent(currentEvent.eventID)[selectedIndex].ID);
+                    StartActivity(typeof(ViewMatchData));
                 }
                 //if no event is selected, it throws an exception
                 catch
@@ -91,14 +86,14 @@ namespace Team811Scout
                 }
             }
         }
-        
-        //handle selecting matches in the ListView
-        int selectedIndex;
-        private void ListViewClick(object sender, ItemClickEventArgs e)
-        {            
-            selectedIndex = e.Position;
-            bViewEvent.Text = "View Data for Match " + eData.GetScoutDataForEvent(currentEvent.eventID)[selectedIndex].matchNumber.ToString();          
 
+        //handle selecting matches in the ListView
+        private int selectedIndex;
+
+        private void ListViewClick(object sender, ItemClickEventArgs e)
+        {
+            selectedIndex = e.Position;
+            bViewEvent.Text = "Details for Match " + eData.GetMatchDataForEvent(currentEvent.eventID)[selectedIndex].matchNumber.ToString();
         }
     }
 }

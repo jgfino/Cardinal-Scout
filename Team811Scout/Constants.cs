@@ -28,9 +28,8 @@ namespace Team811Scout
         public static readonly int hatch_cargoDiff = 20;
         public static readonly int climb2Min = 75;
         public static readonly int climb3Min = 50;
-        public static readonly int climbDiff = 15;        
+        public static readonly int climbDiff = 15;
         public static readonly int sandstorm_Hatch_CargoThresh = 50;
-
         public static readonly double well_barelyWeight = 0.50;
 
         //colors
@@ -39,5 +38,5 @@ namespace Team811Scout
         public static readonly Color appYellow = Color.Rgb(237, 162, 14);
         public static readonly Color appBlue = Color.Rgb(0, 0, 255);
         public static readonly Color appOrange = Color.Rgb(244, 127, 17);
-    }   
+    }
 }

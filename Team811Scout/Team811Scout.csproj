@@ -34,13 +34,14 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
+    <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -52,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
@@ -60,6 +61,7 @@
     <AndroidSupportedAbis />
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidLinkSkip />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -68,7 +70,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompiledScoutData.cs" />
+    <Compile Include="CompiledEventData.cs" />
     <Compile Include="CompiledTeamIndex.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CreateEvent.cs" />
@@ -79,22 +81,23 @@
     <Compile Include="EventID.cs" />
     <Compile Include="FormatString.cs" />
     <Compile Include="Popup.cs" />
+    <Compile Include="ScoutFormEdit.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ISQLite.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MasterSlaveSelect.cs" />
     <Compile Include="MasterView.cs" />
-    <Compile Include="RecentData.cs" />
+    <Compile Include="ViewMatchData.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoutForm.cs" />
     <Compile Include="ScoutLandingPage.cs" />
-    <Compile Include="SelectEvent.cs" />
-    <Compile Include="ScoutData.cs" />
-    <Compile Include="SelectEventView.cs" />
+    <Compile Include="SelectEventScout.cs" />
+    <Compile Include="MatchData.cs" />
+    <Compile Include="SelectEventCompiled.cs" />
     <Compile Include="SlaveView.cs" />
-    <Compile Include="TeamDetails.cs" />
-    <Compile Include="ViewData.cs" />
+    <Compile Include="DetailedTeamData.cs" />
+    <Compile Include="GeneralCompiledData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -102,7 +105,7 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_main.axml">
+    <AndroidResource Include="Resources\layout\Activity_Main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\colors.xml" />
@@ -164,86 +167,83 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\DSC_0947.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\new_event.axml">
+    <AndroidResource Include="Resources\layout\Create_Event.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\instructions_settings.axml">
+    <AndroidResource Include="Resources\layout\Instructions_Settings.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\edit_events.axml">
+    <AndroidResource Include="Resources\layout\Edit_Event.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\select_event.axml">
+    <AndroidResource Include="Resources\layout\Select_Event.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\scout_landing_page.axml">
+    <AndroidResource Include="Resources\layout\Scout_Landing_Page.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\scout_form.axml">
+    <AndroidResource Include="Resources\layout\Scout_Form.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\recent_data.axml">
+    <AndroidResource Include="Resources\layout\Match_Data.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\event_id.axml">
+    <AndroidResource Include="Resources\layout\Event_ID.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\master_slave_select.axml">
+    <AndroidResource Include="Resources\layout\Master_Slave_Select.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\master_view.axml">
+    <AndroidResource Include="Resources\layout\Master_View.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\slave_view.axml">
+    <AndroidResource Include="Resources\layout\Slave_View.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\select_event_view.axml">
+    <AndroidResource Include="Resources\layout\Select_Compiled.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\view_data.axml">
+    <AndroidResource Include="Resources\layout\General_Compiled.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\frc.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\frcpng.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\team_details.axml">
+    <AndroidResource Include="Resources\layout\Team_Details.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Scout_Form_Edit.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

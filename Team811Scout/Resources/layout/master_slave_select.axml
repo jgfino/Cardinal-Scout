@@ -1,75 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:minWidth="25sp"
-	android:minHeight="25sp">
-	<Toolbar
-		android:minHeight="?android:attr/actionBarSize"
-		android:background="?android:attr/colorPrimary"
-		android:minWidth="25sp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/toolbar1"
-		android:title="Team 811 Scouting"
-		android:titleTextColor="#ffffffff"
-		android:subtitleTextColor="#ffdec5c5" />
-	<ScrollView
-		android:minWidth="25sp"
-		android:minHeight="25sp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/scrollView1">
-		<LinearLayout
-			android:orientation="vertical"
-			android:minWidth="25sp"
-			android:minHeight="25sp"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/linearLayout1"
-			android:layout_marginTop="10dp">
-			<TextView
-				android:text="Please Select an Option"
-				android:layout_width="match_parent"
-				android:layout_height="42.0dp"
-				android:id="@+id/titleID"
-				android:textSize="35sp"
-				android:layout_margin="10sp"
-				android:textColor="#ff000000"
-				android:textStyle="bold"
-				android:textAlignment="center" />
-			<TextView
-				android:text="Please designate one device to collect all the data for an event. Click the 'Gather Data' button on this device to input data from the other 5 tablets. Select 'Send Data' on the devices which will be sending information to the master device. After the data transfer, the event details will be available under 'View Data' on the main menu of the device used for data collection and also on the tablet itself so it can be transferred to a computer and read as a spreadsheet (eventually). If you want the data to be available under 'View Data' on the other devices, repeat this process using a different device as the master device"
-				android:layout_width="match_parent"
-				android:layout_height="418.0dp"
-				android:id="@+id/titleID"
-				android:textSize="25sp"
-				android:layout_margin="15sp"
-				android:textColor="#ff000000"
-				android:textStyle="italic"
-				android:textAlignment="center" 
-				 />
-			<Button
-				android:text="Gather Data"
-				android:layout_width="match_parent"
-				android:layout_height="97.0dp"
-				android:id="@+id/bSetMaster"
-				android:backgroundTint="#79ea90"
-				android:textSize="30sp"
-				 />
-			<Button
-				android:text="Send Data"
-				android:layout_width="match_parent"
-				android:layout_height="97.0dp"
-				android:id="@+id/bSetSlave"
-				android:backgroundTint="#79ea90"
-				android:textSize="30sp"
-				 />
-		</LinearLayout>
-	</ScrollView>
-	
-
-</LinearLayout>
-
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+  <LinearLayout
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:weightSum="1"
+  android:id="@+id/linearLayout1">
+    <Toolbar
+    android:minHeight="?android:attr/actionBarSize"
+    android:background="?android:attr/colorPrimary"
+    android:minWidth="25sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbar1"
+    android:title="CardinalScout"
+    android:titleTextColor="#ffffffff"
+    android:subtitleTextColor="#ffdec5c5" />
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.96"
+    android:weightSum="1"
+    android:id="@+id/linearLayout1">
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+      <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.94"
+      android:weightSum="1"
+      android:id="@+id/linearLayout1">
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.8"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout1">
+          <TextView
+          android:text="Please Select an Option"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/titleID"
+          android:textSize="25sp"
+          android:textColor="#ff000000"
+          android:textStyle="bold"
+          android:textAlignment="center" />
+          <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/scrollView1">
+            <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout1">
+              <TextView
+              android:text="Please designate one device to collect all the data for an event. Click the 'Gather Data' button on this device to input data from the other 5 tablets. Select 'Send Data' on the devices which will be sending information to the master device. After the data transfer, the event details will be available under 'View Data' on the main menu of the device used for data collection. If you want the data to be available under 'View Data' on the other devices, repeat this process using a different device as the master device"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/titleID"
+              android:textSize="20sp"
+              android:textStyle="italic"
+              android:padding="10sp"
+              android:textColor="#ff000000"
+              android:textAlignment="center" />
+            </LinearLayout>
+          </ScrollView>
+        </LinearLayout>
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="0.2"
+        android:weightSum="1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout1">
+          <LinearLayout
+          android:orientation="vertical"
+          android:layout_weight="0.5"
+          android:layout_width="fill_parent"
+          android:layout_height="0dp"
+          android:id="@+id/linearLayout1">
+            <Button
+            android:text="Gather Data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bSetMaster"
+            android:backgroundTint="#79ea90"
+            android:textSize="20sp" />
+          </LinearLayout>
+          <LinearLayout
+          android:orientation="vertical"
+          android:layout_weight="0.5"
+          android:layout_width="fill_parent"
+          android:layout_height="0dp"
+          android:id="@+id/linearLayout1">
+            <Button
+            android:text="Send Data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bSetSlave"
+            android:backgroundTint="#79ea90"
+            android:textSize="20sp" />
+          </LinearLayout>
+        </LinearLayout>
+      </LinearLayout>
+      <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="0dp"
+      android:layout_height="fill_parent"
+      android:layout_weight="0.03"
+      android:id="@+id/linearLayout1" />
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.02"
+    android:id="@+id/linearLayout1" />
+  </LinearLayout>
+</RelativeLayout>

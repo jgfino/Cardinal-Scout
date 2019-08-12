@@ -12,31 +12,28 @@ namespace Team811Scout
     public class EventID: Activity
     {
         //declare objects for controls
-        Button bConfirm;
-        EditText newID;
-        TextView title;
-        Event currentEvent;
+        private Button bConfirm;
+
+        private EditText newID;
+        private TextView title;
+        private Event currentEvent;
 
         //get database instance
-        EventDatabase eData = new EventDatabase();       
+        private EventDatabase eData = new EventDatabase();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.event_id);
-
+            SetContentView(Resource.Layout.Event_ID);
             //get controls from layout and assign event handlers
             bConfirm = FindViewById<Button>(Resource.Id.bConfirmID);
             bConfirm.Click += ButtonClicked;
             newID = FindViewById<EditText>(Resource.Id.textID);
             title = FindViewById<TextView>(Resource.Id.titleID);
-            
             //get event we will be editing
             currentEvent = eData.GetCurrentEvent();
-
             //display current event name at the top
             title.Text += "'" + currentEvent.eventName + "'";
-
         }
 
         private void ButtonClicked(object sender, EventArgs e)
@@ -48,10 +45,7 @@ namespace Team811Scout
                 {
                     //change the id based on entered value
                     eData.ChangeEventID(currentEvent.eventID, int.Parse(newID.Text));
-                    Popup.Single("Alert", "Success", "OK", this);                    
-                    StartActivity(typeof(EditEvents));
                     Finish();
-
                 }
                 //if the database has a duplicate id, it will throw an exception
                 catch
@@ -59,8 +53,6 @@ namespace Team811Scout
                     Popup.Single("Alert", "Please enter a new ID not used by an existing event", "OK", this);
                 }
             }
-           
         }
-       
     }
 }
