@@ -17,7 +17,7 @@ android:layout_height="match_parent">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/toolbar1"
-    android:title="CardinalScout"
+    android:title="Cardinal Scout"
     android:titleTextColor="#ffffffff"
     android:subtitleTextColor="#ffdec5c5" />
     <LinearLayout
@@ -62,7 +62,7 @@ android:layout_height="match_parent">
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".25"
+        android:layout_weight=".3"
         android:id="@+id/linearLayout1">
           <TextView
           android:text="Teleop Stats:"
@@ -152,7 +152,7 @@ android:layout_height="match_parent">
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".45"
+        android:layout_weight=".4"
         android:id="@+id/linearLayout1">
           <TextView
           android:text="Matches:"

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Team811Scout
 {
-    [Activity(Label = "DetailedTeamData")]
+    [Activity(Label = "DetailedTeamData", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class DetailedTeamData: Activity
     {
         //declare objects for controls

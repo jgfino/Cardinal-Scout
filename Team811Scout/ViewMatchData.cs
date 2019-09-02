@@ -9,7 +9,7 @@ namespace Team811Scout
 {
     /*This class displays the data for a scouted match in a list*/
 
-    [Activity(Label = "RecentData", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "RecentData", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ViewMatchData: Activity
     {
         //get database instance

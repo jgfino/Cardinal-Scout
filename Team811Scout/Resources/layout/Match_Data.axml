@@ -17,7 +17,7 @@ android:layout_height="match_parent">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/toolbar1"
-    android:title="CardinalScout"
+    android:title="Cardinal Scout"
     android:titleTextColor="#ffffffff"
     android:subtitleTextColor="#ffdec5c5" />
     <LinearLayout

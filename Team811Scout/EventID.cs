@@ -8,7 +8,7 @@ namespace Team811Scout
     /*this activity is used to reassign event ids to events if for whatever reason the ids dont match
      * across the 6 devices being used for scouting*/
 
-    [Activity(Label = "EventID", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "EventID", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class EventID: Activity
     {
         //declare objects for controls

@@ -11,7 +11,7 @@ namespace Team811Scout
      * It lists events and allows the user to edit an incorrect event id or delete an event
      * and its associated matches"*/
 
-    [Activity(Label = "editevents", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "editevents", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class EditEvents: Activity
     {
         //declare objects that will refer to controls
@@ -62,8 +62,7 @@ namespace Team811Scout
                     {
                         eData.DeleteEvent(selectedEvent.eventID);
                         eData.DeleteMatchDataForEvent(selectedEvent.eventID);
-                        Popup.Single("Alert", "Event Deleted", "OK", this);
-                        this.Recreate();
+                        Popup.Single("Alert", "Event Deleted", "OK", this);                        
                     }
                 }
                 else if ((sender as Button) == bEditID)

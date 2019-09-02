@@ -10,7 +10,7 @@ namespace Team811Scout
      * which deletes the entire database (everything). It also has a button to edit existing events
      * to delete individual events or change event ids*/
 
-    [Activity(Label = "InstructSettings", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "InstructSettings", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class Settings: Activity
     {
         //declare objects for controls

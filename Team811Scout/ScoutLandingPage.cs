@@ -10,7 +10,7 @@ namespace Team811Scout
     /*This activity displays a list of recently scouted matches which can be selected to view
      * more details. It also allows a user to scout a new match*/
 
-    [Activity(Label = "scoutLandingPage", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "scoutLandingPage", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class ScoutLandingPage: Activity
     {
         //declare objects for controls

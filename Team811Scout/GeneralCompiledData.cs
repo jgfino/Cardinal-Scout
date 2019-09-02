@@ -11,7 +11,7 @@ namespace Team811Scout
     /*This activity displays general compiled data for an event. It displays the teams involved in the event
      * and their overall percentages based off of performance in matches*/
 
-    [Activity(Label = "GeneralCompiledData", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "GeneralCompiledData", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class GeneralCompiledData: Activity
     {
         //declare objects for controls

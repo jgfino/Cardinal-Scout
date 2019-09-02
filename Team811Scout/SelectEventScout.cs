@@ -9,7 +9,7 @@ namespace Team811Scout
 {
     /*This class is for selecting which event to Scout for after clicking "Scout"*/
 
-    [Activity(Label = "SelectEventScout", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "SelectEventScout", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SelectEventScout: Activity
     {
         //declare objects for controls

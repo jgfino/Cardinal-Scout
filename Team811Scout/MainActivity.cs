@@ -9,7 +9,7 @@ namespace Team811Scout
     /*This is the home page for the app. It shows up first when the app is launched and contains buttons
      * to go to other areas in the app*/
 
-    [Activity(Label = "CardinalScout", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "Cardinal Scout", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity: AppCompatActivity
     {
         //declare objects to refer to controls
@@ -23,7 +23,7 @@ namespace Team811Scout
         //ImageView teamPhoto;
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(savedInstanceState);            
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             //uncomment this to reset database on launch
             //DeleteDatabase(SQLite_android.getDatabasePath());

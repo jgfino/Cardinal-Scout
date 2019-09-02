@@ -10,7 +10,7 @@ namespace Team811Scout
     /*This activity is for selecting which event to view compiled data for after clicking
      * "View Data" on the home page*/
 
-    [Activity(Label = "SelectEventCompiled", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "SelectEventCompiled", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SelectEventCompiled: Activity
     {
         //declare objects for controls

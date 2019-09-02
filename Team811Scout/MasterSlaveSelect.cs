@@ -7,7 +7,7 @@ namespace Team811Scout
 {
     /*this activity simple decides if a device will be sending or receiving during the data transfer process*/
 
-    [Activity(Label = "MasterSlaveSelect")]
+    [Activity(Label = "MasterSlaveSelect", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MasterSlaveSelect: Activity
     {
         //declare objects for controls

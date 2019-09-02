@@ -14,7 +14,7 @@ namespace Team811Scout
     /*This activity assigns the current device as "master" and collects data from the other 5 devices by scanning their generated QR codes
      * After gathering the data, it creates a new instance of the CompiledEventData class which contains the raw text from the QR codes*/
 
-    [Activity(Label = "MasterView")]
+    [Activity(Label = "MasterView", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MasterView: Activity
     {
         //declare objects for controls
@@ -169,7 +169,8 @@ namespace Team811Scout
                         Popup.Single("Alert", "Data for this event has already been generated on this device. " +
                             "Please delete it in 'View Data' from the home screen first if you want to generate new data", "OK", this);
                         //reset, clear QR data, etc
-                        this.Recreate();
+                        //this.Recreate();
+                        concatedQR = null;
                     }
                 }
                 //if the QR data is completely blank
@@ -177,7 +178,8 @@ namespace Team811Scout
                 {
                     Popup.Single("Alert", "No data collected, please start over", "OK", this);
                     //reset
-                    this.Recreate();
+                    //this.Recreate();
+                    concatedQR = null;
                 }
             }
             catch
@@ -185,13 +187,13 @@ namespace Team811Scout
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 AlertDialog missingDetails = dialog.Create();
                 missingDetails.SetTitle("Alert");
-                missingDetails.SetMessage("You've unlocked the mystery error. Refreshing this page");
+                missingDetails.SetMessage("No event selected");
                 ;
                 missingDetails.SetButton("OK", (c, ev) =>
                 {
                 });
                 missingDetails.Show();
-                this.Recreate();
+                
             }
         }
 

@@ -9,7 +9,7 @@ namespace Team811Scout
     /*This activity is started when "Create Event" is clicked on the home screen. It gathers the data from user input and
      * creates a new instance of the "Event" class with the properties given*/
 
-    [Activity(Label = "CreateEvent", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "CreateEvent", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class CreateEvent: Activity
     {
         //declare objects that will refer to controls in the app

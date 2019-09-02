@@ -16,7 +16,7 @@ namespace Team811Scout
      * to send data to the master device. It splits the QR code into 2 equal parts to make reading
      * it easier for low-quality cameras*/
 
-    [Activity(Label = "SlaveView")]
+    [Activity(Label = "SlaveView", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SlaveView: Activity
     {
         //declare objects for controls

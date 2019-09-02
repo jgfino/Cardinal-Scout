@@ -8,7 +8,7 @@ namespace Team811Scout
 {
     /*this activity creates a new MatchData based off of information inputted by users while scouting a match*/
 
-    [Activity(Label = "ScoutForm", Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "ScoutForm", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     internal class ScoutForm: Activity
     {
         //declare objects that wil refer to controls
