@@ -2,17 +2,7 @@
     <string name="app_name">Team811Scout</string>
     <string name="action_settings">Settings</string>
     <string name="instructions">
-1) Create a new event from the main page. Enter the title, date, and ID (ask head scouter).\n\n
-2) Click \'Scout\' and select the current event to add matches to. After selecting the event, a list of recent matches and teams is shown.\n\n
-3) Click \'Add Match\' to start scouting, or select a recent match from the list to view detailed data for or edit a match.\n\n
-4) Gathering Data:\n\n
-\t\t\t\ta) When all data for an event has been gathered, decide which device will collect and store the data. Click \'Manage Data\' on all the devices. Select \'gather data\' on one of them and \'send data" on the rest.\n
-\t\t\t\tb) Generate the QR codes on the devices sending data by selecting the event from the dropdown and pressing generate. It will generate a part 1 and part 2.\n
-\t\t\t\tc) On the device gathering data, press the button corresponding to the device and QR code part you want to scan and scan the data. Make sure to select the correct event on the device gathering data as well.\n
-\t\t\t\td) Press \'Compile\' after scanning all QR codes.\n
-5) Viewing Data:\n
-\t\t\t\ta) Click \'View Data\' on the main screen of the device that gathered data. Select the event you would like to view data for.\n
-\t\t\t\tb) The first page displays a general list of the teams from the event and their general stats. Clicking on a team number will display detailed data/calculations for that team from that event.\n
+      Cardinal Scout does not ask for nor collect any personal data from users. The use of the camera in this app is meant only for scanning QR code data; images are not retained. If you have any questions or concerns about your data, please email cardinalscout811@gmail.com.\n\nVisit https://github.com/Team-811/CardinalScout for instructions/source code
     </string>
 
   <string-array name="positions">
